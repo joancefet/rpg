@@ -25,3 +25,13 @@ There are three styles you can choose from, just change the style inclusion with
 <link rel="stylesheet" type="text/css" href="css/style-christmas.css" />
 <link rel="stylesheet" type="text/css" href="css/style-spring.css" />
 ```
+
+chmod the following files and folders to 755
+/cache
+/uploads
+/includes/backups
+.htaccess (ip bans will be written to the .htaccess automaticly.)
+
+create a google recaptcha to prevent spam and add the secret key and site key in the following locations:
+secret key in register.php:39
+site key in register.php:381
