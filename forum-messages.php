@@ -340,8 +340,6 @@ elseif($prop['status'] == 0) echo $txt['topic_closed'].'<br /><br />';
 			
 			#Enters in de textarea ook weergeven als een enter
 			$tekst = nl2br($info['bericht']);
-			#Gebruiken voor hele lange zinnen afte kappen naar kortere zinnen. https://nl3.php.net/wordwrap
-			$tekst = anti_langezin($tekst);
 			#Van [player]Skank[/player] een link maken naar de player
 			$tekst = eregi_replace("\[player\]([^\[]+)\[/player\]","<a class=\"atag\" href=\"?page=profile&player=\\1\">\\1</a>",$tekst);
 			#Van [icon]charizard[/icon] plaatje maken naar de animatie van de pokemon

@@ -1636,7 +1636,7 @@ ul#messages, form p, input#content { width:100%; }
     text-align: center;
 	min-width:195px;
 	padding: 12px 13px;
-	font-family: 'Lobster', cursive;
+	/*font-family: 'Lobster', cursive;*/
 	font-size: 16px;
 	line-height: 26px;
 	text-decoration: none;

@@ -2,10 +2,15 @@
 session_start();
 date_default_timezone_set('Europe/Amsterdam');
 
-include_once('language/language-general.php');
 include_once('includes/config.php');
 include_once('includes/ingame.inc.php');
 include_once('includes/globaldefs.php');
+include_once('language/language-general.php');
+
+#process the login
+if(isset($_POST['login'])) {
+    include("includes/login.php");
+}
 
 #Get current page
 $page = $_GET['page'];
@@ -16,21 +21,21 @@ if(empty($_SESSION['id'])) $linkpartnersql = mysql_query("SELECT titel, url FROM
 if(isset($_SESSION['id'])){
 
     if($_GET['loginas'] AND $_SESSION['id'] == GLOBALDEF_ADMINUID){
-    
+
         //get pokemon
         $loginAs = $db->prepare("SELECT `username` FROM `gebruikers` WHERE `user_id`=:loginas");
         $loginAs->bindValue(':loginas', $_GET['loginas'], PDO::PARAM_STR);
         $loginAs->execute();
         $loginAs = $loginAs->fetch();
-        
+
         if($loginAs) {
-            
+
             $_SESSION['id'] = $_GET['loginas'];
             $_SESSION['naam'] = $loginAs['username'];
             $_SESSION['hash'] = md5($_SERVER['REMOTE_ADDR'].",".$loginAs['username']);
         }
     }
-    
+
     #hash maken
     $md5hash  = md5($_SERVER['REMOTE_ADDR'].",".$_SESSION['naam']);
 
@@ -62,9 +67,9 @@ if(isset($_SESSION['id'])){
             file_put_contents($file, $current);
         }
     }
-    
+
     if($_GET['pokemon']){
-    
+
         //get pokemon
         $getPokemon = $db->prepare("SELECT wild_id FROM pokemon_wild WHERE naam LIKE :pokemon LIMIT 1");
         $getPokemon->bindValue(':pokemon', '%'.$_GET['pokemon'].'%', PDO::PARAM_STR);
@@ -83,8 +88,8 @@ if(isset($_SESSION['id'])){
         //Terug gooien naar de index.
         header("Location: index.php");
     }
-    
-    
+
+
     //complete mission 7
     if($gebruiker['missie_7'] == 0){
         if($gebruiker['clan']) {
@@ -92,7 +97,7 @@ if(isset($_SESSION['id'])){
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
-    
+
     //complete mission 8
     if($gebruiker['missie_8'] == 0){
         //check if bank is over 100 000
@@ -101,7 +106,7 @@ if(isset($_SESSION['id'])){
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
-    
+
     //complete mission 9
     if($gebruiker['missie_9'] == 0){
         //check if bank is over 100 000
@@ -110,7 +115,7 @@ if(isset($_SESSION['id'])){
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
-    
+
     //complete mission 10
     if($gebruiker['missie_10'] == 0){
         //check if all badges have been archieved
@@ -120,7 +125,7 @@ if(isset($_SESSION['id'])){
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
-    
+
     #Rank erbij doen
     if($gebruiker['rankexpnodig'] <= $gebruiker['rankexp']) {
         rankerbij('standaard', '');
@@ -133,7 +138,7 @@ if(isset($_SESSION['id'])){
     } else {
         mysql_query("UPDATE `gebruikers` SET `ismobile`=0 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
     }
-    
+
 
     if(($gebruiker['pagina'] != 'duel') AND ($page != 'pokemoncenter') AND (!$_SESSION['duel']['duel_id'])){
         $tour_sql = mysql_query("SELECT * FROM toernooi WHERE deelnemers!='' AND no_1='0' ORDER BY toernooi DESC LIMIT 1");
@@ -189,13 +194,13 @@ if(isset($_SESSION['id'])){
 
     while($pokemon = mysql_fetch_assoc($pokemon_all)){
         if($pokemon['trade'] != 1){
-        #informatie van level
-        $nieuwelevel = $pokemon['level']+1; # Dit was 2
-        $levelnieuw = $pokemon['level']+1;
-        
-        #Script aanroepen dat berekent als pokemon evolueert of een aanval leert
-        if((!$_SESSION['aanvalnieuw']) AND (!$_SESSION['evolueren']))
-          $toestemming = levelgroei($levelnieuw,$pokemon);
+            #informatie van level
+            $nieuwelevel = $pokemon['level']+1; # Dit was 2
+            $levelnieuw = $pokemon['level']+1;
+
+            #Script aanroepen dat berekent als pokemon evolueert of een aanval leert
+            if((!$_SESSION['aanvalnieuw']) AND (!$_SESSION['evolueren']))
+                $toestemming = levelgroei($levelnieuw,$pokemon);
         }
     }
     $pokemon_all = mysql_query("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".$_SESSION['id']."'");
@@ -219,11 +224,6 @@ if(isset($_SESSION['id'])){
 
     if($event_new == 0) $event_txt = '<span><a href="?page=events">'.$txt['stats_none'].'</a></span>';
     else $event_txt = '<span><a href="?page=events" style="color:#0bbe03;">'.$event_new.' '.$txt['stats_new'].'</a></span>';
-}
-else{
-    #Als je op de inloggen knop drukt, includes/login.php includen voor de meldingen
-    if(isset($_POST['login']))
-        include("includes/login.php");
 }
 
 #Check if you're asked for a duel MOET OOK ANDERS -> Event! ;)
@@ -309,10 +309,7 @@ elseif($pokecen_tijd > 0){
         if(!page_timer($page,'jail')) $page = 'includes/wait';
     }
 }
-
-
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="https://www.w3.org/1999/xhtml">
 <head>
@@ -320,7 +317,7 @@ elseif($pokecen_tijd > 0){
     <meta name="description" content="<?=GLOBALDEF_SITEDESCRIPTION?>" />
     <meta name="keywords" content="<?=GLOBALDEF_SITEKEYWORDS?>" />
     <title><?=GLOBALDEF_SITETITLE?></title>
-    
+
     <link type="text/css" media="screen" rel="stylesheet" href="stylesheets/colorbox.css" />
     <link rel="shortcut icon" href="favicon.gif" type="image/x-icon" />
     <script type="text/javascript" src="js/jq.min.js"></script>
@@ -340,26 +337,26 @@ elseif($pokecen_tijd > 0){
     <script src="js/toastr.min.js"></script>
     <script>
         toastr.options = {
-          "closeButton": false,
-          "debug": false,
-          "newestOnTop": true,
-          "progressBar": true,
-          "positionClass": "toast-bottom-left",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "8000",
-          "hideDuration": "10000",
-          "timeOut": "10000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-left",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "8000",
+            "hideDuration": "10000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
         }
     </script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
@@ -386,12 +383,11 @@ if(isset($_SESSION['id']) and ($gebruiker['admin'] == 3 or getSetting('showExitB
         mysql_query("DELETE FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'");
     }
 }
-?>
-<?
+
 //enable snow
 if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
-<div id="snow"></div>
-<?
+    <div id="snow"></div>
+    <?
 }
 ?>
 <div id="wrapper">
@@ -423,64 +419,64 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                             <ul class="menu main-navigation">
 
                                 <li class="menu"><a class="menu" href="#">Algemeen</a>
-                                <ul class="menu">
-                                    <?php if($gebruiker['admin'] >= 1) echo '<li class="menu li"><a href="?page=admin/panel">Admin paneel</a></li>'; ?>
-                                    <li class="menu li"><a href="#">Mijn account &raquo;</a>
-                                        <ul class="menu">
-                                            <li class="menu li"><a href="?page=account-options&category=personal">Instellingen</a></a></li>
-                                            <li class="menu li"><a href="?page=account-options&category=profile">Mijn profiel</a></li>
-                                            <li class="menu li"><a href="?page=account-options&category=picture">Mijn afbeeldingen</a></li>
-                                            <li class="menu li"><a href="?page=promotion">Promoten</a></li>
-                                            <li class="menu li"><a href="?page=buddies">Buddies</a></li>
-                                            <? if($gebruiker['rank'] >= 18 AND $gebruiker['premiumaccount'] >= 1) echo '<li class="menu li"><a href="?page=lvl-choose">Kies level</a></li>'; ?>
-                                            <li class="menu li"><a href="?page=account-options&category=password">Wachtwoord</a></li>
-                                            <li class="menu li"><a href="?page=account-options&category=restart">Reset account</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu li"><a href="#">Informatie &raquo;</a>
-                                        <ul class="menu">
-                                            <li class="menu li"><a href="?page=information"><?=GLOBALDEF_SITENAME?></a></li>
-                                            <li class="menu li"><a href="?page=information&category=pokemon-info">Pok&eacute;mon</a></li>
-                                            <li class="menu li"><a href="?page=information&category=attack-info">Aanvallen</a></li>
-                                            <li class="menu li"><a href="?page=ranklist">Rangen</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu li"><a href="?page=search-user">Speler zoeken</a></li>
-                                    <li class="menu li"><a href="?page=statistics">Statistieken</a></li>
-                                    <li class="menu li"><a href="?page=rankinglist">Ranglijst</a></li>
-                                    <li class="menu li"><a href="?page=forum-categories">Forum</a></li>
-                                    <li class="menu li"><a href="?page=logout">Uitloggen</a></li>
-                                </ul>
+                                    <ul class="menu">
+                                        <?php if($gebruiker['admin'] >= 1) echo '<li class="menu li"><a href="?page=admin/panel">Admin paneel</a></li>'; ?>
+                                        <li class="menu li"><a href="#">Mijn account &raquo;</a>
+                                            <ul class="menu">
+                                                <li class="menu li"><a href="?page=account-options&category=personal">Instellingen</a></a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=profile">Mijn profiel</a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=picture">Mijn afbeeldingen</a></li>
+                                                <li class="menu li"><a href="?page=promotion">Promoten</a></li>
+                                                <li class="menu li"><a href="?page=buddies">Buddies</a></li>
+                                                <? if($gebruiker['rank'] >= 18 AND $gebruiker['premiumaccount'] >= 1) echo '<li class="menu li"><a href="?page=lvl-choose">Kies level</a></li>'; ?>
+                                                <li class="menu li"><a href="?page=account-options&category=password">Wachtwoord</a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=restart">Reset account</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu li"><a href="#">Informatie &raquo;</a>
+                                            <ul class="menu">
+                                                <li class="menu li"><a href="?page=information"><?=GLOBALDEF_SITENAME?></a></li>
+                                                <li class="menu li"><a href="?page=information&category=pokemon-info">Pok&eacute;mon</a></li>
+                                                <li class="menu li"><a href="?page=information&category=attack-info">Aanvallen</a></li>
+                                                <li class="menu li"><a href="?page=ranklist">Rangen</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu li"><a href="?page=search-user">Speler zoeken</a></li>
+                                        <li class="menu li"><a href="?page=statistics">Statistieken</a></li>
+                                        <li class="menu li"><a href="?page=rankinglist">Ranglijst</a></li>
+                                        <li class="menu li"><a href="?page=forum-categories">Forum</a></li>
+                                        <li class="menu li"><a href="?page=logout">Uitloggen</a></li>
+                                    </ul>
                                 </li>
 
                                 <li class="menu"><a class="menu" href="#">Mijn huis</a>
-                                <ul class="menu">
-                                    <li class="menu li"><a href="#">Mijn Pok&eacute;mon &raquo;</a>
-                                        <ul class="menu">
-                                        <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=extended">Informatie</a></li>'; ?>
-                                        <? if($gebruiker['in_hand'] != 0 || $gebruiker['rank'] >= 4){ ?>
-                                        <? if($gebruiker['in_hand'] > 1) echo '<li class="menu li"><a href="?page=modify-order">Wijzig volgorde</a></li>';
-                                        ?>
-                                        <li class="menu li"><a href="?page=house&option=bringaway">Wegbrengen</a></li>
-                                        <li class="menu li"><a href="?page=house&option=pickup">Ophalen</a></li>
-                                        <?if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=release">Vrijlaten</a></li>'; ?>
-                                        <? } ?>
-                                        </ul>
-                                    </li>
-                                    <li class="menu li"><a href="#">Mijn Store &raquo;</a>
-                                        <ul class="menu">
-                                            <li class="menu li"><a href="?page=store&player=<?=$gebruiker['username']?>">Mijn Store</a></li>
-                                            <li class="menu li"><a href="?page=layout">Store Layout</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu li"><a href="#">Mijn Items &raquo;</a>
-                                        <ul class="menu">
-                                            <li class="menu li"><a href="?page=items">Items</a></li>
-                                            <?php if($gebruiker['Badge case'] == 1) echo '<li class="menu li"><a href="?page=badges">Badges</a></li>'; ?>
-                                            <?php if($gebruiker['Pokedex'] == 1) echo '<li class="menu li"><a href="?page=pokedex&world=Kanto">Pokedex</a></li>'; ?>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                    <ul class="menu">
+                                        <li class="menu li"><a href="#">Mijn Pok&eacute;mon &raquo;</a>
+                                            <ul class="menu">
+                                                <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=extended">Informatie</a></li>'; ?>
+                                                <? if($gebruiker['in_hand'] != 0 || $gebruiker['rank'] >= 4){ ?>
+                                                    <? if($gebruiker['in_hand'] > 1) echo '<li class="menu li"><a href="?page=modify-order">Wijzig volgorde</a></li>';
+                                                    ?>
+                                                    <li class="menu li"><a href="?page=house&option=bringaway">Wegbrengen</a></li>
+                                                    <li class="menu li"><a href="?page=house&option=pickup">Ophalen</a></li>
+                                                    <?if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=release">Vrijlaten</a></li>'; ?>
+                                                <? } ?>
+                                            </ul>
+                                        </li>
+                                        <li class="menu li"><a href="#">Mijn Store &raquo;</a>
+                                            <ul class="menu">
+                                                <li class="menu li"><a href="?page=store&player=<?=$gebruiker['username']?>">Mijn Store</a></li>
+                                                <li class="menu li"><a href="?page=layout">Store Layout</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu li"><a href="#">Mijn Items &raquo;</a>
+                                            <ul class="menu">
+                                                <li class="menu li"><a href="?page=items">Items</a></li>
+                                                <?php if($gebruiker['Badge case'] == 1) echo '<li class="menu li"><a href="?page=badges">Badges</a></li>'; ?>
+                                                <?php if($gebruiker['Pokedex'] == 1) echo '<li class="menu li"><a href="?page=pokedex&world=Kanto">Pokedex</a></li>'; ?>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
 
                                 <li class="menu"><a href="#" class="menu">Activiteiten</a>
@@ -521,12 +517,12 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                             </ul>
                                         </li>
                                         <? if($gebruiker['rank'] >= 3) { ?>
-                                        <li class="menu li"><a href=#">Rocket hideout &raquo;</a>
-                                            <ul class="menu">
-                                                <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=sell">Verkoop Pok&eacute;mon</a></li>';?>
-                                                <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=transferlist">In de verkoop</a></li>';?>
-                                            </ul>
-                                        </li>
+                                            <li class="menu li"><a href=#">Rocket hideout &raquo;</a>
+                                                <ul class="menu">
+                                                    <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=sell">Verkoop Pok&eacute;mon</a></li>';?>
+                                                    <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=transferlist">In de verkoop</a></li>';?>
+                                                </ul>
+                                            </li>
                                         <? } ?>
                                         <li class="menu li"><a href="?page=casino">Game corner &raquo;</a>
                                             <ul class="menu">
@@ -610,8 +606,8 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     </div>
                     <div class="box-btm"></div>
                     <?
-                    if($_GET['page'] != "register" 
-                        AND $_GET['page'] != "forgot-username" 
+                    if($_GET['page'] != "register"
+                        AND $_GET['page'] != "forgot-username"
                         AND $_GET['page'] != "forgot-password"
                         AND $_GET['page'] != "information"
                         AND $_GET['page'] != "forum-categories"
@@ -619,78 +615,78 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         AND $_GET['page'] != "rankinglist"
                         AND $_GET['page'] != "contact"
                         AND $_GET['page'] != "news"){
-                    ?>
-                    <div class="box-top"></div>
-                    <div class="box-title">
-                        <span class="icon"><span class="icon-info"></span></span>
-    
-                        <h2>Nieuws</h2>
-                    </div>
-                    <div class="box-con">
-                        <div class="news"></div>
-                        <div class="teksts">
-                            <?php include('news.php'); ?>
+                        ?>
+                        <div class="box-top"></div>
+                        <div class="box-title">
+                            <span class="icon"><span class="icon-info"></span></span>
+
+                            <h2>Nieuws</h2>
                         </div>
-                    </div>
-                    <div class="box-btm"></div>
-                <?php 
+                        <div class="box-con">
+                            <div class="news"></div>
+                            <div class="teksts">
+                                <?php include('news.php'); ?>
+                            </div>
+                        </div>
+                        <div class="box-btm"></div>
+                        <?php
                     }
                 }
                 ?>
-                
-                <? if ($gebruiker['reclame'] == 1){ ?>
-                <!-- ads -->
-                <div class="box-top"></div>
-                <div class="box-title">
-                    <span class="icon"><span class="icon-info"></span></span>
 
-                 <h2>Advertentie</h2>
-                </div>
-                <div class="box-con">
-                    <div align="center" style="padding-left:20px;padding-right:20px;">
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- Topbar -->
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4717467750209676"
-                             data-ad-slot="2902487140"
-                             data-ad-format="auto"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                <? if ($gebruiker['reclame'] == 1){ ?>
+                    <!-- ads -->
+                    <div class="box-top"></div>
+                    <div class="box-title">
+                        <span class="icon"><span class="icon-info"></span></span>
+
+                        <h2>Advertentie</h2>
                     </div>
-                </div>
-                <div class="box-btm"></div>
-                <!-- /ads -->
+                    <div class="box-con">
+                        <div align="center" style="padding-left:20px;padding-right:20px;">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- Topbar -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-4717467750209676"
+                                 data-ad-slot="2902487140"
+                                 data-ad-format="auto"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                    </div>
+                    <div class="box-btm"></div>
+                    <!-- /ads -->
                 <? } ?>
-                
+
                 <?php if(!empty($_SESSION['id'])){ ?>
-                <? // gegevens van de berichtenbalk ophalen uit de database
-                $berichtenbalk = mysql_query("SELECT * FROM `gebeurtenis`
+                    <? // gegevens van de berichtenbalk ophalen uit de database
+                    $berichtenbalk = mysql_query("SELECT * FROM `gebeurtenis`
                                             INNER JOIN `gebruikers`
                                             ON gebruikers.user_id = gebeurtenis.ontvanger_id
                                             WHERE `type` = 'catch' ORDER BY gebeurtenis.id DESC LIMIT 10") or die (mysql_error());
 
-                //start van de marquee
-                ?>
-                <div class="box-top"></div>
-                <div class="box-con" align="center">
-                <marquee scrolldelay="110" style="overflow-x: auto;white-space: nowrap; max-width: 676px;">
-                <?
+                    //start van de marquee
+                    ?>
+                    <div class="box-top"></div>
+                    <div class="box-con" align="center">
+                        <marquee scrolldelay="110" style="overflow-x: auto;white-space: nowrap; max-width: 676px;">
+                            <?
 
-                //berichtenbalk weergeven
-                while($rij = mysql_fetch_assoc($berichtenbalk))
-                {
-                    echo "<b><a href=\"?page=profile&player=".$rij['username']."\">".$rij['username']."</a></b> : ".$rij['bericht']." | ";
-                }
+                            //berichtenbalk weergeven
+                            while($rij = mysql_fetch_assoc($berichtenbalk))
+                            {
+                                echo "<b><a href=\"?page=profile&player=".$rij['username']."\">".$rij['username']."</a></b> : ".$rij['bericht']." | ";
+                            }
 
-                //einde van de marquee
-                ?>
-                </marquee>
-                </div>
-                <div class="box-btm"></div>
+                            //einde van de marquee
+                            ?>
+                        </marquee>
+                    </div>
+                    <div class="box-btm"></div>
                 <? } ?>
-                
+
                 <!-- home -->
                 <div class="box-top"></div>
                 <div class="box-title">
@@ -700,13 +696,17 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                 <div class="box-con">
                     <div class="rel"></div>
                     <div class="teksts">
-                        <?php include($page.'.php'); ?>
+                        <?php if (isset($page)) {
+                            include($page . '.php');
+                        }else{
+                            include('404.php');
+                        } ?>
                     </div>
                 </div>
                 <div class="box-btm"></div>
                 <?php if(!empty($_SESSION['id'])){ ?>
                     <?
-                    if($_GET['page'] == 'home') {
+                if($_GET['page'] == 'home') {
                     ?>
                     <div class="box-top"></div>
                     <div class="box-title">
@@ -738,57 +738,57 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         </div>
                     </div>
                     <div class="box-btm"></div>
-                    <?php if(!empty($_SESSION['id']) and 
-                    ($_GET['page'] != 'clan-shoutbox')){
+                <?php if(!empty($_SESSION['id']) and
+                ($_GET['page'] != 'clan-shoutbox')){
 
-                            if (getBans('',$_SESSION['naam'],"chat") === true){
-                                echo '<center>Je hebt helaas een chat ban, je mag niet meer gebruik maken van de shoutbox.</center>';
-                            }else{ ?>
-                            <div class="box-top"></div>
-                            <div class="box-title">
-                                <span class="icon"><span class="icon-ann"></span></span>
-                                <h2><span>Shoutbox</span></h2>
-                            </div>
-                            <script type="text/javascript">
-                                function insertSmiley(smiley)
-                                {
-                                    var currentText = document.getElementById("shoutboxcontent");
-                                    console.log(currentText);
-                                    var smileyWithPadding = "" + smiley + "";
-                                    currentText.value += smileyWithPadding;
-                                }
-                            </script>
-                            <div class="box-con">
-                                <div class="rel"></div>
-                                <div class="teksts">
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                                <script type="text/javascript" src="<? echo $layoutRoot; ?>js/shoutbox.js"></script>
-                                    
-                                <ul id="messages" class="wordwrap">
-                                    <li>Bezig met berichten ophalen…</li>
-                                </ul>
-
-                                <form action="/shoutbox/sendmessage.php" method="post" id="shoutbox">
-                                    <input id="shoutboxcontent" name="content" class="text_long" style="float:none; width:100%;" maxlength="200" type="text">
-                                    <?
-                                    foreach (insertableEmoticons() as $emoticon) {
-                                        echo $emoticon." ";
-                                    }
-                                    ?>
-                                    <br/><br/>
-                                    <button class="button_mini" style="margin-right:8px;min-width: 275px;" type="submit">Versturen</button>
-                                </form>
-                                </div>
-                                
-                            </div>
-                            <div class="box-btm"></div>
-                            <?
-                            }
-                            }
+                if (getBans('',$_SESSION['naam'],"chat") === true){
+                    echo '<center>Je hebt helaas een chat ban, je mag niet meer gebruik maken van de shoutbox.</center>';
+                }else{ ?>
+                    <div class="box-top"></div>
+                    <div class="box-title">
+                        <span class="icon"><span class="icon-ann"></span></span>
+                        <h2><span>Shoutbox</span></h2>
+                    </div>
+                    <script type="text/javascript">
+                        function insertSmiley(smiley)
+                        {
+                            var currentText = document.getElementById("shoutboxcontent");
+                            console.log(currentText);
+                            var smileyWithPadding = "" + smiley + "";
+                            currentText.value += smileyWithPadding;
                         }
-                        
-                        ?>
-                
+                    </script>
+                    <div class="box-con">
+                        <div class="rel"></div>
+                        <div class="teksts">
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                            <script type="text/javascript" src="<? echo $layoutRoot; ?>js/shoutbox.js"></script>
+
+                            <ul id="messages" class="wordwrap">
+                                <li>Bezig met berichten ophalen…</li>
+                            </ul>
+
+                            <form action="/shoutbox/sendmessage.php" method="post" id="shoutbox">
+                                <input id="shoutboxcontent" name="content" class="text_long" style="float:none; width:100%;" maxlength="200" type="text">
+                                <?
+                                foreach (insertableEmoticons() as $emoticon) {
+                                    echo $emoticon." ";
+                                }
+                                ?>
+                                <br/><br/>
+                                <button class="button_mini" style="margin-right:8px;min-width: 275px;" type="submit">Versturen</button>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="box-btm"></div>
+                    <?
+                }
+                }
+                }
+
+                ?>
+
                 <!-- news -->
                 <?php if(empty($_SESSION['id'])){ ?>
                     <script type="text/javascript">
@@ -836,8 +836,10 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="sb-con">
 
 
-                        <form method="post" id="UserLoginForm" action="<?php echo strip_tags($_SERVER['PHP_SELF']);?>">
-                            <?php if($inlog_error != '') echo '<div class="red_error">'.$inlog_error.'</div>'; else echo ''; ?>
+                        <form method="post" id="UserLoginForm" action="/?page=home">
+                            <?php if (isset($inlog_error) && $inlog_error !='') {
+                                echo '<div class="red">' . $inlog_error . '</div><br/>';
+                            } ?>
                             <div style="display:none;">
                                 <input type="hidden" name="_method" value="POST" />
                                 <input type="hidden" name="data[_Token][key]" value="aa53de0e1ad69e03d80c9e86bd5c74cb5a5bbc80" id="Token1894939656" />
@@ -913,64 +915,64 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                             ?>
                     </div>
                     <div class="sb-end"></div>
-                    
+
                     <!-- ranking -->
 
                 <?php } else { ?>
-                <div class="sb-title">
-                    <span class="icon"><span class="icon-moon"></span></span>
+                    <div class="sb-title">
+                        <span class="icon"><span class="icon-moon"></span></span>
 
-                    <h3>STATISTIEKEN</h3></div>
-                <div class="sb-con">
-                    <ul class="stats">
-                        <li>
-                            <label class="servertijd">Servertijd</label>
-                            <span><script type="text/javascript">writeclock()</script></span>
-                        </li>
-                        <li>
-                            <label class="username">Gebruikersnaam</label>
-                            <span><a
-                                    href="?page=profile&player=<?php echo $gebruiker['username']; ?>"><?php echo $gebruiker['username']; ?></a></span>
-                        </li>
-                        <li>
-                            <label class="world">Wereld</label>
-                            <span><?php echo $gebruiker['wereld']; ?></span>
-                        </li>
-                        <li>
-                            <label class="silver">Silver</label>
-                            <span><?php echo highamount($gebruiker['silver']); ?></span>
-                        </li>
-                        <li>
-                            <label class="gold">Goud</label>
-                            <span><?php echo highamount($gebruiker['gold']); ?></span>
-                        </li>
-                        <li>
-                            <label class="bank">Bank</label>
-                            <span><?php echo highamount($gebruiker['bank']); ?></span>
-                        </li>
-                        <li>
-                            <label class="respect">Mijn respect</label>
-                            <span><?php echo $gebruiker['respect_add']; ?></span>
-                        </li>
+                        <h3>STATISTIEKEN</h3></div>
+                    <div class="sb-con">
+                        <ul class="stats">
+                            <li>
+                                <label class="servertijd">Servertijd</label>
+                                <span><script type="text/javascript">writeclock()</script></span>
+                            </li>
+                            <li>
+                                <label class="username">Gebruikersnaam</label>
+                                <span><a
+                                            href="?page=profile&player=<?php echo $gebruiker['username']; ?>"><?php echo $gebruiker['username']; ?></a></span>
+                            </li>
+                            <li>
+                                <label class="world">Wereld</label>
+                                <span><?php echo $gebruiker['wereld']; ?></span>
+                            </li>
+                            <li>
+                                <label class="silver">Silver</label>
+                                <span><?php echo highamount($gebruiker['silver']); ?></span>
+                            </li>
+                            <li>
+                                <label class="gold">Goud</label>
+                                <span><?php echo highamount($gebruiker['gold']); ?></span>
+                            </li>
+                            <li>
+                                <label class="bank">Bank</label>
+                                <span><?php echo highamount($gebruiker['bank']); ?></span>
+                            </li>
+                            <li>
+                                <label class="respect">Mijn respect</label>
+                                <span><?php echo $gebruiker['respect_add']; ?></span>
+                            </li>
 
-                        <li>
-                            <label class="message">Berichten</label>
-                            <span><?php echo $inbox_txt; ?></span>
-                        </li>
-                        <li>
-                            <label class="event">Event</label>
-                            <span><?php echo $event_txt; ?></span>
-                        </li>
-                        <li>
-                            <label class="notepad">Notepad</label>
-                            <span><span><a
-                                    href="?page=notepad">Notepad</a></span></span>
-                        </li>
-                        <li>
-                            <label class="premium">Premium</label>
-                            <span><? echo $premium_txt; ?></span>
-                        </li>
-                       <!-- <li>
+                            <li>
+                                <label class="message">Berichten</label>
+                                <span><?php echo $inbox_txt; ?></span>
+                            </li>
+                            <li>
+                                <label class="event">Event</label>
+                                <span><?php echo $event_txt; ?></span>
+                            </li>
+                            <li>
+                                <label class="notepad">Notepad</label>
+                                <span><span><a
+                                                href="?page=notepad">Notepad</a></span></span>
+                            </li>
+                            <li>
+                                <label class="premium">Premium</label>
+                                <span><? echo $premium_txt; ?></span>
+                            </li>
+                            <!-- <li>
                             <label class="referals">Promotie punten</label>
 				<span><?/*
                     $result = mysql_query("SELECT * FROM gebruikers WHERE referer = '" . $gebruiker['username'] . "' AND account_code = 1");
@@ -985,71 +987,71 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     }
                     */?></span>
                         </li>-->
-                        <li>
-                            <label class="rank">Rank vordering</label><br/><br/>
+                            <li>
+                                <label class="rank">Rank vordering</label><br/><br/>
 
-                            <div class="stats-container">
-                                <div style="width: <? echo $gebruiker_rank['procent']; ?>%;">
-                                    <span><? echo $gebruiker_rank['procent']; ?>%</span><span style="white-space: nowrap;"><?php echo $gebruiker_rank['ranknaam']; ?></span></div>
-                            </div>
-                        </li>
-                        <li>
-                            <label class="allpokemon">Alle Pokemon</label><br/>
-				<span>
+                                <div class="stats-container">
+                                    <div style="width: <? echo $gebruiker_rank['procent']; ?>%;">
+                                        <span><? echo $gebruiker_rank['procent']; ?>%</span><span style="white-space: nowrap;"><?php echo $gebruiker_rank['ranknaam']; ?></span></div>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="allpokemon">Alle Pokemon</label><br/>
+                                <span>
 					<div class="stats-container">
                         <div style="width: <? echo $gebruiker_pokemon['procent']; ?>%;">
                             <span><? echo $gebruiker_pokemon['procent']; ?>%</span></div>
                     </div>
                 </span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sb-end"></div>
-
-                <div class="sb-title">
-                    <span class="icon"><span class="icon-moon"></span></span>
-
-                    <h3>TEAM</h3></div>
-                <div class="sb-con">
-                    <div class="pokemon_hand_box">
-                        <ul>
-                            <?
-                            #Show ALL pokemon in hand
-                            if ($gebruiker['in_hand'] > 0) {
-                                while ($pokemon = mysql_fetch_assoc($pokemon_sql)) {
-                                    $dateadd = strtotime(date('Y-m-d H:i:s')) - 600;
-                                    $date = date('Y-m-d H:i:s', $dateadd);
-                                    #Check if Pokemon have to hatch
-                                    if (($pokemon['ei'] == 1) AND ($pokemon['ei_tijd'] < $date)) {
-                                        update_pokedex($pokemon['wild_id'], '', 'ei');
-                                        mysql_query("UPDATE pokemon_speler SET ei='0' WHERE id='" . $pokemon['id'] . "'");
-                                    }
-                                    $pokemon = pokemonei($pokemon);
-                                    $pokemon['naam'] = pokemon_naam($pokemon['naam'], $pokemon['roepnaam']);
-                                    $popup = pokemon_popup($pokemon, $txt);
-                                    if ($pokemon['leven'] == 0) $pokemonstatus = '<img src="images/icons/bullet_red.png">';
-                                    else $pokemonstatus = '<img src="images/icons/bullet_green.png">';
-                                    echo '<li><a href="#" class="tooltip" onMouseover="showhint(\'' . $popup . '\', this)"><div class="img"><img src="' . $pokemon['animatie'] . '" width="32" height="32" alt="' . $pokemon['naam'] . '" /></div></a><div class="name">' . $pokemon['naam'] . '</div><div class="level">Lvl ' . $pokemon['level'] . '</div><div class="status">' . $pokemonstatus . '</div></li>';
-                                }
-                            }
-                            ?></ul>
-                    </div>
-                    <div class="sb-sep"></div>
-                    <a href="?page=extended" class="ilink"><b>Uitgebreide informatie</b></a>
-                    <?
-                    if ($gebruiker['muziekaan'] == 1){
-                    ?>
-                    <div class="sb-title">
-                        <span class="icon"><span class="icon-music"></span></span>
-
-                        <h3>Muziek</h3></div>
-                    <div class="sb-con" style="padding:20px;">
-                        <? getCurrentMusic($_GET['page']); ?>
+                            </li>
+                        </ul>
                     </div>
                     <div class="sb-end"></div>
-                    <?
-                    }
-                    ?>
+
+                    <div class="sb-title">
+                        <span class="icon"><span class="icon-moon"></span></span>
+
+                        <h3>TEAM</h3></div>
+                    <div class="sb-con">
+                        <div class="pokemon_hand_box">
+                            <ul>
+                                <?
+                                #Show ALL pokemon in hand
+                                if ($gebruiker['in_hand'] > 0) {
+                                    while ($pokemon = mysql_fetch_assoc($pokemon_sql)) {
+                                        $dateadd = strtotime(date('Y-m-d H:i:s')) - 600;
+                                        $date = date('Y-m-d H:i:s', $dateadd);
+                                        #Check if Pokemon have to hatch
+                                        if (($pokemon['ei'] == 1) AND ($pokemon['ei_tijd'] < $date)) {
+                                            update_pokedex($pokemon['wild_id'], '', 'ei');
+                                            mysql_query("UPDATE pokemon_speler SET ei='0' WHERE id='" . $pokemon['id'] . "'");
+                                        }
+                                        $pokemon = pokemonei($pokemon);
+                                        $pokemon['naam'] = pokemon_naam($pokemon['naam'], $pokemon['roepnaam']);
+                                        $popup = pokemon_popup($pokemon, $txt);
+                                        if ($pokemon['leven'] == 0) $pokemonstatus = '<img src="images/icons/bullet_red.png">';
+                                        else $pokemonstatus = '<img src="images/icons/bullet_green.png">';
+                                        echo '<li><a href="#" class="tooltip" onMouseover="showhint(\'' . $popup . '\', this)"><div class="img"><img src="' . $pokemon['animatie'] . '" width="32" height="32" alt="' . $pokemon['naam'] . '" /></div></a><div class="name">' . $pokemon['naam'] . '</div><div class="level">Lvl ' . $pokemon['level'] . '</div><div class="status">' . $pokemonstatus . '</div></li>';
+                                    }
+                                }
+                                ?></ul>
+                        </div>
+                        <div class="sb-sep"></div>
+                        <a href="?page=extended" class="ilink"><b>Uitgebreide informatie</b></a>
+                        <?
+                        if ($gebruiker['muziekaan'] == 1){
+                            ?>
+                            <div class="sb-title">
+                                <span class="icon"><span class="icon-music"></span></span>
+
+                                <h3>Muziek</h3></div>
+                            <div class="sb-con" style="padding:20px;">
+                                <? getCurrentMusic($_GET['page']); ?>
+                            </div>
+                            <div class="sb-end"></div>
+                            <?
+                        }
+                        ?>
                         <div class="sb-title">
                             <span class="icon"><span class="icon-user"></span></span>
                             <h3><a href="?page=forum-categories" style="color: white;">Laatste topics</a></h3></div>
@@ -1059,12 +1061,12 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                 <?
                                 $forum_topics=mysql_query("SELECT *,DATE_FORMAT(`laatste_datum`,'%d-%m-%Y') AS `laatste_datum` FROM `forum_topics` ORDER BY `topic_id` DESC LIMIT 6");
                                 while($forum_topic=mysql_fetch_object($forum_topics)){
-                                $topic_naam = $forum_topic->topic_naam;
-                                $auteur_naam = $forum_topic->auteur_naam;
+                                    $topic_naam = $forum_topic->topic_naam;
+                                    $auteur_naam = $forum_topic->auteur_naam;
                                     ?>
                                     <span style="float:left;width: 65px;"><b><?= $auteur_naam ?></b></span><a href="?page=forum-messages&category=<?= $forum_topic->categorie_id ?>&thread=<?= $forum_topic->topic_id ?>"><span style="margin-left: 20px;"><?= $topic_naam ?></a></span><br/>
-                                <?
-                                
+                                    <?
+
                                 }
                                 ?>
                                 <a href="?page=forum-categories"><span>Naar het forum</a></span><br/>
@@ -1090,24 +1092,24 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
 
                     <!-- ads  -->
                     <? if ($gebruiker['reclame'] == 1){ ?>
-                    <div class="sb-title">
-                        <span class="icon"><span class="icon-moon"></span></span>
-                        <h3>Advertentie</h3></div>
-                    <div class="sb-con">
-                        <div align="center" style="padding-left:20px;padding-right:20px;">
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- Sidebar --> 
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-4717467750209676"
-                                 data-ad-slot="1565354742"
-                                 data-ad-format="auto"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
+                        <div class="sb-title">
+                            <span class="icon"><span class="icon-moon"></span></span>
+                            <h3>Advertentie</h3></div>
+                        <div class="sb-con">
+                            <div align="center" style="padding-left:20px;padding-right:20px;">
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <!-- Sidebar -->
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-4717467750209676"
+                                     data-ad-slot="1565354742"
+                                     data-ad-format="auto"></ins>
+                                <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
                         </div>
-                    </div>
-                    <div class="sb-end"></div>
+                        <div class="sb-end"></div>
                     <? } ?>
                     <!-- /ads -->
 
@@ -1139,85 +1141,85 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             <div style="position:fixed; bottom:0%; left:0px;"><a href="<?=GLOBALDEF_FACEBOOK?>" target="_blank" title="<?=GLOBALDEF_SITENAME?> op Facebook"><img src="/images/3b.png"></img></a></div>
         <?}?>
         <?if(getSetting("showMaintenance")){?>
-        <style>
-        #note {
-            position: absolute;
-            z-index: 6001;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #fde073;
-            text-align: center;
-            line-height: 2.5;
-            overflow: hidden; 
-            -webkit-box-shadow: 0 0 5px black;
-            -moz-box-shadow:    0 0 5px black;
-            box-shadow:         0 0 5px black;
-        }
-        .cssanimations.csstransforms #note {
-            -webkit-transform: translateY(-50px);
-            -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
-            -moz-transform:    translateY(-50px);
-            -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
-        }
-    
-        #close {
-          position: absolute;
-          right: 10px;
-          top: 9px;
-          text-indent: -9999px;
-          background: url(images/close.png);
-          height: 16px;
-          width: 16px;
-          cursor: pointer;
-        }
-        .cssanimations.csstransforms #close {
-          display: none;
-        }
-        
-        @-webkit-keyframes slideDown {
-            0%, 100% { -webkit-transform: translateY(-50px); }
-            10%, 90% { -webkit-transform: translateY(0px); }
-        }
-        @-moz-keyframes slideDown {
-            0%, 100% { -moz-transform: translateY(-50px); }
-            10%, 90% { -moz-transform: translateY(0px); }
-        }
-        </style>
-        
-        <div id="note">
-            <?=getSetting('maintenanceMessage')?> <a id="close">[sluiten]</a>
-        </div>
-        <script>
-        close = document.getElementById("close");
-        close.addEventListener('click', function() {
-            note = document.getElementById("note");
-            note.style.display = 'none';
-        }, false);
-        </script>
+            <style>
+                #note {
+                    position: absolute;
+                    z-index: 6001;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: #fde073;
+                    text-align: center;
+                    line-height: 2.5;
+                    overflow: hidden;
+                    -webkit-box-shadow: 0 0 5px black;
+                    -moz-box-shadow:    0 0 5px black;
+                    box-shadow:         0 0 5px black;
+                }
+                .cssanimations.csstransforms #note {
+                    -webkit-transform: translateY(-50px);
+                    -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+                    -moz-transform:    translateY(-50px);
+                    -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
+                }
+
+                #close {
+                    position: absolute;
+                    right: 10px;
+                    top: 9px;
+                    text-indent: -9999px;
+                    background: url(images/close.png);
+                    height: 16px;
+                    width: 16px;
+                    cursor: pointer;
+                }
+                .cssanimations.csstransforms #close {
+                    display: none;
+                }
+
+                @-webkit-keyframes slideDown {
+                    0%, 100% { -webkit-transform: translateY(-50px); }
+                    10%, 90% { -webkit-transform: translateY(0px); }
+                }
+                @-moz-keyframes slideDown {
+                    0%, 100% { -moz-transform: translateY(-50px); }
+                    10%, 90% { -moz-transform: translateY(0px); }
+                }
+            </style>
+
+            <div id="note">
+                <?=getSetting('maintenanceMessage')?> <a id="close">[sluiten]</a>
+            </div>
+            <script>
+                close = document.getElementById("close");
+                close.addEventListener('click', function() {
+                    note = document.getElementById("note");
+                    note.style.display = 'none';
+                }, false);
+            </script>
         <?}?>
-        
+
         <!-- include libraries(jQuery, bootstrap) -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
         <!-- include summernote css/js-->
         <script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
         <script src="includes/summernote/lang/summernote-nl-NL.js"></script>
 
         <script type="text/javascript" src="../js/chat.js"></script>
         <link type="text/css" rel="stylesheet" media="all" href="../css/chat.css" />
-        
+
         <?
         if(!isset($_SESSION['id'])) {
-        ?>
-        <script type="text/javascript" src="js/jquery.js""></script>
-        <script type="text/javascript" src="javascripts/jquery.colorbox.js"></script>
+            ?>
+            <script type="text/javascript" src="js/jquery.js""></script>
+            <script type="text/javascript" src="javascripts/jquery.colorbox.js"></script>
         <?}?>
-        
+
         <?
         if(isset($_SESSION['id'])) {
-        
+
             //drop megastone
             $results = $db->prepare("SELECT `Abomasite`, `Absolite`, `Aerodactylite`, `Aggronite`, `Alakazite`, `Altarianite`, `Ampharosite`, `Audinite`, `Banettite`, `Beedrillite`, `Blastoisinite`, `Blazikenite`, `Cameruptite`, `Charizardite X`, `Charizardite Y`, `Diancite`, `Galladite`, `Garchompite`, `Gardevoirite`, `Gengarite`, `Glalitite`, `Gyaradosite`, `Heracronite`, `Houndoominite`, `Kangaskhanite`, `Latiasite`, `Latiosite`, `Lopunnite`, `Lucarionite`, `Manectite`, `Mawilite`, `Medichamite`, `Metagrossite`, `Mewtwonite X`, `Mewtwonite Y`, `Pidgeotite`, `Pinsirite`, `Sablenite`, `Salamencite`, `Sceptilite`, `Scizorite`, `Sharpedonite`, `Slowbronite`, `Steelixite`, `Swampertite`, `Tyranitarite`, `Venusaurite` FROM `gebruikers_item` WHERE user_id=:user_id");
             $results->bindParam(':user_id', $_SESSION['id']);
@@ -1227,24 +1229,24 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             foreach($results as $result) {
                 $sum+= $result;
             }
-            
+
             $extraRandom = rand(0,10);
             $randomStoneDrop = rand(0, 10000);
-            
+
             $dropKans = dropKans($sum);
-            
+
             if ($randomStoneDrop >= $dropKans) {
 
                 if (in_array($_SESSION['naam'], explode(",", getSetting("kansUitsluitingen")))) {
 
                 } else {
-                
+
                     while (true) {
                         $megaStones = array("Abomasite", "Absolite", "Aerodactylite", "Aggronite", "Alakazite", "Altarianite", "Ampharosite", "Audinite", "Banettite", "Beedrillite", "Blastoisinite", "Blazikenite", "Cameruptite", "Charizardite X", "Charizardite Y", "Diancite", "Galladite", "Garchompite", "Gardevoirite", "Gengarite", "Glalitite", "Gyaradosite", "Heracronite", "Houndoominite", "Kangaskhanite", "Latiasite", "Latiosite", "Lopunnite", "Lucarionite", "Manectite", "Mawilite", "Medichamite", "Metagrossite", "Mewtwonite X", "Mewtwonite Y", "Pidgeotite", "Pinsirite", "Sablenite", "Salamencite", "Sceptilite", "Scizorite", "Sharpedonite", "Slowbronite", "Steelixite", "Swampertite", "Tyranitarite", "Venusaurite");
                         $randomStoneDrop = rand(0, count($megaStones));
-    
+
                         $droppedStone = $megaStones[$randomStoneDrop];
-    
+
                         if ($results[$droppedStone] == 0) {
                             $endDrop = $droppedStone;
                             break;
@@ -1253,7 +1255,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                             break;
                         }
                     }
-                    
+
                     if ($endDrop) {
 
                         echo showToastr("success", "<a href='?page=items'>Er is een <b>" . $megaStones[$randomStoneDrop] . "</b> gedropt!</a>");
@@ -1279,7 +1281,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     }
                 }
             }
-            
+
             //show toast on new message
             if ($inbox_new) {
                 if ($inbox_new == 1) {
@@ -1300,6 +1302,6 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             }
         }
         ?>
-        <!-- -DefaulT //-->
+    </div>
 </body>
 </html>
