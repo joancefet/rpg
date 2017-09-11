@@ -35,7 +35,8 @@ if (isset($_POST['registreer'])) {
         $foutje12 = '<span class="error_red">*</span>';
         $alert = '<div class="red">' . $txt['alert_guardcore_invalid'] . '</div>';
     }
-    $secretKey = "6Lf-eBgTAAAAAIk1b5sm-wgHs4hDaYCb5aQsejTe";
+    #define your secret key
+    $secretKey = "";
     $ip = $_SERVER['REMOTE_ADDR'];
     $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secretKey . "&response=" . $captcha . "&remoteip=" . $ip);
     $responseKeys = json_decode($response, true);
@@ -377,7 +378,7 @@ if (isset($_POST['registreer'])) {
             <tr>
                 <td class="normal_first_td">&nbsp;</td>
                 <td class="normal_td">
-                    <div class="g-recaptcha" data-sitekey="6Lf-eBgTAAAAAJ3KgeYOUj7BnYdqth-pYtJznhRq"></div>
+                    <div class="g-recaptcha" data-sitekey=""></div>
                 </td>
             </tr>
             <tr>
