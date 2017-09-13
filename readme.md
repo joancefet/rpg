@@ -40,3 +40,9 @@ secret key in register.php:39
 site key in register.php:381
 
 ```
+
+_Special thanks to:_
+```
+Mugaru - Thanks for changing some bits into PHP7
+
+```

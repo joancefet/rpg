@@ -92,52 +92,77 @@ function ubbcode($tekst) {
 
 //Cache Query in txt
 function query_cache($page, $query, $expire) {
+
+    global $db;
+
     $file = 'cache/' . $page . '.txt';
     if (file_exists($file) && filemtime($file) > (time() - $expire)) {
-        $records = unserialize(file_get_contents($file));
+        $createCache = unserialize(file_get_contents($file));
+
     } else {
-        $result = mysql_query($query) or die (mysql_error());
-        while ($record = mysql_fetch_assoc($result))
-            $records[] = $record;
-        $OUTPUT = serialize($records);
+
+        $createCache = $db->prepare($query);
+        $createCache->execute();
+        $createCache = $createCache->fetchAll();
+
+        $OUTPUT = serialize($createCache);
         $fp = fopen($file, "w");
         fputs($fp, $OUTPUT);
         fclose($fp);
-    } // end else
-    return $records;
+
+    }
+
+    return $createCache;
 }
 
 //Cache Query in txt untill removed
 function query_cache_onremoved($page, $query) {
+
+    global $db;
+
     $file = 'cache/' . $page . '.txt';
 
     if (file_exists($file)) {
-        $records = unserialize(file_get_contents($file));
+        $createCache = unserialize(file_get_contents($file));
+
     } else {
-        $result = mysql_query($query) or die (mysql_error());
-        while ($record = mysql_fetch_assoc($result))
-            $records[] = $record;
-        $OUTPUT = serialize($records);
+
+        $createCache = $db->prepare($query);
+        $createCache->execute();
+        $createCache = $createCache->fetchAll();
+
+        $OUTPUT = serialize($createCache);
         $fp = fopen($file, "w");
         fputs($fp, $OUTPUT);
         fclose($fp);
-    } // end else
-    return $records;
+
+    }
+
+    return $createCache;
 }
 
 function query_cache_num($page, $query, $expire) {
+
+    global $db;
+
     $file = 'cache/' . $page . '.txt';
     if (file_exists($file) && filemtime($file) > (time() - $expire)) {
-        $record = unserialize(file_get_contents($file));
+        $createCache = unserialize(file_get_contents($file));
+
     } else {
-        $result = mysql_query($query) or die (mysql_error());
-        $record = mysql_num_rows($result);
-        $OUTPUT = serialize($record);
+
+        $createCache = $db->prepare($query);
+        $createCache->execute();
+        $createCache = $createCache->rowCount();
+
+        $OUTPUT = serialize($createCache);
         $fp = fopen($file, "w");
         fputs($fp, $OUTPUT);
         fclose($fp);
-    } // end else
-    return $record;
+
+    }
+
+    return $createCache;
 }
 
 function update_pokedex($wild_id, $old_id, $wat) {

@@ -13886,10 +13886,10 @@ INSERT INTO `settings` (`id`, `setting`, `value`, `globaldef`) VALUES
 
 CREATE TABLE `shoutbox` (
   `id` int(255) UNSIGNED NOT NULL,
-  `username` text NOT NULL,
-  `content` text NOT NULL,
+  `username` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `post_time` datetime NOT NULL,
-  `clan` varchar(255) DEFAULT NULL
+  `clan` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `tmhm` (
