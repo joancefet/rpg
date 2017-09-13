@@ -15,7 +15,9 @@ if(isset($_POST['login'])) {
 #Get current page
 $page = $_GET['page'];
 
-if(empty($_SESSION['id'])) $linkpartnersql = mysql_query("SELECT titel, url FROM linkpartners ORDER BY volgorde ASC");
+if(empty($_SESSION['id'])) {
+    $linkpartnersql = $db->query('SELECT titel, url FROM `linkpartners` ORDER BY volgorde ASC');
+}
 
 #ingame
 if(isset($_SESSION['id'])){
@@ -46,16 +48,21 @@ if(isset($_SESSION['id'])){
     mysql_query("UPDATE `gebruikers` SET `online`='".time()."' WHERE `user_id`='".$_SESSION['id']."'");
 
     #Load User Information
-    $gebruiker = mysql_fetch_assoc(mysql_query("SELECT g.*, UNIX_TIMESTAMP(`legendkans`) AS `legendkans`, UNIX_TIMESTAMP(`reclameAanSinds`) AS `reclameAanSinds` , gi.*, SUM(`Poke ball` + `Great ball` + `Ultra ball` + `Premier ball` + `Net ball` + `Dive ball` + `Nest ball` + `Repeat ball` + `Timer ball` + `Master ball` + `Potion` + `Super potion` + `Hyper potion` + `Full heal` + `Revive` + `Max revive` + `Pokedex` + `Pokedex chip` + `Pokedex zzchip` +`Fishing rod` + `Cave suit` + `Bike` + `Protein` + `Iron` + `Carbos` + `Calcium` + `HP up` + `Rare candy` + `Duskstone` + `Firestone` + `Leafstone` + `Moonstone` + `Ovalstone` + `Shinystone` + `Sunstone` + `Thunderstone` + `Waterstone` + `Dawnstone` + `TM01` + `TM02` + `TM03` + `TM04` + `TM05` + `TM06` + `TM07` + `TM08` + `TM09` + `TM10` + `TM11` + `TM12` + `TM13` + `TM14` + `TM15` + `TM16` + `TM17` + `TM18` + `TM19` + `TM20` + `TM21` + `TM22` + `TM23` + `TM24` + `TM25` + `TM26` + `TM27` + `TM28` + `TM29` + `TM30` + `TM31` + `TM32` + `TM33` + `TM34` + `TM35` + `TM36` + `TM37` + `TM38` + `TM39` + `TM40` + `TM41` + `TM42` + `TM43` + `TM44` + `TM45` + `TM46` + `TM47` + `TM48` + `TM49` + `TM50` + `TM51` + `TM52` + `TM53` + `TM54` + `TM55` + `TM56` + `TM57` + `TM58` + `TM59` + `TM60` + `TM61` + `TM62` + `TM63` + `TM64` + `TM65` + `TM66` + `TM67` + `TM68` + `TM69` + `TM70` + `TM71` + `TM72` + `TM73` + `TM74` + `TM75` + `TM76` + `TM77` + `TM78` + `TM79` + `TM80` + `TM81` + `TM82` + `TM83` + `TM84` + `TM85` + `TM86` + `TM87` + `TM88` + `TM89` + `TM90` + `TM91` + `TM92` + `HM01` + `HM02` + `HM03` + `HM04` + `HM05` + `HM06` + `HM07` + `HM08`) AS items				  FROM gebruikers AS g INNER JOIN gebruikers_item AS gi
+    $gebruikerSql = $db->query("SELECT g.*, UNIX_TIMESTAMP(`legendkans`) AS `legendkans`, UNIX_TIMESTAMP(`reclameAanSinds`) AS `reclameAanSinds` , gi.*, SUM(`Poke ball` + `Great ball` + `Ultra ball` + `Premier ball` + `Net ball` + `Dive ball` + `Nest ball` + `Repeat ball` + `Timer ball` + `Master ball` + `Potion` + `Super potion` + `Hyper potion` + `Full heal` + `Revive` + `Max revive` + `Pokedex` + `Pokedex chip` + `Pokedex zzchip` +`Fishing rod` + `Cave suit` + `Bike` + `Protein` + `Iron` + `Carbos` + `Calcium` + `HP up` + `Rare candy` + `Duskstone` + `Firestone` + `Leafstone` + `Moonstone` + `Ovalstone` + `Shinystone` + `Sunstone` + `Thunderstone` + `Waterstone` + `Dawnstone` + `TM01` + `TM02` + `TM03` + `TM04` + `TM05` + `TM06` + `TM07` + `TM08` + `TM09` + `TM10` + `TM11` + `TM12` + `TM13` + `TM14` + `TM15` + `TM16` + `TM17` + `TM18` + `TM19` + `TM20` + `TM21` + `TM22` + `TM23` + `TM24` + `TM25` + `TM26` + `TM27` + `TM28` + `TM29` + `TM30` + `TM31` + `TM32` + `TM33` + `TM34` + `TM35` + `TM36` + `TM37` + `TM38` + `TM39` + `TM40` + `TM41` + `TM42` + `TM43` + `TM44` + `TM45` + `TM46` + `TM47` + `TM48` + `TM49` + `TM50` + `TM51` + `TM52` + `TM53` + `TM54` + `TM55` + `TM56` + `TM57` + `TM58` + `TM59` + `TM60` + `TM61` + `TM62` + `TM63` + `TM64` + `TM65` + `TM66` + `TM67` + `TM68` + `TM69` + `TM70` + `TM71` + `TM72` + `TM73` + `TM74` + `TM75` + `TM76` + `TM77` + `TM78` + `TM79` + `TM80` + `TM81` + `TM82` + `TM83` + `TM84` + `TM85` + `TM86` + `TM87` + `TM88` + `TM89` + `TM90` + `TM91` + `TM92` + `HM01` + `HM02` + `HM03` + `HM04` + `HM05` + `HM06` + `HM07` + `HM08`) AS items                FROM gebruikers AS g INNER JOIN gebruikers_item AS gi
 																  ON g.user_id = gi.user_id
 																  INNER JOIN gebruikers_tmhm AS gtmhm
 																  ON g.user_id = gtmhm.user_id
 																  WHERE g.user_id = '".$_SESSION['id']."'
-																  GROUP BY g.user_id"));
+                                                                  GROUP BY g.user_id");
+
+    $gebruiker = $gebruikerSql->fetch(PDO::FETCH_ASSOC);
 
     //check bans and block if needed
-    $banned = mysql_query("SELECT * FROM ban WHERE type = 'ipban'");
-    while($ban = mysql_fetch_assoc($banned)){
+    $banned = $db->prepare("SELECT * FROM ban WHERE type='ipban'");
+    $banned->execute();
+    $bans = $banned->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach($bans as $ban){
         #Hacker blokkade
         if(getRealIpAddress() != "" and $gebruiker['username'] == $ban['gebruiker']) {
             $file = '.htaccess';
@@ -228,6 +235,7 @@ if(isset($_SESSION['id'])){
 
 #Check if you're asked for a duel MOET OOK ANDERS -> Event! ;)
 $duel_sql = mysql_query("SELECT `id`, `datum`, `uitdager`, `tegenstander`, `bedrag`, `status` FROM `duel` WHERE `tegenstander`='".$gebruiker['username']."' AND (`status`='wait') ORDER BY id DESC LIMIT 1");
+
 
 #?page= systeem opbouwen
 if(empty($page)) header("Location: ?page=home");
@@ -909,7 +917,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
 
                     <div class="sb-con">
                         <ul class="stats">
-                            <?php while($linkpartner = mysql_fetch_assoc($linkpartnersql)){
+                            <?php while($linkpartner = $linkpartnersql->fetch(PDO::FETCH_ASSOC)){
                                 echo '<li><a href="'.$linkpartner['url'].'">'.$linkpartner['titel'].'</a></li>';
                             }
                             ?>

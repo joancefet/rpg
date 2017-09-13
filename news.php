@@ -167,10 +167,14 @@ if(isset($_GET['reageren'])){
         $pagenum = 1;
     }
 
-    if (empty($_GET['subpage'])) $subpage = 1;
-    else $subpage = $_GET['subpage'];
+    if (empty($_GET['subpage'])) {
+        $subpage = 1;
+    } else {
+        $subpage = $_GET['subpage'];
+    }
 
-    $aantal_rows = mysql_num_rows(mysql_query("SELECT text_nl FROM nieuws"));
+    $textNl = $db->query("SELECT text_nl FROM nieuws");
+    $aantal_rows = $textNl->rowCount();
 
     #Max aantal berichten per pagina
     $max = 2;
@@ -178,11 +182,12 @@ if(isset($_GET['reageren'])){
     if ($aantal_paginas == 0) $aantal_paginas = 1;
     $pagina = $subpage * $max - $max;
 
-    $sql = mysql_query("SELECT id,titel_nl,text_nl,DATE_FORMAT(`datum`,'%d-%m-%Y') AS `datum`,UNIX_TIMESTAMP(datum) AS DATE FROM nieuws
+    $sql = $db->query("SELECT id,titel_nl,text_nl,DATE_FORMAT(`datum`,'%d-%m-%Y') AS `datum`,UNIX_TIMESTAMP(datum) AS DATE FROM nieuws
 								ORDER BY DATE DESC
 								LIMIT " . $pagina . ", " . $max . "");
 
-    for ($j = 1; $select = mysql_fetch_assoc($sql); $j++) {
+
+    for ($j = 1; $select = $sql->fetch(PDO::FETCH_ASSOC); $j++) {
     
         //check how many comments a news message has
         $nieuws_reacties = mysql_num_rows(mysql_query("SELECT id FROM nieuws_reacties WHERE nieuws_id = " . $select['id']));
