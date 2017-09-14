@@ -96,7 +96,6 @@ if(isset($_SESSION['id'])){
         header("Location: index.php");
     }
 
-
     //complete mission 7
     if($gebruiker['missie_7'] == 0){
         if($gebruiker['clan']) {
@@ -233,9 +232,11 @@ if(isset($_SESSION['id'])){
     else $event_txt = '<span><a href="?page=events" style="color:#0bbe03;">'.$event_new.' '.$txt['stats_new'].'</a></span>';
 }
 
-#Check if you're asked for a duel MOET OOK ANDERS -> Event! ;)
-$duel_sql = mysql_query("SELECT `id`, `datum`, `uitdager`, `tegenstander`, `bedrag`, `status` FROM `duel` WHERE `tegenstander`='".$gebruiker['username']."' AND (`status`='wait') ORDER BY id DESC LIMIT 1");
 
+if(isset($gebruiker)) {
+    #Check if you're asked for a duel MOET OOK ANDERS -> Event! ;)
+    $duel_sql = mysql_query("SELECT `id`, `datum`, `uitdager`, `tegenstander`, `bedrag`, `status` FROM `duel` WHERE `tegenstander`='" . $gebruiker['username'] . "' AND (`status`='wait') ORDER BY id DESC LIMIT 1");
+}
 
 #?page= systeem opbouwen
 if(empty($page)) header("Location: ?page=home");
@@ -262,59 +263,61 @@ else{
         #Andere huidige pagina toewijzen
         $page = "includes/poke-evolve";
     }
-    elseif(($gebruiker['wereld'] == ''))
+    elseif(isset($gebruiker) && ($gebruiker['wereld'] == ''))
         $page = "wereld";
-    elseif(($gebruiker['eigekregen'] == 0) OR ($_SESSION['eikeuze'] == 1))
+    elseif(isset($gebruiker) && ($gebruiker['eigekregen'] == 0) || ($_SESSION['eikeuze'] == 1))
         $page = "beginning";
     #Is speler bezig met aanvallen?
-    elseif($gebruiker['pagina'] == 'attack'){
+    elseif(isset($gebruiker) && $gebruiker['pagina'] == 'attack'){
         $page = "attack/wild/wild-attack";
-        if($gebruiker['test'] == 1) $page = "attack/wild2/wild-attack";
+        if(isset($gebruiker) && $gebruiker['test'] == 1) $page = "attack/wild2/wild-attack";
         $res = mysql_fetch_assoc(mysql_query("SELECT `id` FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'"));
         $_SESSION['attack']['aanval_log_id'] = $res['id'];
     }
-    elseif($gebruiker['pagina'] == 'trainer-attack'){
+    elseif(isset($gebruiker) && $gebruiker['pagina'] == 'trainer-attack'){
         $page = "attack/trainer/trainer-attack";
         $res = mysql_fetch_assoc(mysql_query("SELECT `id` FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'"));
         $_SESSION['attack']['aanval_log_id'] = $res['id'];
     }
-    elseif(($gebruiker['pagina'] == 'duel') AND (mysql_num_rows($duel_test) > 0))
+    elseif(isset($gebruiker) && ($gebruiker['pagina'] == 'duel') && (mysql_num_rows($duel_test) > 0))
         $page = $_GET['page'];
-    elseif($gebruiker['pagina'] == 'duel')
+    elseif(isset($gebruiker) && $gebruiker['pagina'] == 'duel')
         $page = "attack/duel/duel-attack";
     #Word speler uit gedaagd voor duel?
     elseif(mysql_num_rows($duel_sql) == 1)
         $page = "attack/duel/invited";
 }
-if(($page != "attack/duel/duel-attack") AND ($gebruiker['pagina'] == 'duel')){
+
+if(isset($gebruiker) && ($page != "attack/duel/duel-attack") && ($gebruiker['pagina'] == 'duel')){
     mysql_query("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='".$_SESSION['id']."'");
     mysql_query("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
     mysql_query("DELETE FROM `duel` WHERE `uitdager`='".$_SESSION['naam']."' OR `tegenstander`='".$_SESSION['naam']."'");
 }
 
-$str_tijd_nu = strtotime(date('Y-m-d H:i:s'));
-$jail_tijd = (strtotime($gebruiker['gevangenistijdbegin'])+$gebruiker['gevangenistijd'])-$str_tijd_nu;
-$pokecen_tijd = (strtotime($gebruiker['pokecentertijdbegin'])+$gebruiker['pokecentertijd'])-$str_tijd_nu;
+if(isset($gebruiker)) {
+    $str_tijd_nu = strtotime(date('Y-m-d H:i:s'));
+    $jail_tijd = (strtotime($gebruiker['gevangenistijdbegin']) + $gebruiker['gevangenistijd']) - $str_tijd_nu;
+    $pokecen_tijd = (strtotime($gebruiker['pokecentertijdbegin']) + $gebruiker['pokecentertijd']) - $str_tijd_nu;
 
-#Work Check
-if(!empty($gebruiker['soortwerk'])){
-    $werken_tijd = strtotime($gebruiker['werktijdbegin'])+$gebruiker['werktijd'];
-    #Tijd die overblijft
-    $tijdwerken = $werken_tijd-$str_tijd_nu;
-    if($tijdwerken < 0)
-        include_once('includes/work-inc.php');
-    else{
-        $wait_time = $tijdwerken;
-        $type_timer = 'work';
-        if(!page_timer($page,'work')) $page = 'includes/wait';
-    }
-}
-elseif($pokecen_tijd > 0){
-    #Tijd die overblijft
-    $wait_time = $pokecen_tijd;
-    if($wait_time >= 0){
-        $type_timer = 'pokecenter';
-        if(!page_timer($page,'jail')) $page = 'includes/wait';
+    #Work Check
+    if (!empty($gebruiker['soortwerk'])) {
+        $werken_tijd = strtotime($gebruiker['werktijdbegin']) + $gebruiker['werktijd'];
+        #Tijd die overblijft
+        $tijdwerken = $werken_tijd - $str_tijd_nu;
+        if ($tijdwerken < 0)
+            include_once('includes/work-inc.php');
+        else {
+            $wait_time = $tijdwerken;
+            $type_timer = 'work';
+            if (!page_timer($page, 'work')) $page = 'includes/wait';
+        }
+    } elseif ($pokecen_tijd > 0) {
+        #Tijd die overblijft
+        $wait_time = $pokecen_tijd;
+        if ($wait_time >= 0) {
+            $type_timer = 'pokecenter';
+            if (!page_timer($page, 'jail')) $page = 'includes/wait';
+        }
     }
 }
 ?>
@@ -642,7 +645,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                 }
                 ?>
 
-                <? if ($gebruiker['reclame'] == 1){ ?>
+                <? if (isset($gebruiker) && $gebruiker['reclame'] == 1){ ?>
                     <!-- ads -->
                     <div class="box-top"></div>
                     <div class="box-title">
