@@ -24,9 +24,9 @@ if (isset($_POST['login'])) {
         $stmt->execute();
         $checkUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $query = "SELECT `username`, `wachtwoord`, `account_code` FROM `gebruikers` WHERE `wachtwoord`=:wwmd5 AND `username`=:naam";
+        $query = "SELECT gebruiker FROM ban WHERE gebruiker = :username";
         $stmt = $db->prepare($query);
-        $stmt->bindValue(':naam', $_POST['username'], PDO::PARAM_STR);
+        $stmt->bindValue(':username', $_POST['username'], PDO::PARAM_STR);
         $stmt->execute();
         $isUserBanned = $stmt->fetch(PDO::FETCH_ASSOC);
 
