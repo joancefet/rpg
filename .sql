@@ -3249,18 +3249,16 @@ INSERT INTO `kluis_kraken` (`id`, `1`, `2`, `3`, `datum`, `pot`) VALUES
 
 CREATE TABLE `landen` (
   `id` tinyint(2) NOT NULL,
-  `country` tinyint(2) NOT NULL,
-  `wallie` tinyint(1) NOT NULL DEFAULT '0',
   `kort` varchar(2) NOT NULL,
   `nl` varchar(11) NOT NULL,
   `en` varchar(14) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `landen` (`id`, `country`, `wallie`, `kort`, `nl`, `en`) VALUES
-(21, 1, 1, 'BE', 'Belgie', 'Belgium'),
-(22, 2, 1, 'UK', 'Engeland', 'England'),
-(23, 3, 1, 'NL', 'Nederland', 'Netherlands'),
-(0, 0, 0, 'GE', 'Duitsland', 'Germany');
+INSERT INTO `landen` (`id`, `kort`, `nl`, `en`) VALUES
+(1, 'BE', 'Belgie', 'Belgium'),
+(2, 'UK', 'Engeland', 'England'),
+(3, 'NL', 'Nederland', 'Netherlands'),
+(4, 'DE', 'Duitsland', 'Germany');
 
 CREATE TABLE `leagues` (
   `id` int(11) NOT NULL,
@@ -13883,6 +13881,9 @@ INSERT INTO `settings` (`id`, `setting`, `value`, `globaldef`) VALUES
 (18, 'siteLogo', 'https://pokeworld.nl/img/pokeworld.png', 1),
 (19, 'Facebook', 'https://www.facebook.com/Pokeworld-1000758966613047/', 1),
 (20, 'adminUid', '17007', 1);
+(21, 'GoogleRecaptchaSecretkey', '', 1);
+(22, 'GoogleRecaptchaSitekey', '', 1);
+(23, 'Language', '', 1);
 
 CREATE TABLE `shoutbox` (
   `id` int(255) UNSIGNED NOT NULL,
@@ -14637,6 +14638,10 @@ ALTER TABLE `gebeurtenis`
   MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `gebruikers`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `gebruikers`
+  CHANGE `voornaam` `voornaam` VARCHAR(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `gebruikers`
+  CHANGE `achternaam` `achternaam` VARCHAR(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 ALTER TABLE `gebruikers_store`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `home`

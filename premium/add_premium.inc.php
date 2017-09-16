@@ -48,15 +48,15 @@ function send_mail($voornaam,$achternaam,$email,$packnaam,$packdagen,$packkosten
           <center>
             <table width="80%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/linksboven.gif" width="11" height="11"></td>
-                <td height="11" background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/bovenbalk.gif"></td>
-                <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/rechtsboven.gif" width="11" height="11"></td>
+                <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/linksboven.gif" width="11" height="11"></td>
+                <td height="11" background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/bovenbalk.gif"></td>
+                <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/rechtsboven.gif" width="11" height="11"></td>
               </tr>
               
               <tr>
-                <td width="11" rowspan="2" background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/linksbalk.gif"></td>
-                <td align="center" bgcolor="#D3E9F5"><img src="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/headermail.png" width="520"></td>
-                <td width="11" rowspan="2" background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/rechtsbalk.gif"></td>
+                <td width="11" rowspan="2" background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/linksbalk.gif"></td>
+                <td align="center" bgcolor="#D3E9F5"><img src="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/headermail.png" width="520"></td>
+                <td width="11" rowspan="2" background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/rechtsbalk.gif"></td>
               </tr>
               <tr>
                 <td align="left" valign="top" bgcolor="#D3E9F5">Beste '.$voornaam.' '.$achternaam.',<br><br>
@@ -67,9 +67,9 @@ function send_mail($voornaam,$achternaam,$email,$packnaam,$packdagen,$packkosten
 									'.GLOBALDEF_SITENAME.'</td>
               </tr>
               <tr>
-                <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/linksonder.gif" width="11" height="11"></td>
-                <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/onderbalk.gif" height="11"></td>
-                <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/rechtsonder.gif" width="11" height="11"></td>
+                <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/linksonder.gif" width="11" height="11"></td>
+                <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/onderbalk.gif" height="11"></td>
+                <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/images/mail/rechtsonder.gif" width="11" height="11"></td>
               </tr>
             </table>
             &copy; '.GLOBALDEF_SITENAME.' - '.date('Y').'<br/>

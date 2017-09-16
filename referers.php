@@ -22,7 +22,7 @@ You get 2 gold every time user registers using ur name as Referrer.<br>
 <table width="300" border="0">
       <tr>
         <td>Your Referral Link:</td>
-        <td colspan="2"><input type="text" name="referral" value="<? echo GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/index.php?page=register&referer='.$_SESSION['naam'].'"' ?>  class="text_long" size="30" disabled /></td>
+        <td colspan="2"><input type="text" name="referral" value="<? echo GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/index.php?page=register&referer='.$_SESSION['naam'].'"' ?>  class="text_long" size="30" disabled /></td>
       </tr>
 </table>
 

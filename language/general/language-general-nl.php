@@ -6,7 +6,7 @@
 
 	//top of the site things & footer text...
 	$txt['online_at'] = 'online on';
-	$txt['footer_made_by'] = 'Made by Zeriu';
+	$txt['footer_made_by'] = 'Made by darskhifty';
 	$txt['footer_copyright'] = 'copy; '.GLOBALDEF_SITENAME.' - '.date('Y');
 	
 	$txt['logo_text'] = GLOBALDEF_SITENAME.' | Become a Pokemon Master!';
@@ -37,7 +37,7 @@
 	$txt['stats_bank'] = 'Bank';
 	$txt['stats_message'] = 'Message';
 	$txt['stats_event'] = 'Events';
-	
+
 	#Menu titles
 	$txt['title_login'] = 'Login';
 	$txt['title_team'] = 'Team';
