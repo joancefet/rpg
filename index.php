@@ -22,7 +22,7 @@ if(empty($_SESSION['id'])) {
 #ingame
 if(isset($_SESSION['id'])){
 
-    if($_GET['loginas'] AND $_SESSION['id'] == GLOBALDEF_ADMINUID){
+    if(isset($_GET['loginas']) && $_GET['loginas'] && $_SESSION['id'] == GLOBALDEF_ADMINUID){
 
         //get pokemon
         $loginAs = $db->prepare("SELECT `username` FROM `gebruikers` WHERE `user_id`=:loginas");
@@ -45,7 +45,10 @@ if(isset($_SESSION['id'])){
     #Is de has niet goed dan uitloggen en inloggen opnieuw laden
     if ($_SESSION['hash'] <> $md5hash) include('logout.php');
 
-    mysql_query("UPDATE `gebruikers` SET `online`='".time()."' WHERE `user_id`='".$_SESSION['id']."'");
+    $setOnline = "UPDATE `gebruikers` SET `online`='".time()."' WHERE `user_id`=:user_id";
+    $stmt = $db->prepare($setOnline);
+    $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $stmt->execute();
 
     #Load User Information
     $gebruikerSql = $db->query("SELECT g.*, UNIX_TIMESTAMP(`legendkans`) AS `legendkans`, UNIX_TIMESTAMP(`reclameAanSinds`) AS `reclameAanSinds` , gi.*, SUM(`Poke ball` + `Great ball` + `Ultra ball` + `Premier ball` + `Net ball` + `Dive ball` + `Nest ball` + `Repeat ball` + `Timer ball` + `Master ball` + `Potion` + `Super potion` + `Hyper potion` + `Full heal` + `Revive` + `Max revive` + `Pokedex` + `Pokedex chip` + `Pokedex zzchip` +`Fishing rod` + `Cave suit` + `Bike` + `Protein` + `Iron` + `Carbos` + `Calcium` + `HP up` + `Rare candy` + `Duskstone` + `Firestone` + `Leafstone` + `Moonstone` + `Ovalstone` + `Shinystone` + `Sunstone` + `Thunderstone` + `Waterstone` + `Dawnstone` + `TM01` + `TM02` + `TM03` + `TM04` + `TM05` + `TM06` + `TM07` + `TM08` + `TM09` + `TM10` + `TM11` + `TM12` + `TM13` + `TM14` + `TM15` + `TM16` + `TM17` + `TM18` + `TM19` + `TM20` + `TM21` + `TM22` + `TM23` + `TM24` + `TM25` + `TM26` + `TM27` + `TM28` + `TM29` + `TM30` + `TM31` + `TM32` + `TM33` + `TM34` + `TM35` + `TM36` + `TM37` + `TM38` + `TM39` + `TM40` + `TM41` + `TM42` + `TM43` + `TM44` + `TM45` + `TM46` + `TM47` + `TM48` + `TM49` + `TM50` + `TM51` + `TM52` + `TM53` + `TM54` + `TM55` + `TM56` + `TM57` + `TM58` + `TM59` + `TM60` + `TM61` + `TM62` + `TM63` + `TM64` + `TM65` + `TM66` + `TM67` + `TM68` + `TM69` + `TM70` + `TM71` + `TM72` + `TM73` + `TM74` + `TM75` + `TM76` + `TM77` + `TM78` + `TM79` + `TM80` + `TM81` + `TM82` + `TM83` + `TM84` + `TM85` + `TM86` + `TM87` + `TM88` + `TM89` + `TM90` + `TM91` + `TM92` + `HM01` + `HM02` + `HM03` + `HM04` + `HM05` + `HM06` + `HM07` + `HM08`) AS items                FROM gebruikers AS g INNER JOIN gebruikers_item AS gi
@@ -75,7 +78,7 @@ if(isset($_SESSION['id'])){
         }
     }
 
-    if($_GET['pokemon']){
+    if(isset($_GET['pokemon']) && $_GET['pokemon']){
 
         //get pokemon
         $getPokemon = $db->prepare("SELECT wild_id FROM pokemon_wild WHERE naam LIKE :pokemon LIMIT 1");
@@ -99,7 +102,11 @@ if(isset($_SESSION['id'])){
     //complete mission 7
     if($gebruiker['missie_7'] == 0){
         if($gebruiker['clan']) {
-            mysql_query("UPDATE `gebruikers` SET `missie_7`=1, `silver`=`silver`+2000,`rankexp`=rankexp+500 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
+
+            $setMission = $db->prepare("UPDATE `gebruikers` SET `missie_7`=1, `silver`=`silver`+2000,`rankexp`=rankexp+500 WHERE `user_id`=:user_id");
+            $setMission->bindValue(':user_id', $gebruiker['user_id'], PDO::PARAM_STR);
+            $setMission->execute();
+
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
@@ -108,7 +115,11 @@ if(isset($_SESSION['id'])){
     if($gebruiker['missie_8'] == 0){
         //check if bank is over 100 000
         if($gebruiker['hasStore']) {
-            mysql_query("UPDATE `gebruikers` SET `missie_8`=1, `silver`=`silver`+2250,`rankexp`=rankexp+500 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
+
+            $setMission = $db->prepare("UPDATE `gebruikers` SET `missie_8`=1, `silver`=`silver`+2250,`rankexp`=rankexp+500 WHERE `user_id`=:user_id");
+            $setMission->bindValue(':user_id', $gebruiker['user_id'], PDO::PARAM_STR);
+            $setMission->execute();
+
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
@@ -117,7 +128,11 @@ if(isset($_SESSION['id'])){
     if($gebruiker['missie_9'] == 0){
         //check if bank is over 100 000
         if($gebruiker['bank'] >= 100000) {
-            mysql_query("UPDATE `gebruikers` SET `missie_9`=1, `silver`=`silver`+3000,`rankexp`=rankexp+500 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
+
+            $setMission = $db->prepare("UPDATE `gebruikers` SET `missie_9`=1, `silver`=`silver`+3000,`rankexp`=rankexp+500 WHERE `user_id`=:user_id");
+            $setMission->bindValue(':user_id', $gebruiker['user_id'], PDO::PARAM_STR);
+            $setMission->execute();
+
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
@@ -125,9 +140,18 @@ if(isset($_SESSION['id'])){
     //complete mission 10
     if($gebruiker['missie_10'] == 0){
         //check if all badges have been archieved
-        $allBadges = mysql_fetch_assoc(mysql_query("SELECT user_id FROM `gebruikers_badges` WHERE `user_id`='" . $gebruiker['user_id'] . "' and `Boulder`=1 and `Cascade`=1 and `Thunder`=1 and `Rainbow`=1 and `Marsh`=1 and `Soul`=1 and `Volcano`=1 and `Earth`=1 and `Zephyr`=1 and `Hive`=1 and `Plain`=1 and `Fog`=1 and `Storm`=1 and `Mineral`=1 and `Glacier`=1 and `Rising`=1 and `Stone`=1 and `Knuckle`=1 and `Dynamo`=1 and `Heat`=1 and `Balance`=1 and `Feather`=1 and `Mind`=1 and `Rain`=1 and `Coal`=1 and `Forest`=1 and `Cobble`=1 and `Fen`=1 and `Relic`=1 and `Mine`=1 and `Icicle`=1 and `Beacon`=1 and `Trio`=1 and `Basic`=1 and `Insect`=1 and `Bolt`=1 and `Quake`=1 and `Jet`=1 and `Freeze`=1 and `Legend`=1 and `Bug`=1 and `Cliff`=1 and `Rumble`=1 and `Plant`=1 and `Voltage`=1 and `Fairy`=1 and `Psychic`=1 and `Iceberg`=1"));
+
+        $badgeSelectQuery = "SELECT user_id FROM `gebruikers_badges` WHERE `user_id`=:user_id and `Boulder`=1 and `Cascade`=1 and `Thunder`=1 and `Rainbow`=1 and `Marsh`=1 and `Soul`=1 and `Volcano`=1 and `Earth`=1 and `Zephyr`=1 and `Hive`=1 and `Plain`=1 and `Fog`=1 and `Storm`=1 and `Mineral`=1 and `Glacier`=1 and `Rising`=1 and `Stone`=1 and `Knuckle`=1 and `Dynamo`=1 and `Heat`=1 and `Balance`=1 and `Feather`=1 and `Mind`=1 and `Rain`=1 and `Coal`=1 and `Forest`=1 and `Cobble`=1 and `Fen`=1 and `Relic`=1 and `Mine`=1 and `Icicle`=1 and `Beacon`=1 and `Trio`=1 and `Basic`=1 and `Insect`=1 and `Bolt`=1 and `Quake`=1 and `Jet`=1 and `Freeze`=1 and `Legend`=1 and `Bug`=1 and `Cliff`=1 and `Rumble`=1 and `Plant`=1 and `Voltage`=1 and `Fairy`=1 and `Psychic`=1 and `Iceberg`=1";
+        $stmt = $db->prepare($badgeSelectQuery);
+        $stmt->bindParam(':user_id', $gebruiker['user_id'], PDO::PARAM_INT);
+        $stmt->execute();
+        $allBadges = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if($allBadges) {
-            mysql_query("UPDATE `gebruikers` SET `missie_10`=1, `silver`=`silver`+50000,`rankexp`=rankexp+600 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
+
+            $setMission = $db->prepare("UPDATE `gebruikers` SET `missie_10`=1, `silver`=`silver`+50000,`rankexp`=rankexp+600 WHERE `user_id`=:user_id");
+            $setMission->bindValue(':user_id', $gebruiker['user_id'], PDO::PARAM_STR);
+            $setMission->execute();
+
             echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
@@ -140,26 +164,54 @@ if(isset($_SESSION['id'])){
     //set mobile user
     $userIsMobile = find_mobile_browser();
     if($userIsMobile){
-        mysql_query("UPDATE `gebruikers` SET `ismobile`=1 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
+
+        $setMission = $db->prepare("UPDATE `gebruikers` SET `ismobile`=1 WHERE `user_id`=:user_id");
+        $setMission->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+        $setMission->execute();
+
     } else {
-        mysql_query("UPDATE `gebruikers` SET `ismobile`=0 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
+        $setMobile = "UPDATE `gebruikers` SET `ismobile`=0 WHERE `user_id`=:user_id";
+        $stmt = $db->prepare($setMobile);
+        $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+        $stmt->execute();
     }
 
 
-    if(($gebruiker['pagina'] != 'duel') AND ($page != 'pokemoncenter') AND (!$_SESSION['duel']['duel_id'])){
-        $tour_sql = mysql_query("SELECT * FROM toernooi WHERE deelnemers!='' AND no_1='0' ORDER BY toernooi DESC LIMIT 1");
-        if(mysql_num_rows($tour_sql) > 0){
-            $tour_info = mysql_fetch_assoc($tour_sql);
-            $round_sql = mysql_query("SELECT * FROM `toernooi_ronde` WHERE toernooi='".$tour_info['toernooi']."' AND winnaar_id = '0' AND (user_id_1 = '".$_SESSION['id']."' OR user_id_2 = '".$_SESSION['id']."')");
-            if(mysql_num_rows($round_sql) > 0){
-                $round_info = mysql_fetch_assoc($round_sql);
+    if(isset($_SESSION['duel']) &&($gebruiker['pagina'] != 'duel') && ($page != 'pokemoncenter') && (!$_SESSION['duel']['duel_id'])){
+
+        $tour_sql = $db->prepare("SELECT * FROM toernooi WHERE deelnemers!='' AND no_1='0' ORDER BY toernooi DESC LIMIT 1");
+        $tour_sql->execute();
+
+        if($tour_sql->rowCount() > 0){
+
+            $tour_info = $tour_sql->fetch(PDO::FETCH_ASSOC);
+
+            $round_sql = $db->prepare("SELECT * FROM `toernooi_ronde` WHERE toernooi=:toernooi AND winnaar_id = '0' AND (user_id_1 = :user_id OR user_id_2 = :user_id)");
+            $round_sql->bindParam(':toernooi', $tour_info['toernooi'], PDO::PARAM_STR);
+            $round_sql->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+            $round_sql->execute();
+
+            if($round_sql->rowCount() > 0){
+
+                $round_info = $round_info->fetch(PDO::FETCH_ASSOC);
+
                 $tour_over = strtotime($tour_info['tijd'])-strtotime(date("H:i:s"));
                 if($tour_over < 300 AND $tour_over > 0){
                     if(!$_SESSION['toernooi_sent']){
                         $_SESSION['toernooi_sent'] = TRUE;
+
                         $time = floor($tour_over/60);
-                        mysql_query("INSERT INTO `gebeurtenis` (`datum` ,`ontvanger_id` ,`bericht`)
-              VALUES ('".date('Y-m-d H:i:s')."', '".$_SESSION[ 'id']."', 'Het toernooi begint over '.$time.' maak je team klaar voor de battle.');");
+                        $currDate = date('Y-m-d H:i:s');
+                        $messageText = "Het toernooi begint over ".$time." maak je team klaar voor de battle.";
+                        $insertMessage = $db->prepare("INSERT INTO `gebeurtenis` (`datum` ,`ontvanger_id` ,`bericht`)
+                                                            VALUES (:currDate, 
+                                                            :ontvanger_id, 
+                                                            :messageText)");
+                        $insertMessage->bindParam(':toernooi', $_SESSION['id'], PDO::PARAM_STR);
+                        $insertMessage->bindParam(':currDate', $currDate, PDO::PARAM_STR);
+                        $insertMessage->bindParam(':messageText', $messageText, PDO::PARAM_STR);
+                        $insertMessage->execute();
+
                     }
                     header("refresh: ".$tour_over."; url=index.php?page=attack/tour_fight");
                 }
@@ -193,27 +245,46 @@ if(isset($_SESSION['id'])){
     $gebruiker_pokemon['procent'] = round((count($result)/650)*100);
 
     #Load User Pokemon
-    ############################################### pw.wereld hoeft niet als we alle 5e generatie pokemon images hebben :)
-    $pokemon_sql = mysql_query("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".$_SESSION['id']."' AND ps.opzak='ja' ORDER BY ps.opzak_nummer ASC");
-    $gebruiker['in_hand'] = mysql_num_rows($pokemon_sql);
-    $pokemon_all = mysql_query("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".$_SESSION['id']."'");
+    $pokemon_sql = $db->prepare("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* 
+                                           FROM pokemon_wild AS pw 
+                                           INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id 
+                                           WHERE ps.user_id=:user_id AND ps.opzak='ja' 
+                                           ORDER BY ps.opzak_nummer ASC");
+    $pokemon_sql->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $pokemon_sql->execute();
+    $gebruiker['in_hand'] = $pokemon_sql->rowCount();
 
-    while($pokemon = mysql_fetch_assoc($pokemon_all)){
+    $pokemon_all = $db->prepare("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* 
+                                           FROM pokemon_wild AS pw 
+                                           INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id 
+                                           WHERE ps.user_id=:user_id");
+    $pokemon_all->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $pokemon_all->execute();
+    $pokemon_all = $pokemon_all->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach($pokemon_all as $pokemon){
         if($pokemon['trade'] != 1){
             #informatie van level
             $nieuwelevel = $pokemon['level']+1; # Dit was 2
             $levelnieuw = $pokemon['level']+1;
 
             #Script aanroepen dat berekent als pokemon evolueert of een aanval leert
-            if((!$_SESSION['aanvalnieuw']) AND (!$_SESSION['evolueren']))
-                $toestemming = levelgroei($levelnieuw,$pokemon);
+            if((!isset($_SESSION['aanvalnieuw'])) && (!isset($_SESSION['evolueren']))) {
+                $toestemming = levelgroei($levelnieuw, $pokemon);
+            }
         }
     }
-    $pokemon_all = mysql_query("SELECT pw.naam, pw.type1, pw.type2, pw.zeldzaamheid, pw.groei, pw.aanval_1, pw.aanval_2, pw.aanval_3, pw.aanval_4, ps.* FROM pokemon_wild AS pw INNER JOIN pokemon_speler AS ps ON ps.wild_id = pw.wild_id WHERE ps.user_id='".$_SESSION['id']."'");
 
     #Load User Messages
-    $inbox = mysql_num_rows(mysql_query("SELECT `id` FROM `berichten` WHERE `ontvanger_id`='".$_SESSION['id']."'"));
-    $inbox_new = mysql_num_rows(mysql_query("SELECT `id` FROM `berichten` WHERE `ontvanger_id`='".$_SESSION['id']."' AND `gelezen`='0'"));
+    $inboxQuery = $db->prepare("SELECT `id` FROM `berichten` WHERE `ontvanger_id`=:user_id");
+    $inboxQuery->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $inboxQuery->execute();
+    $inbox = $inboxQuery->rowCount();
+
+    $inboxNewQuery = $db->prepare("SELECT `id` FROM `berichten` WHERE `ontvanger_id`=:user_id AND `gelezen`='0'");
+    $inboxNewQuery->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $inboxNewQuery->execute();
+    $inbox_new = $inboxNewQuery->rowCount();
 
     if($gebruiker['admin'] == 1) $inbox_allowed = 1000;
     elseif($gebruiker['admin'] == 2) $inbox_allowed = 1250;
@@ -226,7 +297,10 @@ if(isset($_SESSION['id'])){
     else $inbox_txt = '<span><a href="?page=inbox">'.$inbox.' / '.$inbox_allowed.'</a></span>';
 
     #Load User Events
-    $event_new = mysql_num_rows(mysql_query("SELECT `id` FROM `gebeurtenis` WHERE `ontvanger_id`='".$_SESSION['id']."' AND `gelezen`='0' and `type` NOT LIKE 'catch'"));
+    $eventsQuery = $db->prepare("SELECT `id` FROM `gebeurtenis` WHERE `ontvanger_id`=:user_id AND `gelezen`='0' and `type` NOT LIKE 'catch'");
+    $eventsQuery->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $eventsQuery->execute();
+    $event_new = $eventsQuery->rowCount();
 
     if($event_new == 0) $event_txt = '<span><a href="?page=events">'.$txt['stats_none'].'</a></span>';
     else $event_txt = '<span><a href="?page=events" style="color:#0bbe03;">'.$event_new.' '.$txt['stats_new'].'</a></span>';
@@ -235,7 +309,13 @@ if(isset($_SESSION['id'])){
 
 if(isset($gebruiker)) {
     #Check if you're asked for a duel MOET OOK ANDERS -> Event! ;)
-    $duel_sql = mysql_query("SELECT `id`, `datum`, `uitdager`, `tegenstander`, `bedrag`, `status` FROM `duel` WHERE `tegenstander`='" . $gebruiker['username'] . "' AND (`status`='wait') ORDER BY id DESC LIMIT 1");
+
+    $duel_sql = $db->prepare("SELECT `id`, `datum`, `uitdager`, `tegenstander`, `bedrag`, `status` 
+                                        FROM `duel` 
+                                        WHERE `tegenstander`=:username AND (`status`='wait') 
+                                        ORDER BY id DESC LIMIT 1");
+    $duel_sql->bindParam(':username', $gebruiker['username'], PDO::PARAM_STR);
+    $duel_sql->execute();
 }
 
 #?page= systeem opbouwen
@@ -245,7 +325,12 @@ elseif(empty($_SESSION['id'])) $page = $page;
 elseif($page == 'attack/tour_fight') $page = $page;
 elseif($page == 'attack/wild2/wild-attack') $page = $page;
 else{
-    $duel_test = mysql_query("SELECT `id` FROM `duel` WHERE `status`='wait' AND `uitdager`='".$_SESSION['naam']."'");
+
+    $duelCheckQuery = $db->prepare("SELECT `id` FROM `duel` WHERE `status`='wait' AND `uitdager`=:naam");
+    $duelCheckQuery->bindParam(':naam', $_SESSION['naam'], PDO::PARAM_STR);
+    $duelCheckQuery->execute();
+    $duelCheck = $duelCheckQuery->rowCount();
+
     #Als deze sessie bestaat deze pagina weergeven.
     if(!empty($_SESSION['aanvalnieuw'])){
         #Code opvragen en decoderen
@@ -265,33 +350,47 @@ else{
     }
     elseif(isset($gebruiker) && ($gebruiker['wereld'] == ''))
         $page = "wereld";
-    elseif(isset($gebruiker) && ($gebruiker['eigekregen'] == 0) || ($_SESSION['eikeuze'] == 1))
+    elseif((isset($gebruiker) && ($gebruiker['eigekregen'] == 0)) || (isset($_SESSION['eikeuze']) && ($_SESSION['eikeuze'] == 1)))
         $page = "beginning";
     #Is speler bezig met aanvallen?
     elseif(isset($gebruiker) && $gebruiker['pagina'] == 'attack'){
         $page = "attack/wild/wild-attack";
         if(isset($gebruiker) && $gebruiker['test'] == 1) $page = "attack/wild2/wild-attack";
-        $res = mysql_fetch_assoc(mysql_query("SELECT `id` FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'"));
+
+        $checkAttack = $db->prepare("SELECT `id` FROM `aanval_log` WHERE `user_id`=:user_id");
+        $checkAttack->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+        $checkAttack->execute();
+        $res = $checkAttack->fetch(PDO::FETCH_ASSOC);
+
         $_SESSION['attack']['aanval_log_id'] = $res['id'];
     }
     elseif(isset($gebruiker) && $gebruiker['pagina'] == 'trainer-attack'){
         $page = "attack/trainer/trainer-attack";
-        $res = mysql_fetch_assoc(mysql_query("SELECT `id` FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'"));
+
+        $checkAttack = $db->prepare("SELECT `id` FROM `aanval_log` WHERE `user_id`=:user_id");
+        $checkAttack->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+        $checkAttack->execute();
+        $res = $checkAttack->fetch(PDO::FETCH_ASSOC);
+
         $_SESSION['attack']['aanval_log_id'] = $res['id'];
     }
-    elseif(isset($gebruiker) && ($gebruiker['pagina'] == 'duel') && (mysql_num_rows($duel_test) > 0))
+    elseif(isset($gebruiker) && ($gebruiker['pagina'] == 'duel') && ($duelCheck > 0))
         $page = $_GET['page'];
     elseif(isset($gebruiker) && $gebruiker['pagina'] == 'duel')
         $page = "attack/duel/duel-attack";
     #Word speler uit gedaagd voor duel?
-    elseif(mysql_num_rows($duel_sql) == 1)
+    elseif($duelCheck == 1)
         $page = "attack/duel/invited";
 }
 
 if(isset($gebruiker) && ($page != "attack/duel/duel-attack") && ($gebruiker['pagina'] == 'duel')){
-    mysql_query("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`='".$_SESSION['id']."'");
-    mysql_query("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
-    mysql_query("DELETE FROM `duel` WHERE `uitdager`='".$_SESSION['naam']."' OR `tegenstander`='".$_SESSION['naam']."'");
+
+    $setDuel = $db->prepare("UPDATE `gebruikers` SET `pagina`='duel_start' WHERE `user_id`=:user_id;
+                                       DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`=:user_id;
+                                       DELETE FROM `duel` WHERE `uitdager`=:naam OR `tegenstander`=:naam");
+    $setDuel->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $setDuel->bindParam(':naam', $_SESSION['naam'], PDO::PARAM_STR);
+    $setDuel->execute();
 }
 
 if(isset($gebruiker)) {
@@ -386,12 +485,25 @@ if(isset($_SESSION['id']) and ($gebruiker['admin'] == 3 or getSetting('showExitB
     ?>
     <a href="index.php?page=home&e=1" class="pull-right" style="margin-right: 5px;">exit</a>
     <?
-    if($_GET['e'] == true){
-        $res = mysql_fetch_assoc(mysql_query("SELECT `id` FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'"));
-        mysql_query("UPDATE `gebruikers` SET `pagina`='attack_start' WHERE `user_id`='".$_SESSION['id']."'");
-        mysql_query("DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`='".$_SESSION['id']."'");
-        mysql_query("DELETE FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`='".$res['id']."'");
-        mysql_query("DELETE FROM `aanval_log` WHERE `user_id`='".$_SESSION['id']."'");
+    if(isset($_GET['e']) && $_GET['e'] == true){
+
+
+        $getAttack = "SELECT `id` FROM `aanval_log` WHERE `user_id`=:user_id";
+        $stmt = $db->prepare($getAttack);
+        $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+        $stmt->execute();
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if($res) {
+            $removeAttack = "UPDATE `gebruikers` SET `pagina`='attack_start' WHERE `user_id`=:user_id;
+                             DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`=:user_id;
+                             DELETE FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`=:attack_id;
+                             DELETE FROM `aanval_log` WHERE `user_id`=:user_id";
+            $stmt = $db->prepare($getAttack);
+            $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+            $stmt->bindParam(':attack_id', $_SESSION['id'], PDO::PARAM_INT);
+            $stmt->execute();
+        }
     }
 }
 
@@ -564,7 +676,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                         </ul>
                                     </ul>
                                 </li>
-                                <li class="menu li"><a href="?page=area-market"><center>Premium <?php echo $txt['menu_area_market']; ?><img src="images/items/Poke%20ball.png" width="14" height="14" alt="Go Right" /></center></a>
+                                <li class="menu li"><a href="?page=area-market"><center><?php echo $txt['menu_area_market']; ?> <img src="images/items/Poke%20ball.png" width="14" height="14" alt="Go Right" /></center></a>
                                     <? if($gebruiker['premiumaccount'] >= 1) echo '<ul class="menu">
                                         <li class="menu li"><a href="?page=premiummarket">Premium Markt</a></li>
                                     </ul>'; ?>
@@ -672,11 +784,15 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                 <? } ?>
 
                 <?php if(!empty($_SESSION['id'])){ ?>
-                    <? // gegevens van de berichtenbalk ophalen uit de database
-                    $berichtenbalk = mysql_query("SELECT * FROM `gebeurtenis`
-                                            INNER JOIN `gebruikers`
-                                            ON gebruikers.user_id = gebeurtenis.ontvanger_id
-                                            WHERE `type` = 'catch' ORDER BY gebeurtenis.id DESC LIMIT 10") or die (mysql_error());
+                    <?
+                    // gegevens van de berichtenbalk ophalen uit de database
+                    $berichtenbalkQuery = "SELECT * FROM `gebeurtenis`
+                                        INNER JOIN `gebruikers`
+                                        ON gebruikers.user_id = gebeurtenis.ontvanger_id
+                                        WHERE `type` = 'catch' ORDER BY gebeurtenis.id DESC LIMIT 10";
+                    $stmt = $db->prepare($berichtenbalkQuery);
+                    $stmt->execute();
+                    $berichtenbalk = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     //start van de marquee
                     ?>
@@ -686,9 +802,8 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                             <?
 
                             //berichtenbalk weergeven
-                            while($rij = mysql_fetch_assoc($berichtenbalk))
-                            {
-                                echo "<b><a href=\"?page=profile&player=".$rij['username']."\">".$rij['username']."</a></b> : ".$rij['bericht']." | ";
+                            foreach($berichtenbalk as $rij) {
+                                echo "<b><a href=\"?page=profile&player=" . $rij['username'] . "\">" . $rij['username'] . "</a></b> : " . $rij['bericht'] . " | ";
                             }
 
                             //einde van de marquee
@@ -773,7 +888,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         <div class="rel"></div>
                         <div class="teksts">
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                            <script type="text/javascript" src="<? echo $layoutRoot; ?>js/shoutbox.js"></script>
+                            <script type="text/javascript" src="js/shoutbox.js"></script>
 
                             <ul id="messages" class="wordwrap">
                                 <li>Bezig met berichten ophalen…</li>
@@ -1029,13 +1144,19 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                 <?
                                 #Show ALL pokemon in hand
                                 if ($gebruiker['in_hand'] > 0) {
-                                    while ($pokemon = mysql_fetch_assoc($pokemon_sql)) {
+
+                                    $pokemons = $pokemon_sql->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($pokemons as $pokemon) {
                                         $dateadd = strtotime(date('Y-m-d H:i:s')) - 600;
                                         $date = date('Y-m-d H:i:s', $dateadd);
                                         #Check if Pokemon have to hatch
                                         if (($pokemon['ei'] == 1) AND ($pokemon['ei_tijd'] < $date)) {
+
                                             update_pokedex($pokemon['wild_id'], '', 'ei');
-                                            mysql_query("UPDATE pokemon_speler SET ei='0' WHERE id='" . $pokemon['id'] . "'");
+
+                                            $setEgg = $db->prepare("UPDATE pokemon_speler SET ei='0' WHERE id=:pokemon_id");
+                                            $setEgg->bindParam(':pokemon_id', $pokemon["id"], PDO::PARAM_INT);
+                                            $setEgg->execute();
                                         }
                                         $pokemon = pokemonei($pokemon);
                                         $pokemon['naam'] = pokemon_naam($pokemon['naam'], $pokemon['roepnaam']);
@@ -1070,12 +1191,17 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                             <li style="list-style: none;margin-left: 20px;">
                                 <br/>
                                 <?
-                                $forum_topics=mysql_query("SELECT *,DATE_FORMAT(`laatste_datum`,'%d-%m-%Y') AS `laatste_datum` FROM `forum_topics` ORDER BY `topic_id` DESC LIMIT 6");
-                                while($forum_topic=mysql_fetch_object($forum_topics)){
-                                    $topic_naam = $forum_topic->topic_naam;
-                                    $auteur_naam = $forum_topic->auteur_naam;
+
+                                $forumQuery = "SELECT *,DATE_FORMAT(`laatste_datum`,'%d-%m-%Y') AS `laatste_datum` FROM `forum_topics` ORDER BY `topic_id` DESC LIMIT 6";
+                                $stmt = $db->prepare($forumQuery);
+                                $stmt->execute();
+                                $forum_topics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                foreach($forum_topics as $forum_topic){
+                                    $topic_naam = $forum_topic['topic_naam'];
+                                    $auteur_naam = $forum_topic['auteur_naam'];
                                     ?>
-                                    <span style="float:left;width: 65px;"><b><?= $auteur_naam ?></b></span><a href="?page=forum-messages&category=<?= $forum_topic->categorie_id ?>&thread=<?= $forum_topic->topic_id ?>"><span style="margin-left: 20px;"><?= $topic_naam ?></a></span><br/>
+                                    <span style="float:left;width: 65px;"><b><?= $auteur_naam ?></b></span><a href="?page=forum-messages&category=<?= $forum_topic['categorie_id'] ?>&thread=<?= $forum_topic['topic_id'] ?>"><span style="margin-left: 20px;"><?= $topic_naam ?></a></span><br/>
                                     <?
 
                                 }
@@ -1237,6 +1363,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             $results->execute();
             $results = $results->fetch();
 
+            $sum = 0;
             foreach($results as $result) {
                 $sum+= $result;
             }

@@ -58,8 +58,12 @@ if ( isset($_POST['content']) and isset($_SESSION['naam']) )
     );
     $tekst = strtr($tekst,$replaceWith);
 
-    mysql_query("INSERT INTO shoutbox (username,content,post_time,clan)
-    VALUES('".$_SESSION['naam']."','".mysql_escape_string($tekst)."',NOW(),NULL)") or die("Er is iets mis gegaan, contacteer de webmaster.");
+    $sendMessage = "INSERT INTO shoutbox (username,content,post_time,clan)
+                    VALUES(:naam,:tekst,NOW(),NULL)";
+    $stmt = $db->prepare($sendMessage);
+    $stmt->bindParam(':tekst', $tekst, PDO::PARAM_STR);
+    $stmt->bindParam(':naam', $_SESSION['naam'], PDO::PARAM_STR);
+    $stmt->execute();
 
     if(file_exists('cache/shoutbox.txt')) {
         unlink('cache/shoutbox.txt');

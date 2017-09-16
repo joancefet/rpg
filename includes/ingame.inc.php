@@ -1,7 +1,13 @@
 <?
 function getSetting($setting) {
 
-    $settings = mysql_fetch_array(mysql_query("SELECT * FROM settings WHERE setting = '" . $setting . "'"));
+    global $db;
+
+    $query = "SELECT * FROM settings WHERE setting = :setting";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':setting', $setting, PDO::PARAM_STR);
+    $stmt->execute();
+    $settings = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return $settings['value'];
 
@@ -236,6 +242,7 @@ function page_timer($page, $timer) {
 
 #Als speler er rank bij krijgt
 function rankerbij($soort, $txt) {
+    global $db;
     global $pokemonnaam;
 
     #Kijken wat speler gedaan heeft
@@ -256,11 +263,23 @@ function rankerbij($soort, $txt) {
         $soort = 5;
     elseif ($soort == "duel")
         $soort = 5;
-    //Kijken als speler niet boven de max zit.
-    $spelerrank = mysql_fetch_assoc(mysql_query("SELECT `land`, `rankexp`, `rankexpnodig`, `rank` FROM `gebruikers` WHERE `user_id`='" . $_SESSION['id'] . "'"));
+
+    //Kijken of de speler niet boven de max zit.
+    $rankSelectQuery = "SELECT `land`, `rankexp`, `rankexpnodig`, `rank` FROM `gebruikers` WHERE `user_id`= :user_id";
+    $stmt = $db->prepare($rankSelectQuery);
+    $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $spelerrank = $stmt->fetch(PDO::FETCH_ASSOC);
+
     $rank = rank($spelerrank['rank']);
     $uitkomst = round((($rank['ranknummer'] / 0.11) * $soort) / 3);
-    mysql_query("UPDATE `gebruikers` SET `rankexp`=`rankexp`+'" . $uitkomst . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
+
+    $uitkomstQuery = "UPDATE `gebruikers` SET `rankexp`=`rankexp`+:uitkomst WHERE `user_id`=:user_id";
+    $stmt = $db->prepare($uitkomstQuery);
+    $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $stmt->bindParam(':uitkomst', $uitkomst, PDO::PARAM_STR);
+    $stmt->execute();
+
     //Heeft speler genoeg punten om rank omhoog te gaan?
     $spelerrank['rankexp'] = $spelerrank['rankexp'] + $uitkomst;
     if ($spelerrank['rankexpnodig'] <= $spelerrank['rankexp']) {
@@ -268,30 +287,58 @@ function rankerbij($soort, $txt) {
         $rankexpover = $spelerrank['rankexp'] - $spelerrank['rankexpnodig'];
         //Nieuwe rank level bepalen
         $ranknieuw = $spelerrank['rank'] + 1;
-        //Gegevens laden van de nieuwe ranklevel
-        $query = mysql_fetch_assoc(mysql_query("SELECT `naam`, `punten`, `naam` FROM `rank` WHERE `ranknummer`='" . $ranknieuw . "'"));
-        //Nieuwe gegevens opslaan bij de gebruiker
-        if ($ranknieuw == 34)
-            mysql_query("UPDATE `gebruikers` SET `rank`='33', `rankexp`='1', `rankexpnodig`='170000000' WHERE `user_id`='" . $_SESSION['id'] . "'"); else
-            mysql_query("UPDATE `gebruikers` SET `rank`='" . $ranknieuw . "', `rankexp`='" . $rankexpover . "', `rankexpnodig`='" . $query['punten'] . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
 
-        ##Event taal pack includen
-        //$eventlanguage = GetEventLanguage($spelerrank['land']);
-        //include('../slanguage/events/language-events-'.$eventlanguage.'.php');
-        include('../slanguage/events/language-events-nl.php');
+        //Gegevens laden van de nieuwe ranklevel
+        $ranknieuwQuery = "SELECT `naam`, `punten`, `naam` FROM `rank` WHERE `ranknummer`=:ranknieuw";
+        $stmt = $db->prepare($ranknieuwQuery);
+        $stmt->bindParam(':ranknieuw', $ranknieuw, PDO::PARAM_STR);
+        $stmt->execute();
+        $query = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        //Nieuwe gegevens opslaan bij de gebruiker
+        if ($ranknieuw == 34){
+
+            $rankNewQuery = "UPDATE `gebruikers` SET `rank`='33', `rankexp`='1', `rankexpnodig`='170000000' WHERE `user_id`=:user_id";
+            $stmt = $db->prepare($rankNewQuery);
+            $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->execute();
+        }else{
+
+            $rankNewQuery = "UPDATE `gebruikers` SET `rank`=:ranknieuw, `rankexp`=:rankexpover, `rankexpnodig`=:punten WHERE `user_id`=:user_id";
+            $stmt = $db->prepare($rankNewQuery);
+            $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->bindParam(':punten', $query['punten'], PDO::PARAM_STR);
+            $stmt->bindParam(':rankexpover', $rankexpover, PDO::PARAM_STR);
+            $stmt->bindParam(':ranknieuw', $ranknieuw, PDO::PARAM_STR);
+            $stmt->execute();
+
+        }
+
+        //load event language
+        $eventlanguage = GetEventLanguage($spelerrank['land']);
+        include('language/events/language-events-'.$eventlanguage.'.php');
+        $rank = rank($ranknieuw);
 
         if ($pokemonnaam) {
             $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower" /> ' . $pokemonnaam . ' ' . $txt['event_is_level_up'];
-            #Melding geven aan de uitdager
-            mysql_query(
-                "INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen)
-	  VALUES (NULL, NOW(), '" . $_SESSION['id'] . "', '" . $event . "', '0')");
+        } else {
+            $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower" /> ' . $txt['event_rank_up'].' '.$rank['ranknaam'];;
         }
+            #Melding geven aan de uitdager
+            $query = "INSERT INTO gebeurtenis (id, datum, ontvanger_id, bericht, gelezen,type)
+	                    VALUES (NULL, NOW(), :user_id, :event, '0', '')";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+            $stmt->bindParam(':event', $event, PDO::PARAM_STR);
+            $event = $stmt->execute();
     }
 }
 
 //Als speler er rank bij krijgt
 function rankeraf($soort) {
+
+    global $db;
+
     //Kijken wat speler gedaan heeft
     if ($soort == "werken")
         $soort = 1; elseif ($soort == "race")
@@ -302,15 +349,27 @@ function rankeraf($soort) {
         $soort = 2;
     elseif ($soort == "attack_lose")
         $soort = 3;
+
     //Kijken als speler niet boven de max zit.
-    $spelerrank = mysql_fetch_assoc(mysql_query("SELECT `rank` FROM `gebruikers` WHERE `user_id`='" . $_SESSION['id'] . "'"));
+    $rankSelectQuery = "SELECT `rank` FROM `gebruikers` WHERE `user_id`= :user_id";
+    $stmt = $db->prepare($rankSelectQuery);
+    $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $spelerrank = $stmt->fetch(PDO::FETCH_ASSOC);
+
     $rank = rank($spelerrank['rank']);
     $uitkomst = floor(($rank['ranknummer'] / 0.15) * $soort) / 3;
-    mysql_query("UPDATE `gebruikers` SET `rankexp`=`rankexp`-'" . $uitkomst . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
+
+    $uitkomstQuery = "UPDATE `gebruikers` SET `rankexp`=`rankexp`-:uitkomst WHERE `user_id`=:user_id";
+    $stmt = $db->prepare($uitkomstQuery);
+    $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
+    $stmt->bindValue(':uitkomst', $uitkomst, PDO::PARAM_STR);
+    $stmt->execute();
 }
 
 //Berekenen als het effect moet gebeuren of niet.
 function kans($nummer) {
+
     //Willekeurig getal nemen tussen 1 en 100
     $getal = rand(1, 100);
     //Als nummer bijv. 50 is word deze loop 50x uitgevoerd
@@ -324,71 +383,109 @@ function kans($nummer) {
 
 //Als pokemon aanval leert of evolueert
 function levelgroei($levelnieuw, $pokemon) {
+    global $db;
+
     //Gegevens laden van pokemon die leven groeit uit levelen tabel
-    $levelensql = mysql_query("SELECT `id`, `level`, `trade`, `wild_id`, `wat`, `nieuw_id`, `aanval` FROM `levelen` WHERE `wild_id`='" . $pokemon['wild_id'] . "' AND `stone`=''");
+    $rankSelectQuery = "SELECT `id`, `level`, `trade`, `wild_id`, `wat`, `nieuw_id`, `aanval` FROM `levelen` WHERE `wild_id`=:wild_id AND `stone`=''";
+    $stmt = $db->prepare($rankSelectQuery);
+    $stmt->bindParam(':wild_id', $pokemon['wild_id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $levelensql = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     //Voor elke actie kijken als het klopt.
-    while ($levelen = mysql_fetch_assoc($levelensql)) {
+    foreach ($levelensql as $levelen) {
         //als de actie een aanval leren is
+
         if ($levelen['wat'] == "att") {
             //Komt het benodigde level overeen
             if ($levelen['level'] == $levelnieuw) {
                 //Kent de pokemon deze aanval al
                 if (($pokemon['aanval_1'] != $levelen['aanval']) AND ($pokemon['aanval_2'] != $levelen['aanval']) AND ($pokemon['aanval_3'] != $levelen['aanval']) AND ($pokemon['aanval_4'] != $levelen['aanval'])) {
-                    //Als er 1 plek leeg is
                     if ((empty($pokemon['aanval_1'])) OR (empty($pokemon['aanval_2'])) OR (empty($pokemon['aanval_3'])) OR (empty($pokemon['aanval_4']))) {
-                        //Is de eerst plek niet leeg
                         if (!empty($pokemon['aanval_1'])) {
-                            //Is de tweede plek niet leeg
-                            if (!empty($pokemon['aanval_2'])) {
-                                //Is de derde plek niet leeg
-                                if (!empty($pokemon['aanval_3'])) {
-                                    //Is de vierde plek niet leeg, dan moet er gekozen worden, code maken die word mee gegeven
-                                    if (!empty($pokemon['aanval_4'])) {
-                                        if (!$_SESSION['aanvalnieuw'])
-                                            $_SESSION['aanvalnieuw'] = base64_encode($pokemon['id'] . "/" . $levelen['aanval']);
-                                    } //Als de vierde plek wel leeg is dan aanval daar opslaan
-                                    else mysql_query("UPDATE `pokemon_speler` SET `aanval_4`='" . $levelen['aanval'] . "' WHERE `id`='" . $pokemon['id'] . "'");
-                                } //Als de derde plek wel leeg is dan aanval daar opslaan
-                                else mysql_query("UPDATE `pokemon_speler` SET `aanval_3`='" . $levelen['aanval'] . "' WHERE `id`='" . $pokemon['id'] . "'");
-                            } //Als de tweede plek wel leeg is dan aanval daar opslaan
-                            else  mysql_query("UPDATE `pokemon_speler` SET `aanval_2`='" . $levelen['aanval'] . "' WHERE `id`='" . $pokemon['id'] . "'");
-                        } //Als de eerste plek wel leeg is dan aanval daar opslaan
-                        else mysql_query("UPDATE `pokemon_speler` SET `aanval_1`='" . $levelen['aanval'] . "' WHERE `id`='" . $pokemon['id'] . "'");
-                    } //Is alles vol, dan moet er gekozen worden
-                    else {
+                            $setAttack = "UPDATE `pokemon_speler` SET `aanval_1`=:aanval WHERE `id`=:pokemon";
+                            $stmt = $db->prepare($setAttack);
+                            $stmt->bindValue(':pokemon', $pokemon['id'], PDO::PARAM_STR);
+                            $stmt->bindValue(':aanval', $levelen['aanval'], PDO::PARAM_STR);
+                            $stmt->execute();
+
+                        } elseif (!empty($pokemon['aanval_2'])) {
+                            $setAttack = "UPDATE `pokemon_speler` SET `aanval_2`=:aanval WHERE `id`=:pokemon";
+                            $stmt = $db->prepare($setAttack);
+                            $stmt->bindValue(':pokemon', $pokemon['id'], PDO::PARAM_STR);
+                            $stmt->bindValue(':aanval', $levelen['aanval'], PDO::PARAM_STR);
+                            $stmt->execute();
+
+                        } elseif (!empty($pokemon['aanval_3'])) {
+                            $setAttack = "UPDATE `pokemon_speler` SET `aanval_3`=:aanval WHERE `id`=:pokemon";
+                            $stmt = $db->prepare($setAttack);
+                            $stmt->bindValue(':pokemon', $pokemon['id'], PDO::PARAM_STR);
+                            $stmt->bindValue(':aanval', $levelen['aanval'], PDO::PARAM_STR);
+                            $stmt->execute();
+
+                        } elseif (!empty($pokemon['aanval_4'])) {
+                            $setAttack = "UPDATE `pokemon_speler` SET `aanval_4`=:aanval WHERE `id`=:pokemon";
+                            $stmt = $db->prepare($setAttack);
+                            $stmt->bindValue(':pokemon', $pokemon['id'], PDO::PARAM_STR);
+                            $stmt->bindValue(':aanval', $levelen['aanval'], PDO::PARAM_STR);
+                            $stmt->execute();
+
+                        }
                         if (!$_SESSION['aanvalnieuw'])
                             $_SESSION['aanvalnieuw'] = base64_encode($pokemon['id'] . "/" . $levelen['aanval']);
                     }
                 }
-            }
-        } //Gaat de pokemon evolueren
-        elseif ($levelen['wat'] == "evo") {
+            } //gaat de pokemon evolueren
+        } elseif ($levelen['wat'] == "evo") {
             //Is het level groter of gelijk aan de level die benodigd is? Naar andere pagina gaan
             if (($levelen['level'] <= $levelnieuw) OR (($levelen['trade'] == 1) AND ($pokemon['trade'] == "1.5"))) {
                 $code = base64_encode($pokemon['id'] . "/" . $levelen['nieuw_id']);
-                if (!$_SESSION['evolueren'])
-                    $_SESSION['evolueren'] = $code; elseif ((!$_SESSION['evolueren2']) && ($_SESSION['evolueren'] != $code))
+                if (!$_SESSION['evolueren']) {
+                    $_SESSION['evolueren'] = $code;
+                } elseif ((!$_SESSION['evolueren2']) && ($_SESSION['evolueren'] != $code)) {
                     $_SESSION['evolueren2'] = $code;
-                elseif ((!$_SESSION['evolueren3']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code))
+                } elseif ((!$_SESSION['evolueren3']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code)) {
                     $_SESSION['evolueren3'] = $code;
-                elseif ((!$_SESSION['evolueren4']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code) && ($_SESSION['evolueren3'] != $code))
+                } elseif ((!$_SESSION['evolueren4']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code) && ($_SESSION['evolueren3'] != $code)) {
                     $_SESSION['evolueren4'] = $code;
-                elseif ((!$_SESSION['evolueren5']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code) && ($_SESSION['evolueren3'] != $code) && ($_SESSION['evolueren4'] != $code))
+                } elseif ((!$_SESSION['evolueren5']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code) && ($_SESSION['evolueren3'] != $code) && ($_SESSION['evolueren4'] != $code)) {
                     $_SESSION['evolueren5'] = $code;
-                elseif ((!$_SESSION['evolueren6']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code) && ($_SESSION['evolueren3'] != $code) && ($_SESSION['evolueren4'] != $code) && ($_SESSION['evolueren5'] != $code))
+                } elseif ((!$_SESSION['evolueren6']) && ($_SESSION['evolueren'] != $code) && ($_SESSION['evolueren2'] != $code) && ($_SESSION['evolueren3'] != $code) && ($_SESSION['evolueren4'] != $code) && ($_SESSION['evolueren5'] != $code)) {
                     $_SESSION['evolueren6'] = $code;
+                }
+            } else {
+                return true;
             }
-        } else return True;
+        }
     }
 }
 
 //Als pokemon level groeit
 function nieuwestats($pokemon, $levelnieuw, $nieuwexp) {
+
+    global $db;
+
     //Gegevens opzoeken in de experience tabel en karakter tabel
     $explevel = $levelnieuw + 1;
-    if ($explevel < 101)
-        $info = mysql_fetch_assoc(mysql_query("SELECT experience.punten, karakters.* FROM experience INNER JOIN karakters WHERE experience.soort='" . $pokemon['groei'] . "' AND experience.level='" . $explevel . "' AND karakters.karakter_naam='" . $pokemon['karakter'] . "'")); else {
-        $info = mysql_fetch_assoc(mysql_query("SELECT * FROM karakters WHERE karakter_naam='" . $pokemon['karakter'] . "'"));
+    if ($explevel < 101){
+
+        $infoQuery = "SELECT experience.punten, karakters.* 
+                      FROM experience INNER JOIN karakters 
+                      WHERE experience.soort=:groei AND experience.level=:explevel AND karakters.karakter_naam=:karakter";
+        $stmt = $db->prepare($infoQuery);
+        $stmt->bindParam(':groei', $pokemon['groei'], PDO::PARAM_STR);
+        $stmt->bindParam(':explevel', $explevel, PDO::PARAM_STR);
+        $stmt->bindParam(':karakter', $pokemon['karakter'], PDO::PARAM_STR);
+        $stmt->execute();
+        $info = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    }else {
+
+        $infoQuery = "SELECT * FROM karakters WHERE karakter_naam=:karakter";
+        $stmt = $db->prepare($infoQuery);
+        $stmt->bindParam(':karakter', $pokemon['karakter'], PDO::PARAM_STR);
+        $stmt->execute();
+        $info = $stmt->fetch(PDO::FETCH_ASSOC);
         $info['punten'] = 0;
     }
     //Exp bereken dat de pokemon over gehouden heeft en mee neemt naar het volgend level.
@@ -405,7 +502,33 @@ function nieuwestats($pokemon, $levelnieuw, $nieuwexp) {
     $hpstat = round(((((($pokemon['hp_base'] * 2 + $pokemon['hp_iv'] + floor($pokemon['hp_ev'] / 4)) * $levelnieuw / 100) + $levelnieuw) + 10) + $pokemon['hp_up']) * $info['speed_add']);
 
     //Stats opslaan
-    mysql_query("UPDATE `pokemon_speler` SET `level`='" . $levelnieuw . "', `levenmax`='" . $hpstat . "', `leven`='" . $hpstat . "', `exp`='" . $expover . "', `expnodig`='" . $info['punten'] . "', `attack`='" . $attackstat . "', `defence`='" . $defencestat . "', `speed`='" . $speedstat . "', `spc.attack`='" . $spcattackstat . "', `spc.defence`='" . $spcdefencestat . "', `effect`='', `hoelang`='' WHERE `id`='" . $pokemon['id'] . "'");
+    $saveStatsQuery = "UPDATE `pokemon_speler` SET 
+                        `level`=:levelnieuw, 
+                        `levenmax`=:hpstat, 
+                        `leven`=:hpstat, 
+                        `exp`=:expover, 
+                        `expnodig`=:punten, 
+                        `attack`=:attackstat, 
+                        `defence`=:defencestat, 
+                        `speed`=:speedstat, 
+                        `spc.attack`=:spcattackstat, 
+                        `spc.defence`=:spcdefencestat, 
+                        `effect`='', 
+                        `hoelang`='' 
+                        WHERE `id`=:pokemonUid";
+    $stmt = $db->prepare($saveStatsQuery);
+    $stmt->bindParam(':levelnieuw', $levelnieuw, PDO::PARAM_STR);
+    $stmt->bindParam(':hpstat', $hpstat, PDO::PARAM_STR);
+    $stmt->bindParam(':expover', $expover, PDO::PARAM_STR);
+    $stmt->bindParam(':punten', $info['punten'], PDO::PARAM_STR);
+    $stmt->bindParam(':attackstat', $attackstat, PDO::PARAM_STR);
+    $stmt->bindParam(':defencestat', $defencestat, PDO::PARAM_STR);
+    $stmt->bindParam(':speedstat', $speedstat, PDO::PARAM_STR);
+    $stmt->bindParam(':spcattackstat', $spcattackstat, PDO::PARAM_STR);
+    $stmt->bindParam(':spcdefencestat', $spcdefencestat, PDO::PARAM_STR);
+    $stmt->bindParam(':pokemonUid', $pokemon['id'], PDO::PARAM_STR);
+    $stmt->execute();
+
     return $info['punten'];
 }
 
@@ -496,8 +619,16 @@ function pokemon_popup($pokemon, $txt) {
 
 //Ranknaam bepalen a.d.v ranknummer(a)
 function rank($ranknummer) {
+
+    global $db;
+
     //Gegevens laden vanaf ranknummer
-    $query = mysql_fetch_assoc(mysql_query("SELECT `naam` FROM `rank` WHERE `ranknummer`='" . $ranknummer . "'"));
+    $getRank = "SELECT `naam` FROM `rank` WHERE `ranknummer`=:ranknummer";
+    $stmt = $db->prepare($getRank);
+    $stmt->bindParam(':ranknummer', $ranknummer, PDO::PARAM_STR);
+    $stmt->execute();
+    $query = $stmt->fetch(PDO::FETCH_ASSOC);
+
     //Gegevens opstellen
     $rank['ranknummer'] = $ranknummer;
     $rank['ranknaam'] = $query['naam'];
@@ -720,10 +851,17 @@ function getCurrentMusic($page) {
 
 function getBans($to, $from, $type) {
 
-    $sqlban = mysql_query("select * from ban where gebruiker = '" . mysql_real_escape_string($to) . "' AND banned = '" . mysql_real_escape_string($from) . "' AND type = '" . $type . "'");
-    $sqlbanquery = mysql_fetch_assoc($sqlban);
+    global $db;
 
-    if ($sqlbanquery['banned'] == $from) {
+    $getBans = "SELECT * FROM ban WHERE gebruiker = :to AND banned = :fromU AND type = :typeB";
+    $stmt = $db->prepare($getBans);
+    $stmt->bindParam(':to', $to, PDO::PARAM_STR);
+    $stmt->bindParam(':fromU', $from, PDO::PARAM_STR);
+    $stmt->bindParam(':typeB', $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $banQueryResult = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($banQueryResult['banned'] == $from) {
         return true;
     } else {
         return false;

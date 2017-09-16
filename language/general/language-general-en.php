@@ -121,7 +121,7 @@
 	$txt['menu_who_is_it_quiz'] = 'Who is it quiz';
 	$txt['menu_wheeloffortune'] = 'Wheel of Fortune';
 	$txt['menu_lottery'] = 'Lottery';
-	//$txt['menu_area_market'] = 'the market';
+    $txt['menu_area_market'] = 'Premium';
 	
 	//LOGIN alerts
 	$txt['alert_no_username'] = 'No username inserted.';
@@ -150,4 +150,3 @@
 	//Users online page
 	$txt['online_users'] = 'Online users';
 	$txt['nobody_online'] = 'Nobody online';
-?>

@@ -11,7 +11,7 @@ $teller = 0;
 <p>
 <h3>
     <?php
-    if ($aantal > 0) echo $txt[''] . 'Online Spelers (' . $aantal . '):';
+    if ($aantal > 0) echo $txt['online_users'] . ' (' . $aantal . '):';
     else echo $txt['nobody_online']; ?>
 </h3><br/>
 <?
@@ -95,4 +95,3 @@ if ($aantal > 0) {
                                                                             title="Leden" style="margin-bottom:-3px;">
     Ledenlijst</a>
 </p>
-
