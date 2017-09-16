@@ -43,7 +43,9 @@ if(isset($_SESSION['id'])){
 
     #Controleren van de hash.
     #Is de has niet goed dan uitloggen en inloggen opnieuw laden
-    if ($_SESSION['hash'] <> $md5hash) include('logout.php');
+    if ($_SESSION['hash'] <> $md5hash){
+        include('logout.php');
+    }
 
     $setOnline = "UPDATE `gebruikers` SET `online`='".time()."' WHERE `user_id`=:user_id";
     $stmt = $db->prepare($setOnline);

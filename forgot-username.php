@@ -46,23 +46,23 @@ if(isset($_POST['submit'])){
     <center>
       <table width="80%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-      <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/linksboven.gif" width="11" height="11"></td>
-      <td height="11" background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/bovenbalk.gif"></td>
-      <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/rechtsboven.gif" width="11" height="11"></td>
+      <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/linksboven.gif" width="11" height="11"></td>
+      <td height="11" background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/bovenbalk.gif"></td>
+      <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/rechtsboven.gif" width="11" height="11"></td>
         </tr>
     
         <tr>
-      <td width="11" rowspan="2" background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/linksbalk.gif"></td>
-      <td align="center" bgcolor="#D3E9F5"><img src="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/headermail.png" width="520" height="140"></td>
-      <td width="11" rowspan="2" background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/rechtsbalk.gif"></td>
+      <td width="11" rowspan="2" background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/linksbalk.gif"></td>
+      <td align="center" bgcolor="#D3E9F5"><img src="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/headermail.png" width="520" height="140"></td>
+      <td width="11" rowspan="2" background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/rechtsbalk.gif"></td>
         </tr>
         <tr>
           <td align="left" valign="top" bgcolor="#D3E9F5">'.$txt['mail_forgot_username'].'</td>
         </tr>
         <tr>
-      <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/linksonder.gif" width="11" height="11"></td>
-      <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/onderbalk.gif" height="11"></td>
-      <td background="'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/rechtsonder.gif" width="11" height="11"></td>
+      <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/linksonder.gif" width="11" height="11"></td>
+      <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/onderbalk.gif" height="11"></td>
+      <td background="'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'/images/mail/rechtsonder.gif" width="11" height="11"></td>
         </tr>
       </table>
       &copy; '.GLOBALDEF_SITENAME.' - '.date('Y').'

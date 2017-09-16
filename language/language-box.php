@@ -1,13 +1,10 @@
 <?php
-	$language_array = array("nl");
-	
-	if(isset($_COOKIE['pa_language']) && in_array($_COOKIE['pa_language'], $language_array)){
-		//Language is wat jij hebt gekozen
-		$_COOKIE['pa_language'] = $_COOKIE['pa_language'];
-	}
-	else{
-		//Default language is Engels
-		$_COOKIE['pa_language'] = 'nl';
-	}
-	include('box/language-box-'.$_COOKIE['pa_language'].'.php');
-?>
+
+$language_array = array("nl","en");
+
+if(in_array(GLOBALDEF_LANGUAGE, $language_array)){
+
+    #Load language
+    include('box/language-box-'.GLOBALDEF_LANGUAGE.'.php');
+}
+

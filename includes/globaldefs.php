@@ -24,8 +24,24 @@ if (file_exists($file)) {
         }
     }
 
+    #write the definitions file
     $fp = fopen($file,"w");
     fputs($fp, $data);
     fclose($fp);
-    header("Refresh:0");
+
+    include_once('cache/globaldefs.php');
+    if (defined('GLOBALDEF_LANGUAGE')) {
+
+        header("Refresh:0");
+
+    } else {
+
+        echo "ERROR: Set a language (nl or en) in your settings table";
+
+        $file = 'cache/globaldefs.php';
+        if (file_exists($file)) {
+            unlink($file);
+        }
+        exit;
+    }
 }

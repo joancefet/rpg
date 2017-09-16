@@ -1,11 +1,7 @@
 <?php
-//Sessie verwijderen
+#destroy session
 session_destroy();
 
-setcookie("pa_1", "", time()-3600);
-setcookie("pa_2", "", time()-3600);
-      
-//Terug gooien naar de index.
+#redirect user to the index
 header("Location: index.php");
 exit();
-?>

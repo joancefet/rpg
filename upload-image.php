@@ -26,7 +26,7 @@ if ($_FILES['image']['name']) {
             $destination = './uploads/' . $filename; //change this directory
             $location = $_FILES["image"]["tmp_name"];
             move_uploaded_file($location, $destination);
-            echo ''.GLOBALDEF_PROTOCOL.'://'.GLOBALDEF_SITEDOMAIN.'/uploads/' . $filename;//change this URL
+            echo ''.GLOBALDEF_SITEPROTOCOL.'://'.GLOBALDEF_SITEDOMAIN.'/uploads/' . $filename;//change this URL
             
         } else {
             echo $message = 'Oeps, Er is iets mis gegaan met het uploaden.'; // $_FILES['file']['error']

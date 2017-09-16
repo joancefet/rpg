@@ -1019,7 +1019,7 @@ Als je geen mail hebt ontvangen controleer dan je junk/spam folder of stuur een 
 		$txt['promotion_text'] = '<p>Je kunt ervoor zorgen dat '.GLOBALDEF_SITENAME.' meer leden krijgt en je word er zelf nog beter van ook!<br />
 		Voor elk lid die zich aanmeld en die bij referer jouw inlognaam opgeeft krijg jij <img src="images/icons/gold.png" title="Gold" style="margin-bottom:-3px;" />150.<br /><br />
 		Tip: Je kan promoten via skype, facebook, mail enzovoort!<br /><br />
-		Jouw link waar iemand zich gemakkelijk mee kan aanmelden is:<br /><br /><strong>'.GLOBALDEF_PROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/index.php?page=register&referer='.$_SESSION['naam'].'</strong></p>';
+		Jouw link waar iemand zich gemakkelijk mee kan aanmelden is:<br /><br /><strong>'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_DOMAIN.'/index.php?page=register&referer='.$_SESSION['naam'].'</strong></p>';
 	}
 
 	######################## MODIFY ORDER ########################

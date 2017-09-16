@@ -50,7 +50,7 @@
 		$txt['say'] = 'Say:';
 		$txt['button_area_messenger'] = 'Submit';
 		$txt['please_login_first'] = '! --- You have to be signed in to respond, press F5 when you\'re logged in --- !';
-		$txt['footer_made_by'] = 'Made by Siteshark';
+		$txt['footer_made_by'] = 'Made by darkshifty';
 		$txt['footer_copyright'] = 'copy; '.GLOBALDEF_SITENAME.' - '.date('Y');
 	}
 	
