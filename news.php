@@ -188,20 +188,30 @@ if(isset($_GET['reageren'])){
 
 
     for ($j = 1; $select = $sql->fetch(PDO::FETCH_ASSOC); $j++) {
-    
+
         //check how many comments a news message has
-        $nieuws_reacties = mysql_num_rows(mysql_query("SELECT id FROM nieuws_reacties WHERE nieuws_id = " . $select['id']));
+        $nieuws_reacties = $db->prepare("SELECT id FROM nieuws_reacties WHERE nieuws_id = :nieuws_id");
+        $nieuws_reacties->bindParam(':nieuws_id', $select["id"], PDO::PARAM_INT);
+        $nieuws_reacties->execute();
+        $nieuws_reacties = $nieuws_reacties->rowCount();
         if ($nieuws_reacties == null) {
             $nieuws_reacties = '0';
         }
         //check how many likes a news message has
-        $nieuws_likes = mysql_num_rows(mysql_query("SELECT id FROM nieuws_likes WHERE nieuws_id =" . $select['id']));
+        $nieuws_likes = $db->prepare("SELECT id FROM nieuws_likes WHERE nieuws_id = :newsid");
+        $nieuws_likes->bindParam(':newsid', $select['id'], PDO::PARAM_INT);
+        $nieuws_likes->execute();
+        $nieuws_likes = $nieuws_likes->rowCount();
         if ($nieuws_likes == null) {
             $nieuws_likes = '0';
         }
         
         //check if the user liked the news message
-        $nieuws_liked = mysql_num_rows(mysql_query("SELECT id FROM nieuws_likes WHERE nieuws_id =" . $select['id'] ." AND gebruiker=" . $_SESSION['id']));
+        $nieuws_liked = $db->prepare("SELECT id FROM nieuws_likes WHERE nieuws_id = :newsid AND gebruiker=:user_id");
+        $nieuws_liked->bindParam(':newsid', $select['id'], PDO::PARAM_INT);
+        $nieuws_liked->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+        $nieuws_liked->execute();
+        $nieuws_liked = $nieuws_liked->rowCount();
         if($nieuws_liked){
             $nieuws_liked = "-webkit-filter: drop-shadow(1px 1px 0 #E8ADAA)drop-shadow(-1px 1px 0 #E8ADAA)drop-shadow(1px -1px 0 #E8ADAA)drop-shadow(-1px -1px 0 #E8ADAA);
             filter: drop-shadow(1px 1px 0 #E8ADAA) drop-shadow(-1px 1px 0 #E8ADAA) drop-shadow(1px -1px 0 #E8ADAA) drop-shadow(-1px -1px 0 #E8ADAA);";

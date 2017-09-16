@@ -121,7 +121,7 @@
 	$txt['menu_who_is_it_quiz'] = 'Wie is het quiz';
 	$txt['menu_wheeloffortune'] = 'Rad van fortuin';
 	$txt['menu_lottery'] = 'Lottery';
-	//$txt['menu_area_market'] = 'the market';
+	$txt['menu_area_market'] = 'Premium';
 	
 	//LOGIN alerts
 	$txt['alert_no_username'] = 'No username inserted.';
@@ -148,6 +148,5 @@
 	$txt['popup_begin'] = 'Beginner pokemon:';
 	
 	//Users online page
-	$txt['online_users'] = 'Online users';
-	$txt['nobody_online'] = 'Nobody online';
-?>
+	$txt['online_users'] = 'Online spelers';
+	$txt['nobody_online'] = 'Er is niemand online';
