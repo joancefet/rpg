@@ -979,7 +979,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                     <label for="UserPassword"></label>
                                     <input type="password" name="password" class="bar curved5" title="Senha" id="login-pass" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>" /></div>
                                 <button type="submit" class="button" name="login" style="min-width:95px;">Login</button>
-                                <a href="?page=register" class="button" style="min-width:103px;"><?php echo $txt['menu_register']; ?></a>		  </div>
+                                <a href="?page=register" class="button" style="min-width:103px; float: right;"><?php echo $txt['menu_register']; ?></a>		  </div>
                         </form>		<div class="sb-sep"></div>
                         <a href="?page=forgot-username" class="ilink"><?php echo $txt['login_forgot_username']; ?></a>
                         <a href="?page=forgot-password" class="ilink"><?php echo $txt['login_forgot_password']; ?></a><br />
