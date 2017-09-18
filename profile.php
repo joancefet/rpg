@@ -6,27 +6,44 @@ if (isset($_GET['player'])) {
     include_once('language/language-pages.php');
 
     //Gegevens laden van de ingevoerde gebruiker
-    $profiel = mysql_fetch_assoc(mysql_query("SELECT g.user_id, g.username, g.youtube, g.profielfoto, g.cover, g.hasStore, g.profilestore, g.views, g.respect, g.datum, g.email, g.ip_aangemeld, g.ip_ingelogd, g.silver, g.gold, g.bank, g.premiumaccount, g.admin, g.wereld, g.online, CONCAT(g.voornaam,' ',g.achternaam) AS combiname, g.land, g.`character`, g.profiel, g.buddieszien, g.teamzien, g.buddy, g.badgeszien, g.rank, g.wereld, g.clan, g.aantalpokemon, g.badges, g.gewonnen, g.verloren, COUNT(DISTINCT g.user_id) AS 'check', gi.`Badge case`	 FROM gebruikers AS g 
+
+    $query = "SELECT g.user_id, g.username, g.youtube, g.profielfoto, g.cover, g.hasStore, g.profilestore, g.views, g.respect, g.datum, 
+                    g.email, g.ip_aangemeld, g.ip_ingelogd, g.silver, g.gold, g.bank, g.premiumaccount, g.admin, g.wereld, g.online, 
+                    CONCAT(g.voornaam,' ',g.achternaam) AS combiname, g.land, g.`character`, g.profiel, g.buddieszien, g.teamzien, 
+                    g.buddy, g.badgeszien, g.rank, g.wereld, g.clan, g.aantalpokemon, g.badges, g.gewonnen, g.verloren,
+                     COUNT(DISTINCT g.user_id) AS 'check', gi.`Badge case`	 FROM gebruikers AS g 
 											INNER JOIN gebruikers_item AS gi 
 											ON g.user_id = gi.user_id
-											WHERE username='" . $_GET['player'] . "'
+											WHERE username=:player
 											AND account_code != '0'
-											GROUP BY `user_id`"));
+											GROUP BY `user_id`";
+    $stmt = $db->prepare($query);
+    $stmt->bindValue(':player', $_GET['player'], PDO::PARAM_STR);
+    $stmt->execute();
+    $profiel = $stmt->fetch(PDO::FETCH_ASSOC);
 
     //is er geen player ingevuld dan echo
-    if ($profiel['check'] != 1)
+    if ($profiel['check'] != 1) {
         header("Location: index.php?page=home");
-    //Anders de pagina
-    else {
+        //Anders de pagina
+    } else {
         //update last view
         if($profiel['user_id'] != $_SESSION['id'] and $gebruiker['admin'] != 3) {
-            mysql_query("UPDATE gebruikers SET views = views +1 WHERE user_id = '" . $profiel['user_id'] . "'");
+
+            $query = "UPDATE gebruikers SET views = views +1 WHERE user_id = :user_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':user_id', $profiel['user_id'], PDO::PARAM_STR);
+            $stmt->execute();
         }
         if($profiel['respect'] == 0){
             $profiel['respect'] = '0';
         }
 
-        $plaatssql = mysql_query("SELECT `username` FROM `gebruikers` WHERE `account_code`='1' ORDER BY `rank` DESC, `rankexp` DESC, `username` ASC");
+        $query = "SELECT `username` FROM `gebruikers` WHERE `account_code`='1' ORDER BY `rank` DESC, `rankexp` DESC, `username` ASC";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':user_id', $profiel['user_id'], PDO::PARAM_STR);
+        $stmt->execute();
+        $plaatssql = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         //Default Values
         $medaille = "";
@@ -36,9 +53,13 @@ if (isset($_GET['player'])) {
 
         //Alle leden laten zien
         //Is het lid dat voorbij komt het zelfde als de gebruiker waar naar gekeken word
-        for ($j = 1; $plaats = mysql_fetch_assoc($plaatssql); $j++)
-            if ($profiel['username'] == $plaats['username']) $voortgang = $j;
-
+        $j = 1;
+        foreach ($plaatssql as $plaats) {
+            if ($profiel['username'] == $plaats['username']) {
+                $voortgang = $j;
+            }
+            $j++;
+        }
         $voortgangplaats = $voortgang . "<sup>e</sup>";
 
         if ($voortgang == '1') {
@@ -71,8 +92,6 @@ if (isset($_GET['player'])) {
         //Rank naam laden
         $rank = rank($profiel['rank']);
 
-        $code = base64_encode("paneel&admin=zoek&ip=" . $profiel['ip'] . "");
-
         //Datum mooi maken
         $datum = explode("-", $profiel['datum']);
         $tijd = explode(" ", $datum[2]);
@@ -92,20 +111,25 @@ if (isset($_GET['player'])) {
                 <div class="team">
                     <?
                     if ($profiel['teamzien'] == 1) {
-                        $pokemon_profiel_sql = mysql_query("SELECT pokemon_speler.*, pokemon_wild.naam, pokemon_wild.type1, pokemon_wild.type2
+
+                        $query = "SELECT pokemon_speler.*, pokemon_wild.naam, pokemon_wild.type1, pokemon_wild.type2
                                    FROM pokemon_speler
                                    INNER JOIN pokemon_wild
                                    ON pokemon_speler.wild_id = pokemon_wild.wild_id
-                                   WHERE `user_id`='" . $profiel['user_id'] . "' AND `opzak`='ja' ORDER BY `opzak_nummer` ASC");
+                                   WHERE `user_id`=:user_id AND `opzak`='ja' ORDER BY `opzak_nummer` ASC";
+                        $stmt = $db->prepare($query);
+                        $stmt->bindValue(':user_id', $profiel['user_id'], PDO::PARAM_STR);
+                        $stmt->execute();
+                        $pokemon_profiel_sql = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         //Pokemons opzak weergeven op het scherm
-                        while ($pokemon_profile = mysql_fetch_assoc($pokemon_profiel_sql)) {
+                        foreach ($pokemon_profiel_sql as $pokemon_profile) {
 
                             $pokemon_profile = pokemonei($pokemon_profile);
                             $pokemon_profile['naam'] = pokemon_naam($pokemon_profile['naam'], $pokemon_profile['roepnaam']);
                             $popup = pokemon_popup($pokemon_profile, $txt);
 
-                            echo '<img onMouseover="showhint(\'' . $popup . '\', this)" src="' . $pokemon_profile['link'] . '" alt="' . $pokemon_profile['naam'] . '" title="' . $pokemonnaam . '"/>';
+                            echo '<img onMouseover="showhint(\'' . $popup . '\', this)" src="' . $pokemon_profile['link'] . '" alt="' . $pokemon_profile['naam'] . '" title="' . $pokemon_profile['naam'] . '"/>';
                         }
                     }
                     ?>
@@ -155,23 +179,29 @@ if (isset($_GET['player'])) {
 
                 else {
 
-                    echo showAlert("green",'<img src="images/icons/respect-add.png" style="margin-bottom: -5px;"> Je hebt ' . $profiel['username'] . ' een respect punt gegeven.');
-                    mysql_query("UPDATE `gebruikers` SET `respect`=`respect`+'1' WHERE `user_id`='" . $profiel['user_id'] . "'");
-                    mysql_query("UPDATE `gebruikers` SET `respect_add`=`respect_add`-'1' WHERE `user_id`='" . $gebruiker['user_id'] . "'");
-                    mysql_query("INSERT INTO respect_log (id, who, reciever, received_on, what)
-                    VALUES (NULL, '" . $gebruiker['username'] . "', '" . $profiel['username'] . "', NOW(), '1')");
-                    
-                    $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> ' . $gebruiker[username] . ' heeft je respect gegeven.';
+                    echo showAlert("green", '<img src="images/icons/respect-add.png" style="margin-bottom: -5px;"> Je hebt ' . $profiel['username'] . ' een respect punt gegeven.');
 
-                    $result = $db->prepare("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)
-                                          VALUES (NOW(), :to, :event, '0')");
-                    $result->bindValue(':to', $profiel['user_id'], PDO::PARAM_INT);
+                    $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> ' . $gebruiker["username"] . ' heeft je respect gegeven.';
+
+                    $result = $db->prepare(
+                        "UPDATE `gebruikers` SET `respect`=`respect`+'1' WHERE `user_id`=:toU;
+                                    UPDATE `gebruikers` SET `respect_add`=`respect_add`-'1' WHERE `user_id`=:fromU;
+                                    INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)  VALUES (NOW(), :toU, :event, '0');
+                                    INSERT INTO respect_log (id, who, reciever, received_on, what) VALUES (NULL, :fromUname, :toUname, NOW(), '1')");
+                    $result->bindValue(':toU', $profiel['user_id'], PDO::PARAM_INT);
+                    $result->bindValue(':toUname', $profiel['username'], PDO::PARAM_STR);
+                    $result->bindValue(':fromU', $gebruiker['user_id'], PDO::PARAM_INT);
+                    $result->bindValue(':fromUname', $gebruiker['username'], PDO::PARAM_STR);
                     $result->bindValue(':event', $event, PDO::PARAM_STR);
                     $result = $result->execute();
-                    
-                    if($gebruiker['missie_5'] == 0){
-                      mysql_query("UPDATE `gebruikers` SET `missie_5`=1, `silver`=`silver`+1500,`rankexp`=rankexp+100 WHERE `user_id`='".$gebruiker['user_id']."'");
-                      echo showToastr("info", "Je hebt een missie behaald!");
+
+                    if ($gebruiker['missie_5'] == 0) {
+
+                        $result = $db->prepare("UPDATE `gebruikers` SET `missie_5`=1, `silver`=`silver`+1500,`rankexp`=rankexp+100 WHERE `user_id`=:fromU");
+                        $result->bindValue(':fromU', $gebruiker['user_id'], PDO::PARAM_INT);
+                        $result = $result->execute();
+
+                        echo showToastr("info", "Je hebt een missie behaald!");
                     }
                 }
                 echo '<br/>';
@@ -190,13 +220,26 @@ if (isset($_GET['player'])) {
                 else {
 
                     echo showAlert("green",'<img src="images/icons/respect-remove.png" style="margin-bottom: -5px;"> Je hebt ' . $profiel['username'] . ' een respect punt afgenomen.');
-                    mysql_query("UPDATE `gebruikers` SET `respect`=`respect`-'1' WHERE `user_id`='" . $profiel['user_id'] . "'");
-                    mysql_query("UPDATE `gebruikers` SET `respect_add`=`respect_add`-'1' WHERE `user_id`='" . $gebruiker['user_id'] . "'");
-                    mysql_query("INSERT INTO respect_log (id, who, reciever, received_on, what)
-                    VALUES (NULL, '" . $gebruiker['username'] . "', '" . $profiel['gebruiker'] . "', NOW(), '0')");
+
+                    $result = $db->prepare(
+                        "UPDATE `gebruikers` SET `respect`=`respect`-'1' WHERE `user_id`=:toU;
+                                    UPDATE `gebruikers` SET `respect_add`=`respect_add`+'1' WHERE `user_id`=:fromU;
+                                    INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)  VALUES (NOW(), :toU, :event, '0');
+                                    INSERT INTO respect_log (id, who, reciever, received_on, what) VALUES (NULL, :fromUname, :toUname, NOW(), '1')");
+                    $result->bindValue(':toU', $profiel['user_id'], PDO::PARAM_INT);
+                    $result->bindValue(':toUname', $profiel['username'], PDO::PARAM_STR);
+                    $result->bindValue(':fromU', $gebruiker['user_id'], PDO::PARAM_INT);
+                    $result->bindValue(':fromUname', $gebruiker['username'], PDO::PARAM_STR);
+                    $result->bindValue(':event', $event, PDO::PARAM_STR);
+                    $result = $result->execute();
+
                     if($gebruiker['missie_5'] == 0){
-                      mysql_query("UPDATE `gebruikers` SET `missie_5`=1, `silver`=`silver`+1500,`rankexp`=rankexp+100 WHERE `user_id`='".$gebruiker['user_id']."'");
-                      echo showToastr("info", "Je hebt een missie behaald!");
+
+                        $result = $db->prepare("UPDATE `gebruikers` SET `missie_5`=1, `silver`=`silver`+1500,`rankexp`=rankexp+100 WHERE `user_id`=:fromU");
+                        $result->bindValue(':fromU', $gebruiker['user_id'], PDO::PARAM_INT);
+                        $result = $result->execute();
+
+                        echo showToastr("info", "Je hebt een missie behaald!");
                     }
                 }
             }
@@ -445,7 +488,7 @@ if (isset($_GET['player'])) {
 
                                 <tbody>
                                 <?
-                                $q = "SELECT `online`, `username`, `land`, `date`
+                                $q = "SELECT `online`, `username`, `land`, `date`,`premiumaccount`
                                 FROM gebruikers G, friends F
                                 WHERE
                                 CASE
@@ -504,7 +547,12 @@ if (isset($_GET['player'])) {
                         <div class="block-body">
                             <div width="100%">
                                 <?
-                                $badge = mysql_fetch_assoc(mysql_query("SELECT * FROM gebruikers_badges WHERE user_id = '" . $profiel['user_id'] . "'"));
+
+                                $query = "SELECT * FROM gebruikers_badges WHERE user_id =:user_id";
+                                $stmt = $db->prepare($query);
+                                $stmt->bindValue(':user_id', $profiel['user_id'], PDO::PARAM_INT);
+                                $stmt->execute();
+                                $badge = $stmt->fetch(PDO::FETCH_ASSOC);
 
                                 echo '
           <center>
@@ -623,8 +671,6 @@ if (isset($_GET['player'])) {
                 <?
             }
             ?>
-            
-
         </div>
         <table width="600">
         </table>
@@ -632,5 +678,3 @@ if (isset($_GET['player'])) {
         <?
     }
 }
-?>
-
