@@ -1408,16 +1408,6 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         $result->bindValue(':to', $gebruiker['user_id'], PDO::PARAM_INT);
                         $result->bindValue(':event', $event, PDO::PARAM_STR);
                         $result = $result->execute();
-
-                        $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> Er is een <b>' . $megaStones[$randomStoneDrop] . '</b> gedropt voor <b>' . $gebruiker['username'] . ' huidige stones: '.$sum.' huidige dropkans: '.$dropKans.'</b>';
-
-                        $result = $db->prepare("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)
-                                      VALUES (NOW(), :to, :event, '0')");
-                        $result->bindValue(':to', GLOBALDEF_ADMINUID, PDO::PARAM_INT);
-                        $result->bindValue(':event', $event, PDO::PARAM_STR);
-                        $result = $result->execute();
-
-
                     }
                 }
             }
