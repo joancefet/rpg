@@ -53,41 +53,40 @@ switch ($_GET['category']) {
                 } else {
                     $youtubeURL = '';
                 }
-                if ($reclame == 1) {
-                    #Gegevens opslaan
-                    mysql_query("UPDATE `gebruikers` 
-                        SET `voornaam`='" . $voornaam . "', 
-                        `achternaam`='" . $achternaam . "', 
-                        `youtube`='" . $youtubeURL . "', 
-                        `land`='" . $land . "',  
-                        `buddieszien`='" . $buddieszien . "', 
-                        `teamzien`='" . $teamzien . "', 
-                        `muziekaan`='" . $muziekaan . "', 
-                        `badgeszien`='" . $badgeszien . "', 
-                        `dueluitnodiging`='" . $dueluitnodiging . "', 
-                        `battleScreen`='" . $battleScreen . "', 
-                        `reclame`='" . $reclame . "', 
-                        `reclameAanSinds`= NOW(), 
-                        `sneeuwaan`='" . $sneeuwaan . "' 
-                        WHERE `user_id`='" . $_SESSION['id'] . "'");
-                } else {
-                    #Gegevens opslaan
-                    mysql_query("UPDATE `gebruikers` 
-                        SET `voornaam`='" . $voornaam . "', 
-                        `achternaam`='" . $achternaam . "', 
-                        `youtube`='" . $youtubeURL . "', 
-                        `land`='" . $land . "',  
-                        `buddieszien`='" . $buddieszien . "', 
-                        `teamzien`='" . $teamzien . "', 
-                        `muziekaan`='" . $muziekaan . "', 
-                        `badgeszien`='" . $badgeszien . "', 
-                        `reclame`='0',
-                        `reclameAanSinds`=NOW(),
-                        `dueluitnodiging`='" . $dueluitnodiging . "', 
-                        `battleScreen`='" . $battleScreen . "', 
-                        `sneeuwaan`='" . $sneeuwaan . "' 
-                        WHERE `user_id`='" . $_SESSION['id'] . "'");
+                if ($reclame != 1) {
+                    $reclame = 0;
                 }
+
+                $query = "UPDATE `gebruikers`
+                        SET `voornaam`=:voornaam,
+                        `achternaam`=:achternaam,
+                        `youtube`=:youtubeURL,
+                        `land`=:land,
+                        `buddieszien`=:buddieszien,
+                        `teamzien`=:teamzien,
+                        `muziekaan`=:muziekaan,
+                        `badgeszien`=:badgeszien,
+                        `dueluitnodiging`=:dueluitnodiging,
+                        `battleScreen`=:battleScreen,
+                        `reclame`=:reclame,
+                        `reclameAanSinds`= NOW(),
+                        `sneeuwaan`=:sneeuwaan
+                        WHERE `user_id`=:user_id";
+                $stmt = $db->prepare($query);
+                $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+                $stmt->bindValue(':sneeuwaan', $sneeuwaan, PDO::PARAM_STR);
+                $stmt->bindValue(':reclame', $reclame, PDO::PARAM_STR);
+                $stmt->bindValue(':battleScreen', $battleScreen, PDO::PARAM_STR);
+                $stmt->bindValue(':dueluitnodiging', $dueluitnodiging, PDO::PARAM_STR);
+                $stmt->bindValue(':badgeszien', $badgeszien, PDO::PARAM_STR);
+                $stmt->bindValue(':muziekaan', $muziekaan, PDO::PARAM_STR);
+                $stmt->bindValue(':teamzien', $teamzien, PDO::PARAM_STR);
+                $stmt->bindValue(':buddieszien', $buddieszien, PDO::PARAM_STR);
+                $stmt->bindValue(':land', $land, PDO::PARAM_STR);
+                $stmt->bindValue(':youtubeURL', $youtubeURL, PDO::PARAM_STR);
+                $stmt->bindValue(':achternaam', $achternaam, PDO::PARAM_STR);
+                $stmt->bindValue(':voornaam', $voornaam, PDO::PARAM_STR);
+                $stmt->execute();
 
                 #Melding op het scherm weergeven dat het gelukt is
                 $persoonlijkerror = '<div class="green">' . $txt['success_modified'] . '</div>';
@@ -96,6 +95,12 @@ switch ($_GET['category']) {
 
             #Username ff fixen
             if ($username != $gebruiker['username']) {
+
+                $checkUsername = $db->prepare("SELECT `username` FROM `gebruikers` WHERE `username`=:username");
+                $checkUsername->bindParam(':username', $inlognaam, PDO::PARAM_STR);
+                $checkUsername->execute();
+                $checkUsername = $checkUsername->rowCount();
+
                 if ($gebruiker['gold'] < 15) {
                     $persoonlijkerror = '<div class="red">' . $txt['alert_not_enough_gold'] . '</div>';
                 } elseif (empty($username)) {
@@ -104,13 +109,20 @@ switch ($_GET['category']) {
                     $persoonlijkerror = '<div class="red">' . $txt['alert_username_too_short'] . '</div>';
                 } elseif (strlen($username > 10)) {
                     $persoonlijkerror = '<div class="red">' . $txt['alert_username_too_long'] . '</div>';
-                } elseif (mysql_num_rows(mysql_query("SELECT `username` FROM `gebruikers` WHERE `username`='" . $username . "'")) >= "1") {
+                } elseif ($checkUsername) {
                     $persoonlijkerror = '<div class="red">' . $txt['alert_username_already_taken'] . '</div>';
                 } else {
                     #Gegevens opslaan
-                    mysql_query("UPDATE `gebruikers` SET `username`='" . $username . "', `gold`=`gold`-'15' WHERE `user_id`='" . $_SESSION['id'] . "'");
-                    mysql_query("UPDATE `ban` SET `gebruiker`='" . $username . "' WHERE `gebruiker`='" . $gebruiker['username'] . "'");
-                    mysql_query("UPDATE `ban` SET `banned`='" . $username . "' WHERE `banned`='" . $gebruiker['username'] . "'");
+                    unset($checkUsername);
+
+                    $query = "UPDATE `gebruikers` SET `username`=:username, `gold`=`gold`-'15' WHERE `user_id`=:user_id;
+                                UPDATE `ban` SET `gebruiker`=:username WHERE `gebruiker`=:gusername;
+                                UPDATE `ban` SET `banned`=:username WHERE `banned`=:gusername";
+                    $stmt = $db->prepare($query);
+                    $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+                    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+                    $stmt->bindValue(':gusername', $gebruiker['username'], PDO::PARAM_STR);
+                    $stmt->execute();
 
                     $persoonlijkerror = '<div class="green">' . $txt['success_modified'] . '</div>';
                 }
@@ -151,16 +163,16 @@ switch ($_GET['category']) {
                         <td height="25"><?php echo $txt['country']; ?></td>
                         <td><select name="land" class="text_select">
                                 <?
-                                $landsql = mysql_query("SELECT `en`, `nl` FROM `landen` ORDER BY `" . $lang['taalshort'] . "` ASC");
+                                $query = "SELECT `en`, `nl` FROM `landen`";
+                                $stmt = $db->prepare($query);
+                                $stmt->execute();
+                                $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                                if (isset($land)) $landd = $land;
-                                else $landd = $gebruiker['land'];
-
-                                while ($land = mysql_fetch_array($landsql)) {
-                                    $selected = '';
-                                    if ($land['nl'] == $landd) $selected = 'selected';
-
-                                    echo '<option value="' . $land['nl'] . '" ' . $selected . '>' . $land['nl'] . '</option>';
+                                foreach($countries as $country){
+                                    if($land == $country[GLOBALDEF_LANGUAGE]){
+                                        echo '<option value="'.$country[GLOBALDEF_LANGUAGE].'" selected>'.$country[GLOBALDEF_LANGUAGE].'</option>';
+                                    }
+                                    echo '<option value="'.$country[GLOBALDEF_LANGUAGE].'">'.$country[GLOBALDEF_LANGUAGE].'</option>';
                                 }
                                 ?>
                             </select></td>
@@ -346,8 +358,14 @@ switch ($_GET['category']) {
             elseif ($_POST['wachtwoordwachtwoordaanmeld'] <> $_POST['wachtwoordcontrole'])
                 $wachtwoordtekst = '<div class="red">' . $txt['alert_new_controle_password_wrong'] . '</div>';
             else {
+
                 $wachtwoordmd5 = md5($_POST['wachtwoordcontrole']);
-                mysql_query("UPDATE `gebruikers` SET `wachtwoord`='" . $wachtwoordmd5 . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
+                $query = "UPDATE `gebruikers` SET `wachtwoord`=:wachtwoordmd5 WHERE `user_id`=:user_id";
+                $stmt = $db->prepare($query);
+                $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+                $stmt->bindValue(':wachtwoordmd5', $wachtwoordmd5, PDO::PARAM_STR);
+                $stmt->execute();
+
                 $wachtwoordtekst = '<div class="green">' . $txt['success_password'] . '</div>';
             }
         }
@@ -397,13 +415,20 @@ switch ($_GET['category']) {
             $purifier = new HTMLPurifier($config);
             $tekst = $purifier->purify($dirty_html_tekst);
 
-            mysql_query("UPDATE `gebruikers` SET `profiel`='" . $tekst . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
+            $query = "UPDATE `gebruikers` SET `profiel`=:tekst WHERE `user_id`=:user_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+            $stmt->bindValue(':tekst', $tekst, PDO::PARAM_STR);
+            $stmt->execute();
+
             $profieltekst = '<div class="green">' . $txt['success_profile'] . '</div>';
         }
 
-        $tekst = mysql_fetch_array(mysql_query("SELECT `profiel` FROM `gebruikers` WHERE `user_id`='" . $_SESSION['id'] . "'"));
-        /*$tekst = htmlspecialchars_decode($ptekst['profiel']);
-        $tekst = eregi_replace("\[remove]","",$tekst);*/
+        $query = "SELECT `profiel` FROM `gebruikers` WHERE `user_id`=:user_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+        $stmt->execute();
+        $tekst = $stmt->fetch(PDO::FETCH_ASSOC);
 
         ?>
 
@@ -492,28 +517,45 @@ switch ($_GET['category']) {
             elseif ($_POST['wereld'] == "")
                 $opnieuwtekst = '<div class="red">' . $txt['alert_no_beginworld'] . '</div>';
 
-            elseif ($_POST['wereld'] != 'Kanto' && $_POST['wereld'] != 'Johto' && $_POST['wereld'] != 'Hoenn' && $_POST['wereld'] != 'Sinnoh' && $_POST['wereld'] != 'Unova')
+            elseif ($_POST['wereld'] != 'Kanto' && $_POST['wereld'] != 'Johto' && $_POST['wereld'] != 'Hoenn' && $_POST['wereld'] != 'Sinnoh' && $_POST['wereld'] != 'Unova' && $_POST['wereld'] != 'Kalos')
                 $opnieuwtekst = '<div class="red">' . $txt['alert_world_invalid'] . '</div>';
             else {
                 $datum = date('Y-m-d H:i:s');
-                #Alle items weg!
-                mysql_query("UPDATE `gebruikers_item` SET `itembox`='Bag', `Badge case`='', `Poke ball`='', `Great ball`='', `Ultra ball`='', `Premier ball`='', `Net ball`='', `Dive ball`='', `Nest ball`='', `Repeat ball`='', `Timer ball`='', `Master ball`='', `Potion`='', `Super potion`='', `Hyper potion`='', `Full heal`='', `Revive`='', `Max revive`='', `Pokedex`='', `Pokedex chip`='', `Fishing rod`='', `Cave suit`='', `Protein`='', `Iron`='', `Carbos`='', `Calcium`='', `HP up`='', `Rare candy`='', `Duskstone`='', `Firestone`='', `Leafstone`='', `Moonstone`='', `Ovalstone`='', `Shinystone`='', `Sunstone`='', `Thunderstone`='', `Waterstone`='' , `Dawnstone`='' WHERE `user_id`='" . $_SESSION['id'] . "'");
-                #Alle badges weg!
-                mysql_query("UPDATE `gebruikers_badges` SET `Boulder`='0', `Cascade`='0', `Thunder`='0', `Rainbow`='0', `Marsh`='0', `Soul`='0', `Volcano`='0', `Earth`='0', `Zephyr`='0', `Hive`='0', `Plain`='0', `Fog`='0', `Storm`='0', `Mineral`='0', `Glacier`='0', `Rising`='0', `Stone`='0', `Knuckle`='0', `Dynamo`='0', `Heat`='0', `Balance`='0', `Feather`='0', `Mind`='0', `Rain`='0', `Coal`='0', `Forest`='0', `Cobble`='0', `Fen`='0', `Relic`='0', `Mine`='0', `Icicle`='0', `Beacon`='0', `Trio`='0', `Basic`='0', `Insect`='0', `Bolt`='0', `Quake`='0', `Jet`='0', `Freeze`='0', `Legend`='0' WHERE `user_id`='" . $_SESSION['id'] . "'");
 
-                #Alle tmhm weg!
-                mysql_query("UPDATE `gebruikers_tmhm` SET `TM01`='0', `TM02`='0', `TM03`='0', `TM04`='0', `TM05`='0', `TM06`='0', `TM07`='0', `TM08`='0', `TM09`='0', `TM10`='0', `TM11`='0', `TM12`='0', `TM13`='0', `TM14`='0', `TM15`='0', `TM16`='0', `TM17`='0', `TM18`='0', `TM19`='0', `TM20`='0', `TM21`='0', `TM22`='0', `TM23`='0', `TM24`='0', `TM25`='0', `TM26`='0', `TM27`='0', `TM28`='0', `TM29`='0', `TM30`='0', `TM31`='0', `TM32`='0', `TM33`='0', `TM34`='0', `TM35`='0', `TM36`='0', `TM37`='0', `TM38`='0', `TM39`='0', `TM40`='0', `TM41`='0', `TM41`='0', `TM42`='0', `TM43`='', `TM44`='0', `TM45`='0', `TM46`='0', `TM47`='0', `TM48`='0', `TM49`='0', `TM50`='0', `TM51`='0', `TM52`='0', `TM53`='0', `TM54`='0', `TM55`='0', `TM56`='0', `TM57`='0', `TM58`='0', `TM59`='0', `TM60`='0', `TM61`='0', `TM62`='0', `TM63`='0', `TM64`='0', `TM65`='0', `TM66`='0', `TM67`='0', `TM68`='0', `TM69`='0', `TM70`='0', `TM71`='0', `TM72`='0', `TM73`='0', `TM74`='0', `TM75`='0', `TM76`='0', `TM77`='0', `TM78`='0', `TM79`='0', `TM80`='0', `TM81`='0', `TM82`='0', `TM83`='0', `TM84`='0', `TM85`='0', `TM86`='', `TM87`='0', `TM88`='0', `TM89`='0', `TM90`='0', `TM91`='0', `TM92`='0', `HM01`='0', `HM02`='0', `HM03`='0', `HM04`='0', `HM05`='0', `HM06`='0', `HM07`='0', `HM08`='0' WHERE `user_id`='" . $_SESSION['id'] . "'");
+                $removeUser = $db->prepare("DELETE FROM `gebruikers_tmhm` WHERE `user_id`=:userId;
+                                              DELETE FROM `gebruikers_badges` WHERE `user_id`=:userId;
+                                              DELETE FROM `gebruikers_item` WHERE `user_id`=:userId;
+                                              DELETE FROM `pokemon_speler` WHERE `user_id`=:userId;
+                                              DELETE FROM `transferlijst` WHERE `user_id`=:userId;
+                                              DELETE FROM `daycare` WHERE `user_id`=:userId;
+                                              DELETE FROM `gebeurtenissen` WHERE `ontvanger_id`=:userId");
+                $removeUser->bindParam(':userId', $_SESSION['id'], PDO::PARAM_STR);
+                $removeUser->execute();
+
+                unset($removeUser);
+
+                $addUser = $db->prepare("INSERT INTO `gebruikers_tmhm` (`user_id`) VALUES (:userId);
+                                              INSERT INTO `gebruikers_badges` (`user_id`) VALUES (:userId);
+                                              INSERT INTO `gebruikers_item` (`user_id`) VALUES (:userId)");
+                $addUser->bindParam(':userId', $_SESSION['id'], PDO::PARAM_STR);
+                $addUser->execute();
+
+                unset($addUser);
 
                 #Veel gebruikers dingen weg!
-                mysql_query("UPDATE `gebruikers` SET `datum`='" . $datum . "', `wereld`='" . $_POST['wereld'] . "', `silver`='75', `bank`='', `storten`='3', `huis`='doos', `geluksrad`='1', `rank`='1', `rankexp`='0', `rankexpnodig`='245', `aantalpokemon`='0', `badges`='0', `captcha_tevaak_fout`='0', `werkervaring`='0', `gewonnen`='0', `verloren`='0', `eigekregen`='0', `lvl_choose`='', `wiequiz`='0000-00-00 00:00:00', `werktijd`='0', `pokecentertijd`='0', `gevangenistijd`='0', `geluksrad`='3', `races_winst`='3', `races_verlies`='3', `pok_gezien`='', `pok_bezit`='', `pok_gehad`='' WHERE `user_id`='" . $_SESSION['id'] . "'");
-                #Alle Pokemons weg!
-                mysql_query("DELETE FROM `pokemon_speler` WHERE `user_id`='" . $_SESSION['id'] . "'");
-                #Transferlijst Leeg!
-                mysql_query("DELETE FROM `transferlijst` WHERE `user_id`='" . $_SESSION['id'] . "'");
-                #Daycare Leeg!
-                mysql_query("DELETE FROM `daycare` WHERE `user_id`='" . $_SESSION['id'] . "'");
-                #Gebeurtenissen leeg!
-                mysql_query("DELETE FROM `gebeurtenissen` WHERE `ontvanger_id`='" . $_SESSION['id'] . "'");
+                $query = "UPDATE `gebruikers` SET `datum`=:datum, `wereld`=:wereld, `silver`=75, `bank`=0, 
+                `storten`='3', `huis`='doos', `geluksrad`='1', `rank`='1', `rankexp`='0', `rankexpnodig`='245', 
+                `aantalpokemon`='0', `badges`='0', `captcha_tevaak_fout`='0', `werkervaring`='0', `gewonnen`='0', 
+                `verloren`='0', `eigekregen`='0', `lvl_choose`='', `wiequiz`='0000-00-00 00:00:00', `werktijd`='0', 
+                `pokecentertijd`='0', `gevangenistijd`='0', `geluksrad`='3', `races_winst`='3', `races_verlies`='3', 
+                `pok_gezien`='', `pok_bezit`='', `pok_gehad`='' 
+                WHERE `user_id`=:user_id";
+                $stmt = $db->prepare($query);
+                $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+                $stmt->bindValue(':wereld', $_POST['wereld'], PDO::PARAM_STR);
+                $stmt->bindValue(':datum', $datum, PDO::PARAM_STR);
+                $stmt->execute();
+
                 $opnieuwtekst = '<div class="green">' . $txt['success_restart'] . '</div>';
             }
         }
