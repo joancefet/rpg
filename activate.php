@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
     $activatiegegevens->bindParam(':inlognaam', $inlognaam, PDO::PARAM_STR);
     $activatiegegevens->bindParam(':activatie', $activatie, PDO::PARAM_STR);
     $activatiegegevens->execute();
-    $activatiegegevens = $stmt->fetch(PDO::FETCH_ASSOC);
+    $activatiegegevens = $activatiegegevens->fetch(PDO::FETCH_ASSOC);
 
     $spelerid = $activatiegegevens['user_id'];
 
@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
         $refer = $db->prepare($referQuery);
         $refer->bindParam(':playerinsert', $playerinsert, PDO::PARAM_STR);
         $refer->execute();
-        $refer = $stmt->fetch(PDO::FETCH_ASSOC);
+        $refer = $refer->fetch(PDO::FETCH_ASSOC);
 
         #als er een refer is een beloning toekenen
         if ($refer) {
