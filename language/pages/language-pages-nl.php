@@ -1156,7 +1156,7 @@ Als je geen mail hebt ontvangen controleer dan je junk/spam folder of stuur een 
 		#Screen
 		$txt['pagetitle'] = 'Badge doos';
 		$txt['badges'] = 'Badges';
-		$txt['no_badges_from'] = 'Nog geen badges van';
+        $txt['alert_dont_have_badgebox'] = 'Je hebt geen badge doos.';
 	}
 
 	######################## HOUSE ########################
@@ -1737,41 +1737,39 @@ Als je geen mail hebt ontvangen controleer dan je junk/spam folder of stuur een 
 		$txt['alert_not_incorrect_amount'] = 'Je kan niet meer dan een legend kans vergroter per keer kopen.';
 	}
 	######################## BANK ########################
-	elseif($page == 'bank'){
-		#Alerts
-		$txt['alert_no_more_storting'] = 'Je mag vandaag niet meer storten.';
-		$txt['alert_nothing_insert'] = 'Geen bedrag ingevoerd.';
-		$txt['alert_amount_unknown'] = 'Ongeldig bedrag ingevoerd.';
-		$txt['alert_too_less_cash'] = 'Zoveel geld heb je niet contant.';
-		$txt['alert_no_silver_or_gold'] = 'Je moet wel silver of gold kiezen.';
-		$txt['success_stort'] = $_POST['stort'].' <img src="images/icons/silver.png"  title="Silver" style="margin-bottom:-3px;"> succesvol overgemaakt.';
-		$txt['alert_too_less_bank'] = 'Zoveel geld heb je niet op de bank.';
-		$txt['success_take'] = $_POST['ophaal'].' <img src="images/icons/silver.png"  title="Silver" style="margin-bottom:-3px;"> succesvol overgemaakt.';
-		$txt['alert_no_receiver'] = 'Geen ontvanger ingevoerd.';
-		$txt['alert_send_to_yourself'] = 'Je kunt niet naar je zelf sturen.';
-		$txt['alert_receiver_dont_exist'] = 'Ontvanger bestaat niet.';
-		$txt['alert_more_than_10silver'] = 'Je moet wel meer dan <img src="images/icons/silver.png" title="Silver" style="margin-bottom:-3px;"> 10 versturen.';
-		$txt['alert_too_less_money'] = 'Zoveel silver heb je niet.';
-		$txt['alert_too_less_gold'] = 'Zoveel gold heb je niet.';
-		$txt['success_send'] = 'Succesvol silver en/of gold overgemaakt.';
+    elseif($page == 'bank'){
+        #Alerts
+        $txt['alert_success_silver_withdraw'] = "Er is <img src=\"images/icons/silver.png\" /> " . $_POST['amount'] . " silver afgeschreven van je bankrekening!";
+        $txt['alert_failed_silver_withdraw'] = "Zoveel silver staat er niet op je bankrekening.";
+        $txt['alert_success_silver_deposit'] = "Er is <img src=\"images/icons/silver.png\" /> " . $_POST['amount'] . " bijgeschreven bij je bankrekening!";
+        $txt['alert_failed_silver_deposit'] = "Je kan niet meer storten vandaag.";
+        $txt['alert_failed_max_silver_deposit'] = "Je mag maar <img src=\"images/icons/silver.png\" /> ".$bankmax." per keer storten";
+        $txt['alert_failed_funds_silver_deposit'] = "Zoveel silver heb je niet";
+        $txt['alert_bank_transfer_name_incorrect'] = "De naam die je hebt ingevuld klopt niet!";
+        $txt['alert_bank_transfer_success'] = "Er is <img src=\"images/icons/silver.png\" /> ".$_POST['silver']." aan {$ontvanger['username']} overgemaakt.";
+        $txt['alert_bank_transfer_funds'] = "Je hebt niet genoeg silver contant staan.";
+        $txt['alert_bank_transfer_no_amount'] = "Er is geen silver opgegeven.";
+        $txt['alert_bank_transfer_clan_incorrect'] = "De clan die je hebt ingevuld klopt niet!";
+        $txt['alert_bank_transfer_clan_success'] = "Er is <img src=\"images/icons/silver.png\" /> ".$_POST['silver']." aan de clan {$ontvanger['clan_naam']} overgemaakt";
+        $txt['alert_bank_transfer_clan_funds'] = "Je hebt niet genoeg silver contant staan.";
+        $txt['alert_bank_transfer_clan_gold_success'] = "Er is <img src=\"images/icons/gold.png\" /> " . $_POST['gold'] . " aan de clan {$ontvanger['clan_naam']} overgemaakt";
+        $txt['alert_bank_transfer_clan_gold_funds'] = "Je hebt niet genoeg gold.";
+        $txt['alert_bank_transfer_clan_no_ammount'] = "Er is geen silver of gold opgegeven.";
 
-		#Screen
-		$txt['pagetitle'] = 'Bank';
-		$txt['title_text_1'] = 'Silver in hand:';
-		$txt['title_text_2'] = 'Silver in bank:';
-		$txt['title_text_3'] = 'Je mag nog';
-		$txt['title_text_4'] = 'keer geld storten vandaag';
-		$txt['amount_silver'] = 'Silver:';
-		$txt['silver_or_gold'] = 'Silver of Gold:';
-		$txt['amount'] = 'Hoeveel:';
-		$txt['button_stort'] = 'Stort naar Bank';
-		$txt['button_take'] = 'Stort naar Hand';
-		$txt['title_text_send'] = '<font size="4"><hr>Stuur naar speler</font><br>
-										<font size="2">Deze optie kost je 5% extra, ivm transactie kosten (alleen bij silver)</font><br />
-										<font size="2">minimaal <img src="images/icons/silver.png" title="Silver" style="margin-bottom:-3px;" /> 10 per keer.</font>';
-		$txt['username'] = 'Gebruikersnaam:';
-		$txt['button_send'] = 'Verstuur silver/gold';
-	}
+        #Screen
+        $txt['pagetitle'] = "Pinnen &amp; Storten";
+        $txt['deposit_to_clan'] = "Overschrijven naar Clan";
+        $txt['bank_deposit_amount_max'] = "Je mag nog ".$gebruiker['storten']."x silver storten.";
+        $txt['bank_deposit_cash'] = "Contant:";
+        $txt['bank_deposit_bank'] = "Op de bank:";
+        $txt['bank_deposit_pin'] = "pin";
+        $txt['bank_deposit_deposit'] = "stort";
+        $txt['bank_transfer'] = "Overschrijven";
+        $txt['bank_transfer_to'] = "Aan:";
+        $txt['bank_transfer_silver'] = "Silver:";
+        $txt['bank_transfer_gold'] = "Gold:";
+        $txt['bank_transfer_button'] = "Overmaken";
+    }
 
 	######################## HOUSE SELLER ########################
 	elseif($page == 'house-seller'){

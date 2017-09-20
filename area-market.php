@@ -6,8 +6,6 @@ $page = 'area-market';
 #Goeie taal erbij laden voor de page
 include_once('language/language-pages.php');
 
-#Premium info ophalen
-$premiumsql = mysql_query("SELECT * FROM premium");
 ?>
 
 <script type="text/javascript" src="javascripts/jquery.colorbox.js"></script>
@@ -163,7 +161,13 @@ $premiumsql = mysql_query("SELECT * FROM premium");
 			?>
 			<?php
 
-			while ($premium = mysql_fetch_assoc($premiumsql)) {
+            #Retrieve premium packs
+            $premiumQuery = "SELECT * FROM premium";
+            $premiumsql = $db->prepare($premiumQuery);
+            $premiumsql->execute();
+            $premiumsql = $premiumsql->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach ($premiumsql as $premium) {
 echo '<table width="660" cellspacing="0" cellpadding="0" class="' . str_replace(" ", "_", $premium['naam']) . '">
 	<tr>
 		<td width="179"><strong>' . $premium['naam'] . '</strong></td>
@@ -186,6 +190,7 @@ echo '<table width="660" cellspacing="0" cellpadding="0" class="' . str_replace(
 		</div>
 	<?
 	} else {
+
 		echo "<div class='blue'>Je hebt deze maand het maximum aan premium packages gekocht. Morgen mag je weer bestellen.</div>";
 	}
 ?>
