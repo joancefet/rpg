@@ -2503,4 +2503,10 @@ Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
 		
 		$txt['pagetitle'] = 'Trainer gevecht';
 	}
-?>
+	######################## Catched ########################
+	elseif($page == 'catched'){
+        #Screen
+		$txt['shiny'] = "Shiny";
+        $txt['normal'] = "Normal";
+        $txt['amount_caught'] = "Has been caught ".$query2." times.";
+    }
