@@ -2534,4 +2534,10 @@ Je kunt hier een Pok&eacute;mon shiny maken door hem het benodigde gold te geven
 		
 		$txt['pagetitle'] = 'Trainer gevecht';
 	}
-?>
+    ######################## Catched ########################
+    elseif($page == 'catched'){
+        #Screen
+        $txt['shiny'] = 'Shiny';
+        $txt['normal'] = 'Normal';
+        $txt['amount_caught'] = "is al ".$query2." keer gevangen.";
+    }

@@ -122,6 +122,11 @@
 	$txt['menu_wheeloffortune'] = 'Wheel of Fortune';
 	$txt['menu_lottery'] = 'Lottery';
     $txt['menu_area_market'] = 'Premium';
+    $txt['menu_blackjackmp'] = 'Blackjack multiplayer';
+    $txt['menu_pokeslots'] = 'Pok&eacute;slots';
+    $txt['menu_guess_that_pokemon'] = 'Guess the Pok&eacute;mon';
+    $txt['menu_crack_the_safe'] = 'Crack the vault';
+    $txt['menu_secret_code'] = 'Secret code';
 	
 	//LOGIN alerts
 	$txt['alert_no_username'] = 'No username inserted.';

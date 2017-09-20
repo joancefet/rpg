@@ -10,13 +10,13 @@ include("includes/security.php");
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
-    <a href="?page=multiblackjack"><h1>Blackjack multiplayer<span style="color:red; font-size:bold;"><sup>new</sup></h1></span></a>
-    <a href="?page=flip-a-coin"><h1><?php echo $txt['menu_flipacoin']; ?></h1></a>
-    <a href="?page=slots"><h1>Pok&eacute;slots<span style="color:red; font-size:bold;"><sup>new</sup></h1></span></a>
-    <a href="?page=who-is-it-quiz"><h1><?php echo $txt['menu_who_is_it_quiz']; ?></h1></a>
-    <a href="?page=wheel-of-fortune"><h1><?php echo $txt['menu_wheeloffortune']; ?></h1></a>
-    <a href="?page=poke-scrambler"><h1>Pok&eacute;mon naam raden</h1></a>
-    <a href="?page=kluis"><h1>Kraak de kluis</h1></a>
-    <a href="?page=mystery-gift"><h1>Geheime code</h1></a>
+    <a href="?page=multiblackjack"><h1><?=$txt['menu_blackjackmp']?></h1></span></a>
+    <a href="?page=flip-a-coin"><h1><?=$txt['menu_flipacoin']?></h1></a>
+    <a href="?page=slots"><h1><?=$txt['menu_pokeslots']?></h1></span></a>
+    <a href="?page=who-is-it-quiz"><h1><?=$txt['menu_who_is_it_quiz']?></h1></a>
+    <a href="?page=wheel-of-fortune"><h1><?=$txt['menu_wheeloffortune']?></h1></a>
+    <a href="?page=poke-scrambler"><h1><?=$txt['menu_guess_that_pokemon']?></h1></a>
+    <a href="?page=kluis"><h1><?=$txt['menu_crack_the_safe']?></h1></a>
+    <a href="?page=mystery-gift"><h1><?=$txt['menu_secret_code']?></h1></a>
 
 </div>

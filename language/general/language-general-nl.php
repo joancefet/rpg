@@ -122,6 +122,11 @@
 	$txt['menu_wheeloffortune'] = 'Rad van fortuin';
 	$txt['menu_lottery'] = 'Lottery';
 	$txt['menu_area_market'] = 'Premium';
+    $txt['menu_blackjackmp'] = 'Blackjack multiplayer';
+    $txt['menu_pokeslots'] = 'Pok&eacute;slots';
+    $txt['menu_guess_that_pokemon'] = 'Pok&eacute;mon naam raden';
+    $txt['menu_crack_the_safe'] = 'Kraak de kluis';
+    $txt['menu_secret_code'] = 'Geheime code';
 	
 	//LOGIN alerts
 	$txt['alert_no_username'] = 'No username inserted.';

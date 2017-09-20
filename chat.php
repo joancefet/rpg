@@ -1,13 +1,8 @@
 <?php
-
 include_once('includes/config.php');
 include_once('includes/ingame.inc.php');
 
 session_start();
-
-global $dbh;
-$dbh = mysql_connect($dbhost,$dblogin,$dbpassword);
-mysql_selectdb($dbdatabase,$dbh);
 
 if ($_GET['action'] == "chatheartbeat") { chatHeartbeat(); } 
 if ($_GET['action'] == "sendchat") { sendChat(); } 
@@ -23,14 +18,21 @@ if (!isset($_SESSION['openChatBoxes'])) {
 }
 
 function chatHeartbeat() {
-	
-	$sql = "select * from chat where (chat.to = '".mysql_real_escape_string($_SESSION['naam'])."' AND recd = 0) order by id ASC";
-	$query = mysql_query($sql);
+
+    global $db;
+
+    $querySql = "SELECT * FROM chat WHERE (chat.to = :naam AND recd = 0) ORDER BY id ASC";
+    $query = $db->prepare($querySql);
+    $query->bindParam(':naam', $_SESSION['naam'], PDO::PARAM_STR);
+    $query->execute();
+    $query = $query->fetchAll(PDO::FETCH_ASSOC);
+
+	$sql = "";
 	$items = '';
 
 	$chatBoxes = array();
 
-	while ($chat = mysql_fetch_array($query)) {
+	foreach ($query as $chat) {
 
 		if (!isset($_SESSION['openChatBoxes'][$chat['from']]) && isset($_SESSION['chatHistory'][$chat['from']])) {
 			$items = $_SESSION['chatHistory'][$chat['from']];
@@ -95,8 +97,10 @@ EOD;
 	}
 }
 
-	$sql = "update chat set recd = 1 where chat.to = '".mysql_real_escape_string($_SESSION['naam'])."' and recd = 0";
-	$query = mysql_query($sql);
+    $querySql = "update chat set recd = 1 where chat.to = :naam and recd = 0";
+    $query = $db->prepare($querySql);
+    $query->bindParam(':naam', $_SESSION['naam'], PDO::PARAM_STR);
+    $query->execute();
 
 	if ($items != '') {
 		$items = substr($items, 0, -1);
@@ -153,6 +157,9 @@ header('Content-type: application/json');
 }
 
 function sendChat() {
+
+    global $db;
+
 	$from = $_SESSION['naam'];
 	$to = $_POST['to'];
 	$message = $_POST['message'];
@@ -184,8 +191,14 @@ EOD;
 		echo "1";
 		exit(0);
 	}else{
-		$sql = "insert into chat (chat.from,chat.to,message,sent) values ('".mysql_real_escape_string($from)."', '".mysql_real_escape_string($to)."','".mysql_real_escape_string($message)."',NOW())";
-		$query = mysql_query($sql);
+
+        $querySql = "insert into chat (chat.from,chat.to,message,sent) values (:fromUser, :toUser,:message,NOW())";
+        $query = $db->prepare($querySql);
+        $query->bindParam(':fromUser', $from, PDO::PARAM_STR);
+        $query->bindParam(':toUser', $to, PDO::PARAM_STR);
+        $query->bindParam(':message', $message, PDO::PARAM_STR);
+        $query->execute();
+
 		echo "1";
 		exit(0);
 	}
