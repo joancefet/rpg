@@ -2541,3 +2541,20 @@ Je kunt hier een Pok&eacute;mon shiny maken door hem het benodigde gold te geven
         $txt['normal'] = 'Normal';
         $txt['amount_caught'] = "is al ".$query2." keer gevangen.";
     }
+    elseif($page == 'clan-invite'){
+        #Alerts
+        $txt['alert_no_clan_leader'] = "Je bent geen clan leider.";
+        $txt['alert_no_name'] = "Vul een naam in.";
+        $txt['alert_clan_full'] = "Je clan is vol, Je moet je clan upgraden om voor meer leden.";
+        $txt['alert_already_in_clan'] = "De speler heeft al een clan.";
+        $txt['alert_player_does_not_exist'] = "De speler bestaat niet.";
+        $txt['invite_text'] = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> ' . $gebruiker['username'] . ' heeft jou uitgenodigd voor clan <strong>' . $clan['clan_naam'] . '</strong>.<a href="?page=clan-invite2&id=' . $claninputid . '&code=' . $code . '&accept=1">Accepteren</a>, <a href="?page=clan-invite2&id=' . $claninputid . '&code=' . $code . '&accept=0">Weigeren</a>.';
+        $txt['invite_sent'] = 'Uitnodiging verzonden naar ' . $_POST['naam'] . '';
+
+        #Screen
+        $txt['invite_a_player_for_clan'] = "Nodig een speler uit voor ".$clan['clan_naam'].".";
+        $txt['max_invite_text'] = "<p>Een level ".$clan['clan_level']." clan kan ".$clanmembers." leden hebben.</p><p>Je kan nog ".$claninvites." leden uitnodigen.</p>";
+        $txt['invite_button'] = "Invite";
+        $txt['outstanding_invites'] = "Geen uitstaande uitnodigingen.";
+        $txt['no_clan'] = "<center>Je hebt geen clan, maak <a href='?page=clan-make'>hier</a> een clan aan.</center>";
+    }
