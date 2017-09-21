@@ -8,13 +8,13 @@
 	######################## Page not found ######################
 	elseif($page == 'notfound'){
 		#Not found page
-		$txt['pagetitle'] = 'Pagina niet gevonden';
-		$txt['notfoundtext'] = '<p>De pagina is niet gevonden. De pagina waar jij naar zoekt is misschein verwijderd, heeft zijn naam veranderd, of is tijdelijk offline.<br /><br />
-						<strong>Probeer a.u.b. het volgende:</strong><br /><br />
-						1. Als je het adres hebt ingetypt in de adresbalk, kijk eens of er een fout in zit.<br />
-						2. Zoek de link op de linker en rechter menu\'s.<br />
-						3. Klik op de Back button van je browser.<br />
-						4. Klik op loguit bovenaan het scherm en probeer het nog eens.</p>';
+		$txt['pagetitle'] = 'Page not found';
+		$txt['notfoundtext'] = '<p>Page not found. The page you where looking for might be deleten, had a name change, or is temporary offline.<br /><br />
+						<strong>Please try the following:</strong><br /><br />
+						1. Correct the error, if you have typed the adres in your adres bar.<br />
+						2. Use one of the links in the main menu.<br />
+						3. Use the back button of your browser.<br />
+						4. Log out the game and try again.</p>';
 	}
 	
 	######################## Captcha page ######################
@@ -38,58 +38,58 @@
 	######################## REGISTER ########################
 	if($page == 'register'){
 		#Alerts
-		$txt['alert_already_this_ip'] = 'Je hebt met dit ip adres deze week al een account aangemaakt.<br>
-										 Volgende week kun je weer een account aanmaken.';
-		$txt['alert_no_firstname'] = 'Geen voornaam ingevuld';
-		$txt['alert_firstname_too_long'] = 'Voornaam te lang, maximaal 12 tekens.';
-		$txt['alert_no_lastname'] = 'Geen achternaam ingevuld';
-		$txt['alert_lastname_too_long'] = 'Achternaam te lang, maximaal 12 tekens.';
-		$txt['alert_no_country'] = 'Geen land gekozen.';
-		$txt['alert_no_full_gebdate'] = 'Alle velden moeten ingevuld zijn bij je geboortedatum.';
-		$txt['alert_character_invalid'] = 'Persoon niet beschikbaar.';
-		$txt['alert_no_username'] = 'Geen speelnaam ingevuld.';
-		$txt['alert_username_too_short'] = 'Speelnaam te kort, minimaal 3 tekens.';
-		$txt['alert_username_too_long'] = 'Speelnaam te lang, maximaal 10 tekens.';
-		$txt['alert_username_exists'] = 'Speelnaam bestaat al.';
-		$txt['alert_username_incorrect_signs'] = 'Speelnaam bevat onjuiste tekens.';
-		$txt['alert_no_password'] = 'Geen wachtwoord ingevuld.';
-		$txt['alert_passwords_dont_match'] = 'Wachtwoorden komen niet overeen.';
-		$txt['alert_no_email'] = 'Geen e-mail ingevoerd.';
-		$txt['alert_email_incorrect_signs'] = 'Geen geldig e-mail adres.';
-		$txt['alert_email_exists'] = 'E-mail bestaat al.';
-		$txt['alert_no_beginworld'] = 'Geen begin wereld gekozen.';
-		$txt['alert_world_invalid'] = 'Begin wereld onbekend.';
-		$txt['alert_1account_condition'] = 'Ga akkoord met de voorwaarde, ik heb maar 1 account.';
-		$txt['alert_no_offend_condition'] = 'Ga akkoord met de voorwaarde, ik ga niet schelden enz.';
-		$txt['alert_guardcore_invalid'] = 'Beveiligingscode verkeerd ingevuld.';
-		$txt['success_register'] = 'Je hebt je succesvol aangemeld.<br>
-										  Er is een e-mail verstuurd naar '.$_POST['email'].'.<br>In de mail staan jouw gegevens en de activatiecode van je account.<br />Let op: de e-mail komt waarschijnlijk terecht in je ongewenst map.';
+		$txt['alert_already_this_ip'] = 'You already have an account with this IP.<br>
+										 You can create a new account next week.';
+        $txt['alert_no_firstname'] = 'Please fill in a firstname';
+        $txt['alert_firstname_too_long'] = 'Firstname is too long, max 12 characters.';
+        $txt['alert_no_lastname'] = 'Please fill in a lastname';
+        $txt['alert_lastname_too_long'] = 'Firstname is too long, max 12 characters.';
+        $txt['alert_no_country'] = 'Please choose a country.';
+		$txt['alert_no_full_gebdate'] = 'Please fill in all fields';
+        $txt['alert_character_invalid'] = 'Personallity not available.';
+        $txt['alert_no_username'] = 'Please fill in a username.';
+        $txt['alert_username_too_short'] = 'A username needs to be longer than 3 characters.';
+        $txt['alert_username_too_long'] = 'A username must be shorter than 10 characters.';
+        $txt['alert_username_exists'] = 'Username already taken.';
+        $txt['alert_username_incorrect_signs'] = 'Username invalid.';
+        $txt['alert_no_password'] = 'Please fill in a password.';
+        $txt['alert_passwords_dont_match'] = 'Passwords do not match.';
+        $txt['alert_no_email'] = 'Please fill in a e-mail.';
+        $txt['alert_email_incorrect_signs'] = 'Invalid e-mail address.';
+        $txt['alert_email_exists'] = 'E-mail already exists.';
+        $txt['alert_no_beginworld'] = 'Please choose a world to start in.';
+        $txt['alert_world_invalid'] = 'Please choose a world to start in.';
+		$txt['alert_1account_condition'] = 'I agree to the terms and confirm that i only have one account.';
+		$txt['alert_no_offend_condition'] = 'I agree to the terms and conditions';
+		$txt['alert_guardcore_invalid'] = 'Please check the captcha';
+		$txt['success_register'] = 'Your account creation was successfull.<br>
+		An email has been sent to '.$_POST['email'].'.<br>In this email there are activation details of your game.<br />Note: the e-mail might end up in your spam folder.';
 										  
 		#Screen
 		$txt['pagetitle'] = 'Register';
-		$txt['title_text'] = 'Meld u hier gratis aan voor '.GLOBALDEF_SITENAME.' en krijg <strong>1 gratis premiumaccount dag!!</strong>';
-		$txt['register_personal_data'] = 'Persoonlijke gegevens';
-		$txt['register_game_data'] = 'Spel gegevens';
-		$txt['register_security'] = 'Beveiliging';
-		$txt['firstname'] = 'Voornaam:';
-		$txt['lastname'] = 'Achternaam:';
-		$txt['country'] = 'Land:';
-		$txt['gebdate'] = 'Geboortedatum:';
-		$txt['day'] = 'Dag';
-		$txt['month'] = 'Maand';
-		$txt['year'] = 'Jaar';
-		$txt['character'] = 'Persoon:';
-		$txt['username'] = 'Speelnaam:';
-		$txt['password'] = 'Wachtwoord:';
-		$txt['password_again'] = 'Wachtwoord nogmaals:';
+		$txt['title_text'] = 'Sign up for '.GLOBALDEF_SITENAME.' for free and <strong>get one day premium!</strong> ';
+        $txt['register_personal_data'] = 'Personal';
+        $txt['register_game_data'] = 'Personal';
+        $txt['register_security'] = 'Captcha';
+        $txt['firstname'] = 'Firstname:';
+        $txt['lastname'] = 'Lastname:';
+        $txt['country'] = 'Country:';
+		$txt['gebdate'] = 'Date of birth:';
+		$txt['day'] = 'Day';
+		$txt['month'] = 'Month';
+		$txt['year'] = 'Year';
+        $txt['character'] = 'Personality:';
+        $txt['username'] = 'Username:';
+        $txt['password'] = 'Password:';
+        $txt['password_again'] = 'Repeat password:';
 		$txt['email'] = 'E-mail:';
-		$txt['beginworld'] = 'Begin wereld:';
-		$txt['1account_rule'] = 'Dit is mijn enigste account.';
+        $txt['beginworld'] = 'World:';
+		$txt['1account_rule'] = 'I have a refer';
 		$txt['referer'] = 'Referer:';
-		$txt['not_oblige'] = '*Niet verplicht.';
-		$txt['guardcode'] = 'Beveiligingscode:';
-		$txt['captcha'] = 'Beveiligingscode plaatje';
-		$txt['button'] = 'Registreer!';
+        $txt['not_oblige'] = '*Not required.';
+		$txt['guardcode'] = 'Captcha code:';
+		$txt['captcha'] = 'Captcha code';
+		$txt['button'] = 'Signup!';
 	}
 
 	######################## INFORMATION ########################
@@ -101,148 +101,149 @@
 
 		if($_GET['category'] == 'game-info'){
 			#Screen
-			$txt['pagetitle'] .= ' - Spel informatie';
-			$txt['informationpage'] = '<h2>Inhoud</h2>
+			$txt['pagetitle'] .= ' - Game information';
+            $txt['informationpage'] = '<h2>Content</h2>
 				<div id="information">
 				<ol>
-				<li><a href="#thegame">Het spel</a></li>
-				<li><a href="#rules">Regels</a></li>
-				<li><a href="#begin">Het begin</a></li>
-				<li><a href="#tips">Tips voor het spel</a></li>
-				<li><a href="#program">Programma</a></li>
-				<li><a href="#silver&gold">Silver en Gold</a></li>
+				<li><a href="#thegame">The game</a></li>
+				<li><a href="#rules">Rules</a></li>
+				<li><a href="#begin">The beginning</a></li>
+				<li><a href="#tips">Tips for the game</a></li>
+				<li><a href="#silver&gold">Silver and gold</a></li>
+				<li><a href="#pokecoins">Poke Coins</a></li>
 				<li><a href="#pokemon">Pokemon</a></li>
 				<li><a href="#ranks">Ranks</a></li>
-				<li><a href="#attacks">TM\'s en HM\'s</a></li>
-				<li><a href="#admins">Administratoren</a></li>
-				<li><a href="#register">Registreren</a></li>
+				<li><a href="#attacks">TM\'s and HM\'s</a></li>
+				<li><a href="#admins">Administrators</a></li>
+				<li><a href="#moderators">Moderators</a></li>
+				<li><a href="#register">Register</a></li>
 				<li><a href="#contact">Contact</a></li>
-				<li><a href="#activate">Activeer account</a></li>
-				<li><a href="#forgotusername">Inlognaam vergeten</a></li>
-				<li><a href="#forgotpassword">Wachtwoord vergeten</a></li>
-				<li><a href="#accountoptions">Account opties</a></li>
-				<li><a href="#profile">Profiel</a></li>
-				<li><a href="#rankinglist">Rankinglijst</a></li>
-				<li><a href="#pokemoninfo">Pokemon informatie</a></li>
-				<li><a href="#advertise">Adverteren voor silver</a></li>
-				<li><a href="#modifyorder">Pokemon volgorde wijzigen</a></li>
-				<li><a href="#sell">Verkoop een pokemon</a></li>
-				<li><a href="#release">Een pokemon vrijlaten</a></li>
+				<li><a href="#activate">Activate account</a></li>
+				<li><a href="#forgotusername">Forgot username</a></li>
+				<li><a href="#forgotpassword">Forgot password</a></li>
+				<li><a href="#accountoptions">Account options</a></li>
+				<li><a href="#profile">Profile</a></li>
+				<li><a href="#slogan">Slogan</a></li>
+				<li><a href="#rankinglist">Rankinglist</a></li>
+				<li><a href="#pokemoninfo">Pokemon information</a></li>
+				<li><a href="#advertise">Advertising for gold</a></li>
+				<li><a href="#modifyorder">Pokemon reorder</a></li>
+				<li><a href="#sell">Sell &#8203;&#8203;a pokemon</a></li>
+				<li><a href="#release">Release a pokemon</a></li>
 				<li><a href="#items">Items</a></li>
-				<li><a href="#badgecase">Badge doos</a></li>
-				<li><a href="#myhouse">Mijn huis</a></li>
+				<li><a href="#badgecase">Badge box</a></li>
+				<li><a href="#myhouse">My house</a></li>
 				<li><a href="#pokedex">Pokedex</a></li>
-				<li><a href="#buddyandblock">Buddylijst en Blocklijst</a></li>
-				<li><a href="#areamessenger">Area messenger</a></li>
-				<li><a href="#attack">Aanvallen</a></li>
+				<li><a href="#buddyandblock">Buddylist and Blocklist</a></li>
+				<li><a href="#sendmessage">Send message</a></li>
+                <li><a href="#areamessenger">Pokemon messenger</a></li>
+				<li><a href="#attack">Attack</a></li>
 				<li><a href="#gyms">Gyms</a></li>
-				<li><a href="#duel">Duelleren</a></li>
-				<li><a href="#tournament">Toernooi</a></li>
-				<li><a href="#work">Werken</a></li>
+				<li><a href="#daymissions">Day Missions</a></li>
+				<li><a href="#duel">Duel</a></li>
+				<li><a href="#tournament">Tournament</a></li>
+				<li><a href="#work">Work</a></li>
 				<li><a href="#race">Race</a></li>
 				<li><a href="#traders">Traders</a></li>
-				<li><a href="#stealandspy">Bespioneren</a></li>
-				<li><a href="#chooselevel">Kies een level</a></li>
-				<li><a href="#premiumbank">Area markt</a></li>
+				<li><a href="#chooselevel">Choose a level</a></li>
+				<li><a href="#premiumbank">Premium market</a></li>
 				<li><a href="#pokemoncenter">Pokemon center</a></li>
-				<li><a href="#market">Markt</a></li>
+				<li><a href="#market">Market</a></li>
 				<li><a href="#bank">Bank</a></li>
-				<li><a href="#boat">Bootverhuur</a></li>
-				<li><a href="#houseseller">Huizenverkoper</a></li>
-				<li><a href="#transferlist">Transferlijst</a></li>
+				<li><a href="#boat">Rent a boat</a></li>
+				<li><a href="#houseseller">Houses seller</a></li>
+				<li><a href="#transferlist">Transferlist</a></li>
 				<li><a href="#daycare">Daycare</a></li>
-				<li><a href="#namespecialist">Naam specialist</a></li>
+				<li><a href="#namespecialist">Name specialist</a></li>
 				<li><a href="#shinyspecialist">Shiny specialist</a></li>
-				<li><a href="#jail">Gevangenis</a></li>
-				<li><a href="#gamble">Gokken</a></li>
+				<li><a href="#jail">Jail</a></li>
+				<li><a href="#gamble">Gamble</a></li>
 				</ol>
 				<hr />
 				<div id="thegame">
-					<h2>Het spel</h2>
-					'.GLOBALDEF_SITENAME.' is een online multiplayer spel.<br />
-					Het spel heeft 4 werelden en 496 pokemon!<br />
-					Iedereen mag er gratis aan meedoen, tevens kun je er voor betalen voor extra functies.<br />
-					Ons doel is om 1 van de grootste multiplayer sites te worden.<br />
-					We zijn nog hard bezig met allerlei updates, soms met updates voor de snelheid van de site en soms komt er weer een geheel nieuwe pagina met functies.<br /><br />
+					<h2>The game</h2>
+					'.GLOBALDEF_SITENAME.' is a multiplayer online game.<br />
+					The game has 7 worlds and 808 pokemon!<br />
+					Anyone can join for free, You can also pay for additional features.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="rules">
-					<h2>Regels</h2>
-					De regels van '.GLOBALDEF_SITENAME.' zijn best simpel:
+					<h2>Rules</h2>
+					The rules are on '.GLOBALDEF_SITENAME.' are pretty simple:
 					<ul>
-						<li>Niet schelden (op je profiel of via een bericht).</li>
-						<li>Niet vragen om wachtwoorden.</li>
-						<li>Je wachtwoord zelf dus ook <strong>nooit</strong> weggeven.</li>
-						<li>Niet spammen (spammen is een aantal keer achter elkaar iets onnodigs zeggen).</li>
-						<li>Niet adverteren voor andere websites.</li>
-						<li>Geen dubbelaccount.</li>
-					</ul>
-					Als je toch 1 van deze dingen doet zullen we je zonder pardon verbannen van de site.<br />
-					Hoelang de verbanning is zal liggen aan wat je verkeerd hebt gedaan.<br /><br />
+						<li>Not advertise other websites.</li>
+						<li>No spamming. (Spamming is a number of times in succession say something unnecessary).</li>
+						<li>Ignoring warnings of a Crewmember may lead to a temporary Mute/Ban. If you keep doing this, is a possible permanent Mute/Ban in place.</li>
+						<li>The Crew has the right to see and do everything, they can never be held responsible for.</li>
+						<li>Cheating is strictly prohibited. If you make a mistake in the game and have discovered these benefits is not allowed. You will be heavily punished. Tell us so.</li>
+						<li>No scolding, swearing and/or write vulgar language.</li>
+						<li>Racist, offensive and/or accusatory expressions is not allowed</li>						
+						<li>No arguing.</li>
+						<li>Place no links on the chat.</li>
+						<li>No private matters discuss through chat, forum and/or on your profile. Do this through Personal Message.</li>
+						<li>No flooding (Flooding is the excessive repetition of the same text, word, letters, too many images and/or emoticons).</li>
+						<li>Do not prompt for passwords. <strong>Never</strong> give your password away.</li>
+						<li>No double account, only with permission of the owner.</li>		
+                                       </ul>
+					If you do one of these things we will mercilessly mute or ban you from the site.<br />
+					How long the Mute or Ban will be depends on what you did wrong.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="begin">
-					<h2>Het begin</h2>
-					In het begin zal Professor Oak op je afkomen.<br />
-					Hij zal samen met jou de regels nog eens doornemen en daarna geeft hij je een Pokemon ei.<br />
-					Je hebt de keuze tussen een aantal pokemon van de wereld waar je op dat moment bent.<br />
-					Nadat je de pokemon hebt gekregen kun je meteen beginnen met het spel.<br /><br />
+					<h2>The beginning</h2>
+					In the beginning, Professor Oak will come to you.<br />
+				        He will be with you the rules once through and then he gives you a pokemon egg.<br />
+					You have the choice between a number of pokemon depends on the world where you are at that moment.<br />
+					After you get the pokemon you can immediately start the game.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="tips">
-					<h2>Tips voor het spel</h2>
+					<h2>Tips for the game</h2>
 					<ul>
-						<li>Speel '.GLOBALDEF_SITENAME.' in een Mozilla Firefox browser.</li>
-						<li>Als je op een openbare computer bent (dus op school ofzo). Onthou je wachtwoord dan <strong>niet</strong>.</li>
-						<li>Tevens als je op een openbare computer speelt: Altijd uitloggen als je even weg loopt.</li>
-						<li>Als je op vakantie gaat, zet dan al je geld op de bank en doe je pokemon naar de daycare.</li>
-						<li>Koop altijd eerst balls voordat je gaat vechten. Wie weet wat je ineens tegenkomt.</li>
-						<li>Als je een pokemon zoekt, kijk bij pokemon informatie waar die te vinden is.</li>
-						<li>Word premium, de extra functies zijn erg goed.</li>
-						<li>Probeer een shiny ditto te vangen, kan erg handig zijn voor de daycare.</li>
+						<li>Play '.GLOBALDEF_SITENAME.' in a Mozilla Firefox browser.</li>
+						<li>If you\'re on a public computer (At school or something), remember your password, then <strong> not </strong>.</li>
+						<li>Also if you\'re on a public computer plays: Aways log out when you just walk away.</li>
+						<li>If you go on vacation, put all your money in the bank and do your pokemon at the daycare.</li>
+						<li>Buy Always balls before you start fighting. Who knows what you suddenly encounter.</li>
+						<li>If you are looking for a pokemon, look at pokemon information where to find it.</li>
+						<li>Become a premium, the additional features are very good.</li>
 					</ul><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
-				<div id="program">
-					<h2>Programma</h2>
-					'.GLOBALDEF_SITENAME.' heeft een programma ontworpen dat je tijdens het spelen een *Poing* hoort als iemand iets zegt in Area messenger, tevens is het spel in het programma heel snel en je kunt '.GLOBALDEF_SITENAME.' voortaan opstarten vanaf je bureaublad! Je kunt het <strong>gratis downloaden</strong> op de home pagina.<br /><br />
-					<a href="#wrapper">Go to top</a>
-				</div>
-				<hr />
 				<div id="silver&gold">
-					<h2>Silver en Gold</h2>
-					Je kunt betalen in '.GLOBALDEF_SITENAME.' met Silver en Gold, hier zie je wat silver en wat gold is:
+					<h2>Silver and gold</h2>
+					You can pay in '.$game['titel'].' with silver and gold, here you can see where silver and gold for is:
 					<ul>
 						<li><img src="images/icons/silver.png" title="Silver"> = Silver.</li>
 						<li><img src="images/icons/gold.png" title="Gold"> = Gold.</li>
 					</ul>
-					Silver kun je krijgen in het spel d.m.v. werken, trainers verslaan, etc.<br />
-					Gold kun je kopen in de premium markt, hiermee kun je een aantal dingen wat je met silver niet kunt, zoals:
+					Silver can you get in the game by means work, defeat trainers, etc.<br />
+					Gold you can buy in the premium market, this allows you to buy some things you can not with silver, like:
 					<ul>
-						<li>Master balls kopen</li>
-						<li>Rare candy\'s kopen</li>
-						<li>Speelnaam veranderen</li>
-						<li>Gold doneren aan andere spelers</li>
-						<li>Van een pokemon een shiny pokemon maken</li>
+						<li>Buy master balls</li>
+						<li>Buy rare candy\'s</li>
+						<li>Change username</li>
+						<li>Donate gold to other members</li>
+						<li>Make from a pokemon, a shiny pokemon</li>
 					</ul><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="pokemon">
 					<h2>Pokemon</h2>
-					'.GLOBALDEF_SITENAME.' heeft 496 verschillende pokemon en al die pokemon zijn ook nog eens in een shiny vorm.<br />
-					Een shiny pokemon is dezelfde pokemon als een normale maar dan zeldzamer en een andere kleur.<br />
-					Je kunt een shiny pokemon herkennen aan de <img src="images/icons/lidbetaald.png" /> achter de naam en de kleur van de pokemon.<br /><br />
+					'.GLOBALDEF_SITENAME.' has 808 different pokemon and all those pokemon are also in a shiny shape.<br />
+					A shiny pokemon is the same okemon as a normal but rarer and another color.<br />
+					You can recognize a shiny pokemon the <img src="images/icons/lidbetaald.png" /> the name and color of the pokemon.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<HR />
 				<div id="ranks">
 					<h2>Ranks</h2>
-					Er zijn 20 ranks op '.GLOBALDEF_SITENAME.'. Dit zijn ze:
+					There are 20 ranks on '.GLOBALDEF_SITENAME.':
 					<ol>
 						<li>Newbie</li>
 						<li>Junior</li>
@@ -269,459 +270,465 @@
 				</div>
 				<HR />
 				<div id="attacks">
-					<h2>TM\'s en HM\'s</h2>
-					Er zijn op '.GLOBALDEF_SITENAME.' 92 TM\'s en 8 HM\'s.<br /><br />
+					<h2>TM\'s and HM\'s</h2>
+					There are on '.GLOBALDEF_SITENAME.' 92 TM\'s and 8 HM\'s.<br /><br />
 					<strong>TM</strong><br />
-					Een TM kun je kopen bij de markt. Je kunt een TM alleen aan de pokemon geven met dezelfde type, dus als het een ijs aanval is kan alleen een ijs pokemon het aanleren. Sommige aanvallen hebben 2 types.<br /><br />
+					A TM can be bought at the market. You can give a TM only to a pokemon with the same type, so if it is an fire attack only a fire pokemon can learn. Some attacks have 2 types.<br />
+					A TM can be used only 1 time.<br /><br />
 					<strong>HM</strong><br />
-					Een HM kun je verdienen door een gymleader te verslaan.<br />
-					De HM kun je zovaak gebruiken als je wilt.<br /><br />
+					A HM can be earned by defeating a gymleader.<br />
+					The HM can be used as often as you like.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="admins">
-					<h2>Administratoren</h2>
-					Er zijn altijd een paar administratoren op een spel.<br />
-					Dit zijn de functies van een administrator:
+					<h2>Administrators</h2>
+					There are always one or more administrators in a game.<br />
+					The name of an administrator is red.<br /> These are the functions of a administrator:
 					<ul>
-						<li>Mensen helpen door hun vragen te beantwoorden.</li>
-						<li>Updates maken voor de site.</li>
+						<li>Help people by answering their questions.</li>
 					</ul>
-					Een administrator kan alle berichten lezen die iedereen naar elkaar stuurt. Dit is ervoor om leden te beschermen.<br /><br />
-					Als je een fout ziet in het spel zouden we dat graag willen horen.<br />
-					Als iemand je uitscheld of je in welke mate dan ook beledigd horen we dat graag, we doen ons best om er dan iets aan te doen.<br /><br />
-					Vraag niet of jij zelf een administrator kunt worden. Als we een nieuwe nodig hebben, dan kiezen we die zelf. Gebasseerd op hoe je doet op het spel.<br />
-					Oftewel als je vaak iemand helpt, je bent vaak online, enzovoort. Dan heb je meer kans.	<br /><br />
+					An administrator can read all messages everyone sends. This is sure to protect members.<br /><br />
+					If you see an error in the game we would like to hear.<br />
+					If someone insults you out if you are in any degree offended let us know, We do our best to have something to do.<br /><br />
+					Do not ask if you can be an administrator. If we need a new, then we choose them.<br /><br />
+					<a href="#wrapper">Go to top</a>
+				</div>
+				<hr />
+				<div id="moderators">
+					<h2>Moderators</h2>
+					There are always one or more moderators in a game.<br />
+					The name of a moderator is blue.<br />
+                                        These are the functions of a moderator:
+					<ul>
+						<li>Help people by answering their questions.</li>
+					</ul>
+					A moderator is to ensure that the forum and/or chat is running flexible. For instance, if there\'s a fight he/she can intervene.<br /><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="register">
-					<h2>Registreren</h2>
-					Vul bij het registreren alle velden zo goed mogelijk in.<br />
-					Je e-mail adres moet geldig zijn want daar word je activatiemail heen gestuurd.<br />
-					Je vinkt onderaan de pagina aan dat het jouw enigste account is. Probeer hier niet over te liegen.<br />
-					Kijk nadat je jouw account hebt aangemaakt even naar welk e-mail adres de mail is gestuurd. Je kunt natuurlijk altijd een typfoutje maken.<br /><br />
+					<h2>Register</h2>
+					Fill in all fields when registering as well as possible.<br />
+					Your email address must be valid because that makes your activation email sent there.<br />
+					You check the bottom of the page that the only thing your account. Try not to lie about it.<br />
+					Look after you have created your account as to which email address the email is sent. You can always make a typing mistake.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="contact">
 					<h2>Contact</h2>
-					Als er iets misgaat kun je altijd contact met ons opnemen. Hiermee bedoelen we:
+					If something goes wrong, you can always contact us. By this we mean:
 					<ul>
-						<li>Activatiemail niet gekregen.</li>
-						<li>Het activeren lukt niet.</li>
-						<li>Ik kan niet meer op mijn account.</li>
+						<li>Activation mail not received.</li>
+						<li>The activation can not.</li>
+						<li>I can not go on my account.</li>
 					</ul>
-					Tevens mag je ons ook mailen voor andere zaken zoals:
+					You may also email us for other things such as:
 					<ul>
-						<li>Linkpartner worden.</li>
-						<li>Vragen over de site.</li>
+						<li>To be linkpartners.</li>
+						<li>Questions about the site.</li>
 					</ul>
-					Contact is alleen te zien als je niet bent ingelogd. Dit komt omdat als je wel bent ingelogd je een berichtje kunt sturen naar een administrator in het spel.<br /><br />
-					We proberen altijd zo snel mogelijk een bericht of e-mail terug te sturen.<br /><br />
+					Contact can only be seen if you\'re not logged in. This is because when you are logged in you can send a message to an administrator in the game.<br /><br />
+					We always try as soon as possible to send a message or email back.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="activate">
-					<h2>Activeer account</h2>
-					Voordat je kunt spelen moet je eerst je account activeren.<br />
-					De activatie code word verstuurd naar je e-mail adres die je hebt opgegeven bij het aanmelden.<br /><br />
-					Als het je niet lukt om het account te activeren horen wij dat graag via contact.<br /><br />
+					<h2>Activate account</h2>
+					Before you can play you must first activate your account.<br />
+					The activation code is sent to your email address you specified when logging.<br /><br />
+					If you are unable to activate the account please let us know by contact.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="forgotusername">
-					<h2>Inlognaam vergeten</h2>
-					Vul je e-mail in en je inlognaam word verstuurd naar je e-mail adres.<br /><br />
-					Als je geen e-mail ontvangt horen wij dat graag via contact.<br /><br />
+					<h2>Forgot username</h2>
+
+					Enter your email and your username will be sent to your email address.<br /><br />
+					If you do not receive email please let us know by contact.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="forgotpassword">
-					<h2>Wachtwoord vergeten</h2>
-					Vul je inlognaam en e-mail in en er word een nieuw wachtwoord verstuurd naar je e-mail adres.<br />
-					Log met dat nieuwe wachtwoord in en je kunt je wachtwoord in het spel weer veranderen bij Account opties - Wachtwoord.<br /><br />
-					Als je geen e-mail ontvangt horen wij dat ook graag via contact.<br /><br />
+					<h2>Forgot password</h2>
+					Enter your username and email and get a new password sent to your e-mail address.<br />
+					Login with the new password and you can change your password in the game at Account options - Password.<br /><br />
+					If you do not receive email please let us know by contact.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="accountoptions">
-					<h2>Account opties</h2>
-					Account opties heeft 4 verschillende pagina\'s:<br /><br />
-					<strong><img src="images/icons/user.png" /> Persoonlijk</strong><br />
-					Hier kun je jouw gegevens wijzigen.<br />
-					Gelieve je profiel zo eerlijk mogelijk in te vullen, dus voornaam, achternaam, land en geslacht.<br />
-					Je kunt hier ook aanvinken of jouw team en badges op je profiel komen te staan.<br /><br />
-					<span class="smalltext">Badges op je profiel is pas beschikbaar als je een Badge doos hebt.</span><br /><br />
-					<strong><img src="images/icons/key.png" /> Wachtwoord</strong><br />
-					Hier kun je jouw wachtwoord wijzigen.<br />
-					Probeer deze goed te onthouden.<br /><br />
-					<strong><img src="images/icons/images.png" /> Profiel</strong><br />
-					Alles wat je hieronder invult komt onderaan je profiel te staan.<br />
-					Als je op <strong>Here</strong> klikt komt er een pagina tevoorschijn waar alle codes instaan zoals:
+					<h2>Account options</h2>
+					Account options has 5 different page\'s:<br /><br />
+					<strong><img src="images/icons/user.png" /> Personal</strong><br />
+					Here you can edit your data.<br />
+					Please update your profile as honestly as possible to fill, so first name, last name, country, and sex.<br />
+					You can also check whether your team and badges on your profile come to be.<br /><br />
+					<span class="smalltext">Badges on your profile is only available if you have a badge box.</span><br /><br />
+					<strong><img src="images/icons/key.png" /> Password</strong><br />
+					Here you can change your password.<br />
+					Try this easy to remember.<br /><br />
+					<strong><img src="images/icons/images.png" /> Profile</strong><br />
+					Everything you enter is below the bottom of your profile to stand.<br />
+					If you click on <strong>Here</strong> there will appear a page where all codes as responsible:
 					<ul>
-						<li>Youtube filmpjes op je profiel zetten.</li>
-						<li>Een pokemon op je profiel zetten.</li>
-						<li>Tekst kleur veranderen.</li>
-						<li>Enz. enz.</li>
+						<li>Set youtube videos on your profile.</li>
+						<li>Set a pokemon on your profile.</li>
+						<li>Change text color.</li>
+						<li>Etc. etc.</li>
 					</ul>
-					<strong><img src="images/icons/new.gif" /> Opnieuw beginnen</strong><br />
-					Je kunt 1 keer per dag opnieuw beginnen.<br />
-					Dit is ervoor zodat leden niet elke 15 minuten opnieuw beginnen omdat ze hun pokemon niet leuk vinden.<br />
-					Stel dat je jouw pokemon niet leuk vind kun je altijd met iemand ruilen. Als dit echt niet lukt kun je altijd nog overwegen om over 24 uur opnieuw te beginnen.<br /><br />
+					<strong><img src="images/icons/new.gif" /> Restart account</strong><br />
+					You can restart your account 1 time at a day.<br />
+					This is to allow members not every 15 minutes restart their account because they do not like their pokemon.<br />
+					Suppose you do not like your pokemon you can always trade with someone. If this really does not work you can always consider about 24 hours to restart your account.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="profile">
-					<h2>Profiel</h2>
-					Elke speler heeft zijn/haar eigen profiel.<br />
-					Die is ook toegankelijk als je niet bent ingelogd via rankinglijst.<br />
-					Zet op je profiel geen negatieve dingen over andere spelers. Scheldwoorden zijn ook niet toegestaan.<br />
-					Je kunt je profiel erg mooi maken, zie daarvoor Account opties - Profiel hierboven.<br /><br />
+					<h2>Profile</h2>
+					Each member has his/her own profile.<br />
+					Which is also accessible if you are not logged in through rankinglist.<br />
+					Add to your profile no negative things about other players. Invective are not allowed.<br />
+					You can make your profile very nice, see for Account options - Profile above.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="rankinglist">
-					<h2>Rankinglijst</h2>
-					Dit is de lijst van alle spelers gesorteerd op rang.<br />
-					Als je niet bent ingelogd kun je ook op deze pagina. Dus weet waar je het voor doet!<br />
-					De top 50 krijgt overigens een medaille op hun profiel.<br /><br />
+					<h2>Rankinglist</h2>
+					This is the list of all the members sorted by rank.<br />
+					If you are not logged in you can also see this page. So know what you\'re doing!<br />
+					The top 50 will also be given a medal on their profile.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="pokemoninfo">
-					<h2>Pokemon informatie</h2>
-					Selecteer een pokemon en je vind alle informatie die je nodig bent.<br />
-					Je ziet zelfs waar je de pokemon kunt vinden (welk gebied + wereld).<br /><br />
+					<h2>Pokemon information</h2>
+					Select a pokemon and you find all the information you need.<br />
+					You can even see where you can that find pokemon (which area + world).<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="advertise">
-					<h2>Adverteren voor silver</h2>
-					Je kunt via msn ofzo jouw '.GLOBALDEF_SITENAME.' link doorsturen naar andere mensen.<br />
-					Voor elk aangemeld lid krijg jij dan wat silver!<br /><br />
+					<h2>Advertising for gold</h2>
+					You can send your '.GLOBALDEF_SITENAME.' link through Whatsapp, Forums, Facebook, etc..<br />
+					For each registered member you get some gold!<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="modifyorder">
-					<h2>Pokemon volgorde wijzigen</h2>
-					Bij dit systeem moet je de pokemon slepen naar boven of beneden.<br />
-					Het word automatisch opgeslagen.<br /><br />
+					<h2>Pokemon reorder</h2>
+					With this system you have the pokemon drag up or down.<br />
+					It will automatically be saved.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="sell">
-					<h2>Verkoop een pokemon</h2>
-					Je kunt een pokemon verkopen door hem op de transferlijst te zetten.<br />
-					Iemand kan de pokemon dan kopen voor de prijs waarvoor jij de pokemon op de transferlijst hebt gezet.<br /><br />
-					Een pokemon heeft een bepaalde waarde, de vraagprijs mag maximaal 1,5x zijn waarde en minimaal de helft van zijn waarde.<br />
-					Je kunt je beginpokemon niet verkopen, die is teveel aan je gehecht.<br /><br />
-					<span class="smalltext">Een premiumlid mag 3 pokemon op de transferlijst zetten. Een normaal lid 1.<br />
-					Een pokemon verkopen kan pas vanaf rank 4 Casual.</span><br /><br />
+					<h2>Sell a pokemon</h2>
+					You can sell a pokemon.Set him on the transferlist.<br />
+					Someone can buy the pokemon you have set him on t he transferlist.<br /><br />
+					A pokemon has a certain value, the asking price may be worth up to 1.5x and at least half of its value.<br />
+					You can\'t sell your starter pokemon, who is too much attached to you.<br /><br />
+					<span class="smalltext">A Premium Member may set 3 pokemon on the transferlist. A normal member 1.<br />
+					You can sell a pokemon from rank 4 Casual.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="release">
-					<h2>Een pokemon vrijlaten</h2>
-					Je kunt een pokemon vrijlaten op '.GLOBALDEF_SITENAME.'.<br />
-					Je krijgt dan de ball terug waarmee die is gevangen, tenminste als jouw itemdoos niet vol is.<br />
-					Je kunt je beginpokemon niet verkopen, die is teveel aan je gehecht.<br />
-					<strong>Let op:</strong> dit kan niet worden teruggedraaid.<br /><br />
-					<span class="smalltext">Een pokemon vrijlaten kan pas vanaf rank 5 Trainer.</span><br /><br />
+					<h2>Release a pokemon</h2>
+					You can release a pokemon on '.GLOBALDEF_SITENAME.'.<br />
+					You\'ll get the ball back which caught, at least if your item box is not full.<br />
+					You can\'t release your starter pokemon, who is too much attached to you.<br />
+					<strong>Note:</strong> this can not be reversed.<br /><br />
+					<span class="smalltext">You can release a pokemon from rank 5 Trainer.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="items">
 					<h2>Items</h2>
-					Hier word bijgehouden welke items je allemaal hebt.<br />
-					Je kunt ze hier ook gebruiken of verkopen.<br />
-					Je begint met een tas, daar kunnen 20 items in. Als je meer items wilt moet je in de markt een Yellow box, Blue box of Red box kopen.<br /><br />
+					Here I kept all the items you have.<br />
+					They can also be used or sell.<br />
+					You start with a bag, it can contain 20 items. If you want more items you have to buy in the market a Yellow box, Blue box or Red box.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="badgecase">
-					<h2>Badge doos</h2>
-					Voor elke wereld heb je een doos voor je badges.<br />
-					De badges komen hier automatisch in te liggen als je ze hebt.<br />
-					Je krijgt een badge doos van de gymleader die je als eerst verslaat.<br /><br />
-					Deze pagina is pas toegankelijk als je de badge doos hebt gekregen van de gymleader.<br /><br />
+					<h2>Badge box</h2>
+					For each world, you have a box for your badges.<br />
+					The badges come automatically to lie here if you have them.<br />
+					You get a badge box from the gymleader you as first defeat.<br /><br />
+					This page is only accessible if you\'ve got the badge box from a gymleader.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="myhouse">
-					<h2>Mijn huis</h2>
-					In de normale pokemon spellen worden de pokemon verplaatst in het pokemon center met een computer.<br />
-					Bij '.GLOBALDEF_SITENAME.' is dit anders, je hebt een huis!<br />
-					Je begint met een doos, hier kunnen 2 pokemon in verblijven.<br />
-					Bij de huizenverkoper kun je een huis kopen waarin meer pokemon kunnen verblijven.<br /><br />
+					<h2>My house</h2>
+					In the normal pokemon games are the pokemon move in the pokemon center with a computer.<br />
+					In '.GLOBALDEF_SITENAME.' is different, you have a house!<br />
+					You start with a box, 2 pokemon here can stay in.<br />
+					At the house seller you can buy a house which can accommodate more pokemon.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="pokedex">
 					<h2>Pokedex</h2>
 					<strong>Pokedex</strong><br />
-					In je pokedex word opgeslagen welke pokemon je hebt gezien en welke je hebt gevangen.<br />
-					Je moet hiervoor natuurlijk wel eerst een pokedex kopen in de markt.<br /><br />
+					In your Pokedex is saved what pokemon you\'ve seen and what you have caught.<br />
+					You should first buy a Pokedex at the market.<br /><br />
 					<strong>Pokedex chip</strong><br />
-					Je kunt in de markt ook een pokedex chip kopen. Dit is een update voor de Pokedex.<br />
-					Hier mee kun je de level van een wilde pokemon zien.<br /><br />
-					<a href="#wrapper">Go to top</a>
-				</div>
-				<hr />
-				<div id="sendmessage">
-					<h2>Bericht zenden</h2>
-					Je kunt op '.GLOBALDEF_SITENAME.' een bericht zenden naar een ander lid.<br />
-					Denk hierbij wel na wat je stuurt. Bij regels staat wat wel en niet mag!<br /><br />
+					You can also buy at the market a Pokedex chip. that\'s a update for your Pokedex.<br />
+					With this you can see the level of a wild pokemon.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="buddyandblock">
-					<h2>Buddylijst en blocklijst</h2>
-					<strong>Buddylijst</strong><br />
-					De buddylijst is ervoor om makkelijk iemand geld te geven of een bericht te sturen. Je hoeft dus niet meer naar een speler te zoeken.<br /><br />
-					<strong>Blocklijst</strong><br />
-					Hier komen alle leden in die jij hebt geblokkeerd.<br />
-					Een lid die is geblokkeerd kan jou geen berichten meer sturen, jij overigens ook niet naar diegene.<br />
-					Pas dit dus ook toe als iemand je uitscheld of je beledigd.<br /><br />
+					<h2>Buddylist and Blocklist</h2>
+					<strong>Buddylist</strong><br />
+					The buddylist is easy to make someone to give money or send a message. You no longer need to search for a player.<br /><br />
+					<a href="#wrapper">Go to top</a>
+				</div>
+				<hr />
+				<div id="sendmessage">
+					<h2>Send message</h2>
+					You can send a message on '.GLOBALDEF_SITENAME.' to another member.<br />
+					Think about what you are sending. When rules state what can and can not!<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="areamessenger">
-					<h2>Area messenger</h2>
-					Hier kun je met andere leden praten.<br />
-					<strong>Tip:</strong> vertel hier welke pokemon je verkoopt.<br /><br />
+					<h2>Pokemon messenger</h2>
+					Here you can talk with other members.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="attack">
-					<h2>Aanvallen</h2>
-					Eerst kies je een gebied waar je wilt gaan vechten.<br />
-					Dan komt er een pokemon tevoorschijn die tegen je wil vechten.<br /><br />
-					<strong>Shiny & Legendarische pokemon</strong><br />
-					Je kunt zelfs Shiny pokemon tegenkomen of Legendarische. Het maakt niet uit welke rank je bent, de kans op een Shiny of Legendarische is altijd even groot.<br />
-					Geluk dwing je natuurlijk af door zoveel mogelijk te gaan aanvallen.<br /><br />
+					<h2>Attack</h2>
+					First you choose an area where you want to fight.<br />
+					Then a pokemon appear who wants to fight you.<br /><br />
+					<strong>Shiny & Legendary pokemon</strong><br />
+					You can even encounter Shiny pokemon or Legendary. It does not matter what rank you are, the probability of a Shiny or Legendary is always great.<br />
+					Happiness mandatory course you off as much as possible to continue attacks.<br /><br />
 					<strong>Trainer</strong><br />
-					Soms daagt een trainer of Team Rocket je ineens uit tot een gevecht. Je hebt een kans dat als je de trainer of Team Rocket verslaat dat je van hun een item of wat silver krijgt.<br /><br />
+					Sometimes a trainer or Team Rocket suddenly appears to fight you. You have a chance when the trainer or Team Rocket is defeated you get an item or some silver.<br /><br />
 					<strong>Run</strong><br />
-					Voordat je run kunt gebruiken moet je eerst een fiets kopen in de markt.<br />
-					Een fiets werkt alleen bij een wilde pokemon, dus niet bij een trainer gevecht.<br /><br />
-					<strong>Verlies</strong><br />
-					Als je verliest gaat er 25% van je silver af, wat je cash bij je hebt.<br />
-					Ga daarom vaak langs de pokemon center! Gok niet op nog een pokemon want er kan altijd een trainer tevoorschijn komen.<br /><br />
-					<strong>Foutcode</strong><br />
-					Als er ineens een foutcode tevoorschijn komt zou het handig zijn om dat te vertellen aan een administrator. Vertel dan dus ook welke foutcode je zag.<br /><br />
+					Before you can run you first need to buy a bike in the market.<br />
+					A bicycle works only a with wild pokemon, So not at a trainer battle.<br /><br />
+					<strong>Lose</strong><br />
+					If you lose 25% of your silver off, what cash you have with you.<br />
+					Go therefore often along the pokemon center! Do not gamble on another pokemon because there is always a trainer emerge.<br /><br />
+					<strong>Error code</strong><br />
+					When suddenly an error code pops would be useful to mention them to an administrator. Tell then also the error code you saw.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="gyms">
 					<h2>Gyms</h2>
-					In elke wereld zijn 8 gyms. Je kunt een gym pas uitdagen als jou rank hoog genoeg is.
+					In each world are 8 gyms. You can only challenge a gym if you rank is high enough.
 					<ul>
-						<li><img src="images/icons/pokeball.gif"> = Pokemon is levend.</li>
+						<li><img src="images/icons/pokeball.gif"> = Pokemon is alive.</li>
 						<li><img src="images/icons/pokeball_black.gif"> = Pokemon is Knock out.</li>
 					</ul>
-					Je hebt pas gewonnen als alle pokemon van de gymleader Knock out zijn.<br /><br />
-					Na het gevecht komt de gymleader bij je en die geeft je wat je verdient. Meestal is dit een badge en wat silver.<br /><br />
+					You only win if all the pokemon from gymleader are Knock out.<br /><br />
+					After the fight, the gymleader gives you what you deserve. This is usually a badge and some silver.<br /><br />
+					<span class="smalltext">The gyms are only available from rank 8 Macho.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="duel">
-					<h2>Duelleren</h2>
-					Je kunt in '.GLOBALDEF_SITENAME.' ook duelleren tegen andere leden.<br />
-					Als je wint krijg je de ingelegde prijs.<br /><br />
-					Er word opgeslagen wie er wint, de laatste 10 wedstrijden staan bij statistieken.<br /><br />
-					<span class="smalltext">Duel is alleen toegankelijk als premiumlid, je kunt ook alleen maar duelleren tegen een premiumlid.</span><br /><br />
-					<span class="smalltext">Duel is pas beschikbaar vanaf rank 5 Trainer.</span><br /><br />
+					<h2>Duel</h2>
+					You can also in '.GLOBALDEF_SITENAME.' duel against other members.<br />
+					If you win you get the pickled price.<br /><br />
+					It will be saved who wins.<br /><br />
+					<span class="smalltext">Duel is only accessible if you\'re Premium, you can only duel against a Premium Member.</span><br />
+					<span class="smalltext">Duel is only available from rank 5 Trainer.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="tournament">
-					<h2>Toernooi</h2>
-					Je kunt ook deelnemen aan een toernooi.<br />
-					Elke dag om 6 uur word er een ronde gehouden, de speler die wint gaat een ronde verder!<br /><br />
-					<span class="smalltext">Toernooi is alleen toegankelijk als premiumlid en beschikbaar vanaf rank 5 Trainer.</span><br /><br />
+					<h2>Tournament</h2>
+					You can also participate in a tournament.<br />
+					The member who wins goes a round further!<br /><br />
+					<span class="smalltext">Tournament is only accessible if you\'re Premium and is only available from rank 5 Trainer.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="work">
-					<h2>Werken</h2>
-					Bij '.GLOBALDEF_SITENAME.' kun je ook werken voor wat silver.<br />
-					Hoe hoger je rank hoe makkelijk het werk word. Dit betekent dus ook dat als je net begint dat je geen casino kunt beroven. De kans dat dit zal lukken is erg klein.<br /><br />
-					<span class="smalltext">Een premiumlid heeft extra werkmogelijkheden.</span><br /><br />
+					<h2>Work</h2>
+					In '.GLOBALDEF_SITENAME.' you can also work for some silver.<br />
+					The higher your rank how easy the work is. This also means that when you start you can not rob casino. The chance that this will happen is very small.<br /><br />
+					<span class="smalltext">A Premium Member has additional job opportunities.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="race">
 					<h2>Race</h2>
-					Je kunt racen tegen andere spelers.<br />
-					Het systeem kiest automatisch je snelste pokemon, daar race je mee. Tegen de snelste van je tegenstander.<br />
-					De pokemon kan tegen een boom aanrennen, etc.<br />
-					Als een race uitnodiging al 3 dagen oud is word het automatisch verwijderd.<br /><br />
-					<span class="smalltext">Racen is beschikbaar vanaf rank 4 Casual.</span><br /><br />
+					You can race against other members.<br />
+					The system automatically selects your fastest pokemon, race you there. Against the fastest of your opponent.<br />
+					The pokemon can running up against a tree, etc.<br />
+					If a race invitation already 3 days old it will be automatically deleted.<br /><br />
+					<span class="smalltext">Racing is available from rank 4 Casual.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="traders">
 					<h2>Traders</h2>
-					Er zijn ook trainers die hun pokemon willen ruilen.<br />
-					Ze vertellen welke pokemon hun willen en welke zij zelf hebben.<br />
-					Elke nacht om 01:00 worden de pokemon vernieuwd.<br />
-					<strong>Tip:</strong> ruil zoveel mogelijk want dan krijgt de pokemon na een gevecht meer EXP points.<br /><br />
-					<span class="smalltext">Traders zijn pas beschikbaar vanaf rank 5 Trainer.</span><br /><br />
-					<a href="#wrapper">Go to top</a>
-				</div>
-				<hr />
-				<div id="stealandspy">
-					<h2>Bespioneren</h2>
-					<strong>Bespioneren</strong><br />
-					Voor het bespioneren huur je Team Rocket in.<br />
-					Zij zullen alle gegevens die ze hebben verzameld aan jou doorgeven.<br />
-					<strong>Tip:</strong> ga eerst bespioneren voordat je met iemand gaat duelleren.<br /><br />
-					Bespioneren is beschikbaar vanaf rank 3 Senior.</span><br /><br />
+					There are also trainers who want to trade pokemon.<br />
+					They tell you what pokemon they want and what they have for you.<br />
+					Every day at 3:00 be the pokemon renewed.<br />
+					If you have trade you can not trade for 3 days with the traders.<br /><br />
+					<strong>Tip:</strong> exchange as much as possible because this will cause the pokemon after a battle more EXP points.<br /><br />
+					<span class="smalltext">Traders are only available from rank 5 Trainer.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="chooselevel">
-					<h2>Kies een level</h2>
-					Kies een level is een functie waarbij je kunt aanvinken welk level pokemon je wilt tegenkomen in het wild.<br /><br />
-					<span class="smalltext">Deze functie is pas beschikbaar vanaf rank 18 Untouchable.</span><br /><br />
+					<h2>Choose a level</h2>
+					Choose a level is a function where you can check what level pokemon you want to encounter in the wild.<br /><br />
+					<span class="smalltext">This function is only available from rank 16 Professional.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="premiumbank">
-					<h2>Area markt</h2>
-					In de Premium markt kun je Premiumdagen kopen. De voordelen van premium zijn staat bij elke pack.<br /><br />
-					Tevens verkopen we aanbieding packs. Zoals:
-					<ul>
-						<li>5000 Silver pack.</li>
-						<li>25 Gold pack.</li>
-					</ul>
-					We hebben veel betaalmogelijkheden. Dat varieert wel van welke pack je wilt kopen.<br /><br />
-					Gelieve eerst aan je ouders/verzorgers te vragen of je mag betalen.<br /><br />
+					<h2>Premium market</h2>
+					In the Premium market, you can buy Premium days. The benefits of premium are able to each pack.<br /><br />
+					We also sell discount packs. If you are underage, make sure that you have your parents approval<br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="pokemoncenter">
 					<h2>Pokemon center</h2>
-					Je kunt je pokemon hier weer vol leven geven.<br />
-					Het is gratis, het kost alleen wat tijd.<br /><br />
-					<span class="smalltext">Een premiumlid moet 10 sec te wachten voor de genezing van de pokemon, bij een normaal lid is dit 1 minuut.</span><br /><br />
+					You can heal your pokemon here again full of life.<br />
+					It is free, it just takes some time.<br /><br />
+					<span class="smalltext">A Premium member must wait 10 sec for the healing of the pokemon, and a normal member 30 seconds.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="market">
-					<h2>Markt</h2>
-					Bij de markt kun je alle dingen kopen wat je nodig bent:
+					<h2>Market</h2>
+					In the market you can buy all the things you need:
 					<ul>
 						<li>Balls</li>
 						<li>Potions</li>
 						<li>Items</li>
 						<li>Special items</li>
 						<li>Stones</li>
-						<li>Pokemon eieren</li>
+						<li>Pokemon eggs</li>
 						<li>TM\'s</li>
 					</ul>
-					Pokemon eieren worden 1 keer per uur weer bijgevuld.<br />
-					Tevens worden de pokemon eieren elke maandag en donderdag om 01:00 geheel vernieuwd.<br />
-					<span class="smalltext">TM\'s zijn pas beschikbaar vanaf rank 5 Trainer.<br /><br />
+                              The pokemon eggs are each hour renewed.<br /><br />
+					<span class="smalltext">Pokemon eggs are only available from rank 2 Junior.</span><br />
+					<span class="smalltext">TM\'s are only available from rank 5 Trainer.</span><br />
+					<span class="smalltext">Transform items are only available from rank 11 Elite Trainer.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="bank">
 					<h2>Bank</h2>
-					Functies van de bank:
+					Functions of the Bank:
 					<ul>
-						<li>Silver op de bank zetten.</li>
-						<li>Silver van de bank halen.</li>
-						<li>Geld overmaken naar een andere speler.</li>
+						<li>Deposit silver to the bank.</li>
+						<li>Deposit silver from the bank.</li>
+						<li>Transfer money to another member.</li>
 					</ul>
-					<strong>Tip:</strong> Maak als je veel silver cash hebt het over naar de bank. Dan kan niemand het stelen. Verdeel het wel over de dag, niet dat je beurten al op zijn in de ochtend.<br /><br />
-					<span class="smalltext">Een premiumlid kan 5x per dag geld storten naar de bank, een normaal lid kan dit 3x.</span><br /><br />
+					<strong>Tip:</strong> Deposit as much silver you have cash to the bank. Then no one can steal. Spread it on the day, not that you already out of turns in the morning.<br /><br />
+					<span class="smalltext">A Premium Member can deposit money to the bank 10x per day, a normal member 5x.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="boat">
-					<h2>Bootverhuur</h2>
-					Je kunt een boot huren om naar een andere wereld te varen.<br />
-					Dit kost geen tijd, je bent er dus in minder dan 1 seconde!<br />
-					Je betaald tickets voor al je pokemon + jezelf.<br /><br />
+					<h2>Rent a boat</h2>
+					You can rent a boat to sail to another world.<br />
+					This takes no time, you\'re there in less than 1 second!<br />
+					You paid tickets for all your pokemon + yourself.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="houseseller">
-					<h2>Huizenverkoper</h2>
-					Koop hier ene huis op '.GLOBALDEF_SITENAME.'. Hoe groter het huis, hoe meer pokemon erin kunnen verblijven.<br />
-					Je kunt je huis niet verkopen en je kunt alleen maar beter kopen dan dat je al hebt.<br /><br />
-					Als je een Villa hebt (het grootste huis) verdwijnt huizenverkoper uit het menu.<br /><br />
+					<h2>Houses seller</h2>
+					Buy a house on '.GLOBALDEF_SITENAME.'. The bigger the house, the more pokemon in it can stay.<br />
+					You can not sell your house and you can only get better buy than you already have.<br /><br />
+					If you have a Villa (the biggest house) house seller disappears from the menu.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="transferlist">
 					<h2>Transferlijst</h2>
-					Hier kun je een pokemon kopen.<br />
+					Hier kun je een Pok&eacute;mon kopen.<br />
 					Hoe hoger jouw rank is, hoe hoger de level is wat je van de transferlijst kunt kopen.<br />
-					Als je een pokemon hebt gekocht zit die in je huis.<br /><br />
+					Als je een Pok&eacute;mon hebt gekocht zit die in je huis.<br /><br />
 					<span class="smalltext">De transferlijst is beschikbaar vanaf rank 4 Casual.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="daycare">
 					<h2>Daycare</h2>
-					Hier kun je pokemon heenbrengen en de daycare probeert ze dan te trainen.<br />
-					Soms krijgt een pokemon er zelfs 2 levels per dag bij!<br /><br />
-					<strong>Ei:</strong><br />
-					Soms krijgen je pokemon een kindje (een ei). Je kunt deze halen bij de daycare als er 1 is.<br />
-					Er kan alleen een ei komen als 2 van dezelfde pokemon in de daycare zitten. Oftewel:<br />
-					Als je er een Pikachu en Pikachu heenbrengt, krijg je een ei met Pichu.<br />
-					Een pikachu en Raichu zal niet werken.<br /><br />
-					Als beide pokemon shiny zijn, zal de pokemon die uit het eitje komt ook shiny zijn.<br /><br />
-					Het werkt overigens alleen bij pokemon die <strong>niet</strong> zeldzaam zijn.<br /><br />
-					<strong>Tip:</strong> een ditto kan goed van pas komen.<br /><br />
-					<span class="smalltext">Een premiumlid mag 2 pokemon bij de daycare laten, een normaal lid mag 1 pokemon.<br />
-					De daycare is beschikbaar vanaf rank 4 Casual.</span><br /><br />
+					Here you can bring pokemon and the daycare is trying to train them.<br />
+					Sometimes a pokemon even grows 2 levels per day!<br /><br />
+					<strong>Egg:</strong><br />
+					Sometimes you get a baby pokemon (an egg). You can pick it up at the daycare if there is 1.<br />
+					There can only be an egg if the 2 pokemon are the same. For instance:<br />
+					If you have a 2 Pikachu\'s and brings to the daycare, you get an egg with Pichu.<br />
+					A Pikachu and Raichu will not work.<br /><br />
+					If both are shiny pokemon, the pokemon from the egg will also be shiny.<br /><br />
+					It works only with pokemon that are <strong>not</strong> rare.<br /><br />
+					<strong>Tip:</strong> a Ditto can come in handy.<br /><br />
+					<span class="smalltext">A Premium Member can bring 2 Pokemon at the daycare and a normal member 1 pokemon.<br />
+					The daycare is available from rank 4 Casual.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="namespecialist">
-					<h2>Naam specialist</h2>
-					De namenspecialist kan de naam van een pokemon veranderen.<br />
-					Het kost <img src="images/icons/silver.gif" title="Silver" style="margin-bottom: -3px;" /> 40. En je naam is veranderd naar de naam wat jij wilt.<br />
-					<strong>Let op:</strong> de naam mag geen scheldwoord zijn.<br /><br />
+					<h2>Name specialist</h2>
+					The name specialist can change the name of a pokemon.<br />
+					It costs <img src="images/icons/silver.png" title="Silver" style="margin-bottom: -3px;"/> 40 silver. And your name is changed to the name that you want<br />
+					<strong>Note: </strong> the name may not be a scold name<br /><br />
+					<span class="smalltext">The name specialist is available from rank 9 Gym Leader.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="shinyspecialist">
 					<h2>Shiny specialist</h2>
-					De shiny specialist kan met voldoende Gold een pokemon shiny maken. Elke pokemon heeft een bepaald aantal gold nodig om shiny te worden.<br />Door de impact van het glimmende Gold \'evolueert\' de pokemon naar een shiny pokemon.<br /><br />
+					The shiny specialist can make a pokemon shiny with gold. Each pokemon has a certain amount of gold needed to be shiny.<br /> 
+                    Due to the impact of the shiny gold \'evolving \' the pokemon into a shiny pokemon.<br /><br />
+					<span class="smalltext">The shiny specialist is available from rank 10 Shiny Trainer.</span><br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="jail">
-					<h2>Gevangenis</h2>
-					<strong>In gevangenis</strong><br />
-					Soms kom je in de gevangenis omdat je iets probeert te stelen op het werk, of je doet iets anders fouts.<br />
-					Je kunt jezelf dan uitkopen of je moet hopen dat iemand anders je uit bust (bevrijd).<br /><br />
-					<strong>Op bezoek</strong><br />
-					Je kunt ook op bezoek gaan in de gevangenis en iemand uitkopen of uitbusten. Je hebt toch wel wat over andere leden?<br /><br />
+					<h2>Jail</h2>
+					<strong>In jail</strong><br />
+					Sometimes you gets in jail because you\'re trying to steal something at work, or do anything else wrong.<br />
+					You can buyout yourself whether you should hope that someone else breaks you out (released).<br /><br />
+					<strong>Visiting</strong><br />
+					You can also go to visit someone in jail and buy him/her out, or break free.<br /><br />
 					<a href="#wrapper">Go to top</a>
 				</div>
 				<hr />
 				<div id="gamble">
-					<h2>Gokken</h2>
-					<strong>Gooi een munt</strong><br />
-					Een simpel spelletje waarbij je moet gokken of de munt op kop of munt valt.<br />
-					Als je het goed hebt win je de inzet dubbel terug, bij fout ben je het silver kwijt.<br /><br />
-					<strong>Wie is het quiz</strong><br />
-					Bij de \'wie is het quiz\' moet je raden hoe de pokemon heet.<br /><br />
-					<span class="smalltext">Elke speler kan dit 1 keer per uur doen.</span><br /><br />
-					<strong>Geluksrad</strong><br />
-					Geluksrad is een extra functie om gratis wat te krijgen. Draai aan het rad en zie wat je prijs is.<br /><br />
-					<span class="smalltext">Een premiumlid mag per dag 3x aan het rad draaien, een normaal lid kan dat 1x.</span><br /><br />
-					<strong>Loterij</strong><br />
-					Loterij is een erg leuke variant om te gokken.<br />
-					De leden kunnen per loterij maximaal 10 kaartjes kopen.<br />
-					De loterij word verloot op de tijd wat er staat. De winnaar krijgt al het ingelegde geld.<br /><br />
-					<span class="smalltext">De premiumloterij is alleen toegankelijk voor Premium leden. Hierbij win je het ingelegde geld + een Rare candy.</span><br /><br />
+					<h2>Gamble</h2>
+					<strong>Toss a coin</strong><br />
+                                        A simple game where you have to guess whether the coin is heads or tails.<br />
+                                        If you do it right you win the stake back twice, in error, you lose the silver.<br /><br />
+                                        <strong>Who is the quiz</strong><br />
+                                        In the \'Who is the quiz\' you have to guess what the name is from the pokemon. <br /> <br />
+                                        <span class="smallText">Each member can do this 1 time per hour.</span><br /><br />
+										<strong>Cracking the safe</strong><br />
+					                    At \'Cracking the safe\' you have to guess the code. If you are wrong 200 Silver is going in the pot.
+					                    If you got it right, you win the pot and then it get reset and put the pot back on 1000 Silver..<br /><br />	
+                                        <strong>Wheel of Fortune</strong><br />
+                                        Wheel of Fortune is an additional function to free what to get. Spin the wheel and see what your price is.<br /><br />
+                                        <span class="smallText">A Premium Member can spin the wheel 3x per day, a normal member 1x.</span><br /><br />
+                                        <strong>Lottery</strong><br />
+                                         Lottery is a very nice variation to gamble.<br />
+                                         Members can buy tickets up to 10 per lottery.<br />
+                                         The lottery will be raffled at the time what it says. The winner gets all the inlaid money.<br /><br />
+                                         <span class="smallText">The Premium lottery is only available to Premium members. Here you win the inlaid money + a Rare Candy.</span><br /><br />
+                                         <strong>Pokemonrace</strong><br />
+                                         The pokemonrace is a very nice variation to gamble.<br />
+                                         Members can fill in 5 gold per race.<br />
+                                         The pokemonrace get paid at 22:00 hours. The winner gets his inlaid gold time 2,3,4 or 5 back.<br /><br />
+                                         <span class="smallText">The pokemonrace is only available to Premium members.</span><br /><br />
+                                         
 					<a href="#wrapper">Go to top</a>
 				</div>
 				</div>';
@@ -731,68 +738,153 @@
 		elseif($_GET['category'] == 'pokemon-info'){
 			#Screen
 			$txt['pagetitle'] .= ' - Pokemon informatie';
-			$txt['choosepokemon'] = 'Kies pokemon:';
-			$txt['choose_a_pokemon'] = 'Kies een pokemon.';
-			$txt['not_rare'] = 'niet zeldzaam';
-			$txt['a_bit_rare'] = 'een beetje zeldzaam';
-			$txt['very_rare'] = 'erg zeldzaam';
-			$txt['not_a_favorite_place'] = 'Heeft geen bepaalde lievelingsplek.';
-			$txt['is_his_favorite_place'] = 'is zijn lievelingsplek.';
+            $txt['choosepokemon'] = 'Choose a Pok&eacute;mon:';
+            $txt['choose_a_pokemon'] = 'Choose a Pok&eacute;mon.';
+            $txt['not_rare'] = 'common';
+            $txt['a_bit_rare'] = 'a little rare';
+            $txt['very_rare'] = 'very rare';
+            $txt['not_a_favorite_place'] = 'Does not have a favorite spot.';
+            $txt['is_his_favorite_place'] = 'is his favorite spot.';
 			$txt['is'] = 'is';
-			$txt['lives_in'] = 'Leeft in';
-			$txt['how_much_1'] = 'Er zijn';
-			$txt['how_much_2'] = 'in het spel.';
-			$txt['attack&evolution'] = 'Attack & Evolutie';
-			$txt['no_attack_or_evolve'] = 'Evolueert niet en leert geen aanval.';
+            $txt['lives_in'] = 'Lives in';
+            $txt['how_much_1'] = 'There are';
+            $txt['how_much_2'] = 'in the game.';
+            $txt['attack&evolution'] = 'Attack & Evolution';
+            $txt['no_attack_or_evolve'] = 'Does not evolve or learn new attacks.';
 			$txt['level'] = 'Level';
-			$txt['evolution'] = 'Evolutie';
+            $txt['evolution'] = 'Evolution';
 		}
 		elseif($_GET['category'] == 'attack-info'){
 			#Screen
-			$txt['pagetitle'] .= ' - Aanval informatie';
+			$txt['pagetitle'] .= ' - Attack information';
 			$txt['#'] = '#';
-			$txt['name'] = 'Naam';
+            $txt['name'] = 'Name';
 			$txt['type'] = 'Type';
 			$txt['att'] = 'Att';
 			$txt['acc'] = 'Acc';
 			$txt['effect'] = 'Effect';
-			$txt['ready'] = 'Klaar';
+            $txt['ready'] = 'Done';
 		}
 	}
 
 	######################## STATISTICS ########################
 	elseif($page == 'statistics'){
 		#Screen
-		$txt['pagetitle'] = 'Statistics';
-		$txt['top6_pokemon_title'] = 'Top team '.GLOBALDEF_SITENAME.'<br /><span class="smalltext">Gebasseerd op alle stats.</span>';
-		$txt['game_data'] = 'Spel gegevens';
-		$txt['users_total'] = 'Leden aantal:';
-		$txt['silver_in_game'] = 'Silver in spel:';
-		$txt['pokemon_total'] = 'Aantal pokemon:';
-		$txt['matches_played'] = 'Gespeelde gevechten:';
-		$txt['top5_silver_users'] = 'Top 5 meeste silver';
+        $txt['pagetitle'] = 'Statistics';
+        $txt['top6_pokemon_title'] = 'Top team of '.$game['titel'].'<br /><span class="smalltext">Based on all stats.</span>';
+        $txt['game_data'] = 'Game statistics';
+        $txt['users_total'] = 'Number of members:';
+        $txt['silver_in_game'] = 'Silver in the game:';
+        $txt['pokemon_total'] = 'Number of Pok&eacute;mon:';
+        $txt['matches_played'] = 'Total fights:';
+        $txt['top5_silver_users'] = 'Top 5 silver';
 		$txt['#'] = '#';
-		$txt['who'] = 'Wie';
+        $txt['who'] = 'Who';
 		$txt['silver'] = 'Silver';
-		$txt['top5_pokemon_total'] = 'Top 5 aantal pokemon';
-		$txt['number'] = 'Aantal';
-		$txt['top5_matches_played'] = 'Top 5 gevechten<br /><span class="smalltext">Gevechten gewonnen - gevechten verloren.</span>';
-		$txt['matches'] = 'Gevechten';
-		$txt['top10_new_users'] = 'Top 10 nieuwste leden';
-		$txt['when'] = 'Wanneer';
+        $txt['top5_pokemon_total'] = 'Top 5 Pok&eacute;mon';
+        $txt['number'] = 'Amount';
+        $txt['top5_matches_played'] = 'Top 5 <br /><span class="smalltext">Battles won - Battles lost.</span>';
+        $txt['matches'] = 'Battles';
+        $txt['top10_new_users'] = 'Top 10 newest members';
+        $txt['when'] = 'When';
+
+        $txt['strongest'] = 'Strongest legend';
+        $txt['strongest_not'] = 'Strongest nonlegend';
+        $txt['statistics'] = 'Statistics';
 	}
 	######################## RANKINGLIST ########################
 	elseif($page == 'rankinglist'){
 		#Screen
 		$txt['pagetitle'] = 'Rankinglist';
 		$txt['#'] = '#';
-		$txt['username'] = 'Speelnaam';
-		$txt['country'] = 'Land';
+        $txt['username'] = 'Username';
+        $txt['country'] = 'Country';
 		$txt['rank'] = 'Rank';
 		$txt['status'] = 'Status';
 		$txt['online'] = 'Online';
 		$txt['offline'] = 'Offline';
 	}
+
+    ######################## CLAN-MAKE ########################
+    elseif($page == 'clan-make'){
+        #Alerts
+        $txt['clan_name_required'] = 'A clan name is required';
+        $txt['not_longer_than_20'] = 'The name of your clan cannot be larger than 20 characters';
+        $txt['clan_name_already_in_use'] = 'This clan already exists.';
+        $txt['description_required'] = 'A description is required.';
+        $txt['description_max'] = 'The description cannot be larger than 20 characters';
+        $txt['clan_type_required'] = 'Select a type.';
+        $txt['already_in_a_clan'] = 'You already have a clan.';
+        $txt['text_only'] = 'The clan name may only contain alpha numeric characters.';
+        $txt['captcha_invalid'] = 'Captcha invalid.';
+        $txt['not_enough_gold'] = 'Insufficient gold.';
+        $txt['created_successfully'] = 'succesfully created.';
+
+        #Screen
+        $txt['create_a_clan_for'] = 'Create your own clan for';
+        $txt['gold'] = 'gold';
+        $txt['clan_name'] = 'Clan name';
+        $txt['description'] = 'Description';
+        $txt['type'] = 'Type';
+        $txt['select'] = 'Select';
+        $txt['security'] = 'Security';
+        $txt['button_create'] = 'Create';
+    }
+
+    ######################## CLAN-RANK ########################
+    elseif($page == 'clan-rank'){
+        #Screen
+        $txt['#'] = '#';
+        $txt['clan_name'] = 'Clan name';
+        $txt['members'] = 'Members';
+        $txt['owner'] = 'Owner';
+        $txt['level'] = 'Level';
+        $txt['gold'] = 'Gold';
+        $txt['silver'] = 'Silver';
+    }
+
+    ######################## CLAN-PROFILE ########################
+    elseif($page == 'clan-profile'){
+        #Alerts
+        $txt['value_required'] = 'A value is required';
+        $txt['not_enough_gold'] = 'You do not have enough gold';
+        $txt['not_a_member'] = 'You aren\'t a member of this clan';
+        $txt['donation_gold_succesfull'] = $_POST['clan_donate'].' gold deposited';
+        $txt['donation_silver_succesfull'] = $_POST['clan_donate'].' silver deposited';
+        $txt['cant_kick_self'] = 'You cannot kick yourself.';
+        $txt['user_removed'] = 'You\'ve removed '.$_POST['who'].' from your clan.';
+        $txt['user_removed_message'] = 'You have ben kicked from '.$profiel['clan_naam'];
+        $txt['user_stepped_out'] = 'You left the clan.';
+        $txt['user_stepped_out_message'] = $_SESSION['naam'].' has left the clan.';
+        $txt['clan_not_enough_gold'] = 'The clan does not have enough gold.';
+        $txt['new_clan_level'] = 'Congratulations the clan is now';
+
+        #Screen
+        $txt['admin'] = 'Admin';
+        $txt['clan_name'] = 'Clan name';
+        $txt['clan_owner'] = 'Clan owner';
+        $txt['clan_description'] = 'Clan description';
+        $txt['clan_position'] = 'Position';
+        $txt['clan_level'] = 'Clan level';
+        $txt['clan_upgrade'] = 'an upgrade costs';
+        $txt['clan_gold'] = 'Gold';
+        $txt['clan_silver'] = 'Silver';
+        $txt['clan_members'] = 'Members';
+        $txt['clan_make_owner'] = 'Make owner';
+        $txt['clan_leave'] = 'Leave';
+        $txt['clan_upgrade_level'] = 'Upgrade clan';
+    }
+
+    ######################## CLAN-SHOUT ########################
+    elseif($page == 'clan-shout'){
+        #Alerts
+        $txt['no_clan'] = '<center>You are not in a clan, create your own clan <a href=\'?page=clan-make\'>here</a>.</center>';
+
+        #Screen
+        $txt['clan_shout_info'] = '<center><h2>Clanshout</h2><br>Welcome in the clan shoutbox of '.$gebruiker['clan'].', only you and your clanmembers can see this shoutbox.</center>';
+        $txt['clan_shout_retrieving_messages'] = 'Retrieving messages...';
+        $txt['clan_send_message'] = 'Send message';
+    }
 
 	######################## CONTACT ########################
 	elseif($page == 'contact'){
@@ -803,8 +895,7 @@
 		$txt['alert_email_incorrect_signs'] = 'E-mail adres is niet geldig.';
 		$txt['alert_no_subject'] = 'U heeft geen onderwerp ingevuld.';
 		$txt['alert_no_message'] = 'U heeft geen bericht getypt.';
-		$txt['success_contact'] = 'De e-mail is succesvol verzonden.<br />
-									We proberen je zo snel mogelijk terug te mailen op '.$_POST['email'].'.';
+        $txt['success_contact'] = 'Je bericht is succesvol verzonden.';
 
 		#Screen
 		$txt['pagetitle'] = 'Contact';
@@ -888,187 +979,185 @@
 	######################## ACCOUNT OPTIONS ########################
 	elseif($page == 'account-options'){
 		#Screen
-		$txt['pagetitle'] = 'Account opties';
+		$txt['pagetitle'] = 'Account options';
 		#Titles
-		$txt['link_subpage_personal'] = 'Persoonlijk';
-		$txt['link_subpage_password'] = 'Wachtwoord';
-		$txt['link_subpage_profile'] = 'Profiel';
-		$txt['link_subpage_restart'] = 'Opnieuw beginnen';
+		$txt['link_subpage_personal'] = 'Personal';
+		$txt['link_subpage_password'] = 'Password';
+		$txt['link_subpage_profile'] = 'Profile';
+		$txt['link_subpage_restart'] = 'Start over';
 
 		if($_GET['category'] == 'personal'){
 			#Alerts general
-			$txt['alert_not_enough_gold'] = 'Je hebt niet genoeg gold.';
-			$txt['alert_no_username'] = 'Geen username ingevuld.';
-			$txt['alert_username_too_short'] = 'Speelnaam te kort.';
-			$txt['alert_username_too_long'] = 'Speelnaam te lang.';
-			$txt['alert_username_already_taken'] = 'Speelnaam bestaat al.';
-			$txt['alert_firstname_too_long'] = 'Voornaam te lang.';
-			$txt['alert_lastname_too_long'] = 'Achternaam te lang.';
-			$txt['alert_character_invalid'] = 'Persoon onbekend.';
-			$txt['alert_seeteam_invalid'] = 'Team zichtbaar onbekend.';
-			$txt['alert_seebuddies_invalid'] = 'Buddies zichtbaar onbekend.';
-			$txt['alert_seebadges_invalid'] = 'Badges zichtbaar onbekend.';
-			$txt['alert_advertisement_invalid'] = 'Reclame onbekend.';
-			$txt['alert_duel_invalid'] = 'Duel onbekend.';
-			$txt['success_modified'] = 'Succesvol gewijzigd!';
+            $txt['alert_not_enough_gold'] = 'You do not have enough gold.';
+            $txt['alert_no_username'] = 'Username is incorrect.';
+            $txt['alert_username_too_short'] = 'Username is too short.';
+            $txt['alert_username_too_long'] = 'Username is too long.';
+            $txt['alert_username_already_taken'] = 'Username already exists.';
+            $txt['alert_firstname_too_long'] = 'Firstname is too long.';
+            $txt['alert_lastname_too_long'] = 'Lastname is too long.';
+            $txt['alert_character_invalid'] = 'Personality incorrect.';
+            $txt['alert_seeteam_invalid'] = 'Team visibility incorrect.';
+            $txt['alert_seebuddies_invalid'] = 'Buddy visibility incorrect.';
+            $txt['alert_seebadges_invalid'] = 'Badges visibility incorrect.';
+            $txt['alert_duel_invalid'] = 'Duel incorrect.';
+            $txt['success_modified'] = 'Your profile has been changed!';
+            $txt['alert_advertisement_invalid'] = 'Advertising unknown';
 
 			#Screen general
-			$txt['pagetitle'] .= ' - Persoonlijk';
-			$txt['buy_premium_here'] = 'Bestel hier Premium!';
-			$txt['days_left'] = 'dagen resterend.';
-			$txt['username'] = 'Speelnaam:';
-			$txt['cost_15_gold'] = 'Dit kost 15 gold.';
-			$txt['firstname'] = 'Voornaam:';
-			$txt['lastname'] = 'Achternaam:';
+			$txt['pagetitle'] .= ' - Personal';
+			$txt['buy_premium_here'] = 'Order premium here!';
+			$txt['days_left'] = 'day(s) left.';
+			$txt['username'] = 'This will cost 15 gold.';
+			$txt['firstname'] = 'Firstname:';
+			$txt['lastname'] = 'Lastname:';
 			$txt['youtube'] = 'Youtube link:';
-			$txt['country'] = 'Land:';
-			$txt['character'] = 'Persoon:';
-			$txt['premium_days'] = 'Premiumdagen:';
-			$txt['advertisement'] = 'Reclame:';
-			$txt['advertisement_info'] = '(Voor elke 24 uur reclame actief verdien je 5 gold.)';
-			$txt['alert_not_premium'] = 'Je bent geen premiumlid.';
-			$txt['on'] = 'Aan';
-			$txt['off'] = 'Uit';
-			$txt['team_on_profile'] = 'Team op profiel:';
-			$txt['buddies_on_profile'] = 'Buddies op profiel:';
-			$txt['music_on'] = 'Muziek op '.GLOBALDEF_SITENAME.':';
-			$txt['yes'] = 'Ja';
-			$txt['no'] = 'Nee';
-			$txt['badges_on_profile'] = 'Badges op profiel:';
-			$txt['alert_dont_have_badgebox'] = 'Je hebt geen badge doos.';
-			$txt['duel_invitation'] = 'Duel uitnodiging:';
-			$txt['alert_not_yet_available'] = 'Nog niet beschikbaar.';
-			$txt['available_rank_Senior'] = 'Kan vanaf rank Senior.';
-			$txt['battleScreen'] = 'Battle scherm grafisch:';
-			$txt['button_personal'] = 'Wijzig profiel';
+            $txt['cost_15_gold'] = 'Dit kost 15 gold.';
+            $txt['country'] = 'Country:';
+            $txt['character'] = 'Personality:';
+            $txt['premium_days'] = 'Premium days:';
+			$txt['advertisement'] = 'Advertisement:';
+			$txt['advertisement_info'] = '(if you have advertising activated you will earn 5 gold each 24hr.)';
+            $txt['alert_not_premium'] = 'You are no premium member.';
+            $txt['on'] = 'On';
+            $txt['off'] = 'Off';
+			$txt['team_on_profile'] = 'Team on profile:';
+			$txt['buddies_on_profile'] = 'Buddies on profile:';
+			$txt['music_on'] = 'Music on '.GLOBALDEF_SITENAME.':';
+			$txt['yes'] = 'Yes';
+			$txt['no'] = 'No';
+			$txt['badges_on_profile'] = 'Badges on profile:';
+			$txt['alert_dont_have_badgebox'] = 'You do not have a badgecase.';
+			$txt['duel_invitation'] = 'Duel invites:';
+			$txt['alert_not_yet_available'] = 'Not yet available.';
+			$txt['available_rank_Senior'] = 'Available from rank Senior.';
+            $txt['battleScreen'] = 'Battlescreen with images:';
+            $txt['button_personal'] = 'Change profile';
 		}
 		elseif($_GET['category'] == 'password'){
 			#Alerts password
-			$txt['alert_all_fields_required'] = 'Niet alle velden ingevuld.';
-			$txt['alert_old_new_password_thesame'] = 'Je nieuwe wachtwoord is het zelfde als je huidige.';
-			$txt['alert_old_password_wrong'] = 'Je huidige wachwoord is niet goed.';
-			$txt['alert_password_too_short'] = 'Wachtwoord is te kort';
-			$txt['alert_new_controle_password_wrong'] = 'Je nieuwe wachtwoord en de controle wachtwoord zijn niet gelijk.';
-			$txt['success_password'] = 'Je wachtwoord is succesvol veranderd.';
+            $txt['alert_all_fields_required'] = 'Fill in all fields.';
+            $txt['alert_old_new_password_thesame'] = 'Your new password is the same as your current password.';
+            $txt['alert_old_password_wrong'] = 'Your current password is not correct.';
+            $txt['alert_password_too_short'] = 'New password is too short';
+            $txt['alert_new_controle_password_wrong'] = 'Your new password and the repeated password are not the same.';
+            $txt['success_password'] = 'Your password has been changed.';
 
 			#Screen password
-			$txt['pagetitle'] .= ' - Verander wachtwoord';
-			$txt['new_password'] = 'Nieuw wachtwoord:';
-			$txt['new_password_again'] = 'Nieuw wachtwoord nogmaals:';
-			$txt['password_now'] = 'Huidig wachtwoord:';
-			$txt['button_password'] = 'Wijzig wachtwoord';
+            $txt['pagetitle'] .= ' - Verander wachtwoord';
+            $txt['new_password'] = 'New password:';
+            $txt['new_password_again'] = 'Repeat new password:';
+            $txt['password_now'] = 'Current password:';
+            $txt['button_password'] = 'Change password';
 		}
 		elseif($_GET['category'] == 'profile'){
 			#Alerts profile
-			$txt['success_profile'] = 'Je profiel is succesvol veranderd.';
+			$txt['success_profile'] = 'Your profile has been changed.';
 
 			#Screen profile
-			$txt['pagetitle'] .= ' - Pimp je profiel';
-			$txt['link_text_effects'] = '<u><a href="codes.php?category=profile" class="colorbox" title="Text effects for profile"><b>Hier</b></a></u> kun je zien hoe je tekst effecten moet toepassen of plaatjes invoegen.';
-			$txt['button_profile'] = 'Wijzig profiel';
+			$txt['pagetitle'] .= ' - Pimp your profile';
+            $txt['button_profile'] = 'Change profile';
 		}
 		elseif($_GET['category'] == 'restart'){
 			#Alerts restart
-			$txt['alert_no_password'] = 'Geen wachtwoord ingevuld.';
-			$txt['alert_password_wrong'] = 'Onjuist wachtwoord ingevuld.';
-			$txt['alert_no_beginworld'] = 'Geen beginwereld gekozen.';
-			$txt['alert_world_invalid'] = 'Beginwereld onbekend.';
-			$txt['success_restart'] = 'Succesvol overnieuw begonnen!';
-			$txt['alert_when_restart'] = 'Je kunt over
-										  <strong><span id=uur3></span></strong> uren
-										  <strong><span id=minuten3> </span>&nbsp;minuten</strong> en 
-										  <strong><span id=seconden3></span>&nbsp;seconden</strong> opnieuw beginnen.';
+            $txt['alert_no_password'] = 'Please fill in your password.';
+            $txt['alert_password_wrong'] = 'Incorrect password.';
+            $txt['alert_no_beginworld'] = 'Please choose a world to start in.';
+            $txt['alert_world_invalid'] = 'Start world unknown.';
+            $txt['success_restart'] = 'You\'ve successfully restarted your account!';
+            $txt['alert_when_restart'] = 'You can restart your account in
+										  <strong><span id=uur3></span></strong> hours
+										  <strong><span id=minuten3> </span>&nbsp;minutes</strong> and 
+										  <strong><span id=seconden3></span>&nbsp;seconds</strong>';
 
 			#Screen restart
-			$txt['pagetitle'] .= ' - Overnieuw beginnen';
-			$txt['restart_title_text'] = '<center>Vul hieronder je wachtwoord in en kies je wereld waarin je wilt beginnen.<br /><br />
+			$txt['pagetitle'] .= ' - Restart';
+            $txt['restart_title_text'] = '<center>Fill in your password and choose a new world to start in.<br /><br />
 										
-										Al je pokemon, items, silver en rankingpoints worden verwijderd.<br />
-										<strong>Dit kan niet ongedaan worden gemaakt.</strong></center>';
-			$txt['password_security'] = 'Wachtwoord beveiliging:';
-			$txt['button_restart'] = 'Begin opnieuw';
+										All your pokemon, items, silver and experience will be removed.<br />
+										<strong>This action cannot be reversed.</strong></center>';
+            $txt['password_security'] = 'Password check:';
+            $txt['button_restart'] = 'Restart';
 		}
 	}
 
 	######################## PROMOTION ########################
 	elseif($page == 'promotion'){
-		$txt['pagetitle'] = 'Promotie voor goud';
-		$txt['promotion_text'] = '<p>Je kunt ervoor zorgen dat '.GLOBALDEF_SITENAME.' meer leden krijgt en je word er zelf nog beter van ook!<br />
-		Voor elk lid die zich aanmeld en die bij referer jouw inlognaam opgeeft krijg jij <img src="images/icons/gold.png" title="Gold" style="margin-bottom:-3px;" />150.<br /><br />
-		Tip: Je kan promoten via skype, facebook, mail enzovoort!<br /><br />
-		Jouw link waar iemand zich gemakkelijk mee kan aanmelden is:<br /><br /><strong>'.GLOBALDEF_SITEPROTOCOL.'://www.'.GLOBALDEF_SITEDOMAIN.'.nl/index.php?page=register&referer='.$_SESSION['naam'].'</strong></p>';
+		$txt['promotion_text'] = '<p>You can help '.$game['titel'].' with gaining more members while you profit from it!<br />
+		for each new member with your refer you will receive <img src="images/icons/gold.png" title="Gold" style="margin-bottom:-3px;" />150.<br /><br />
+		Tip: You can easily gain new members via skype, facebook, mail etc!<br /><br />
+		Your link for easy access with you as refer:<br />
+		<strong>https://'.$game_domein['domein'].'/index.php?page=register&referer='.$_SESSION['naam'].'</strong></p>';
 	}
 
 	######################## MODIFY ORDER ########################
 	elseif($page == 'modify-order'){
 		#Screen
-		$txt['pagetitle'] = 'Wijzig pokemon volgorde';
-		$txt['modify_order_text'] = 'Hier kunt u uw pokemon volgorde wijzigen.<br />
-									 Sleep de pokemon naar de desbetreffende positie.';
+		$txt['pagetitle'] = 'Modify order';
+        $txt['modify_order_text'] = 'You can change the order of your team here.<br />
+									 Use the arrows to move your Pok&eacute;mon to the desired position.';
 	}
 
 	######################## EXTENDED ########################
 	elseif($page == 'extended'){
 		#Screen
-		$txt['pagetitle'] = 'Uitgebreide pokemon informatie';
-		$txt['catched_with'] = 'Gevangen met een';
-		$txt['pokemon'] = 'Pokemon:';
+        $txt['pagetitle'] = 'Extended Pok&eacute;mon information';
+        $txt['catched_with'] = 'Caught with a';
+        $txt['pokemon'] = 'Pok&eacute;mon:';
 		$txt['attack_points'] = 'Attack:';
-		$txt['clamour_name'] = 'Roepnaam:';
-		$txt['defence_points'] = 'Defence:';
+        $txt['clamour_name'] = 'Nickname:';
+        $txt['defence_points'] = 'Defense:';
 		$txt['type'] = 'Type:';
 		$txt['level'] = 'Level:';
 		$txt['speed_points'] = 'Speed:';
 		$txt['spc_attack_points'] = 'Spc. Attack:';
-		$txt['mood'] = 'Karakter:';
-		$txt['spc_defence_points'] = 'Spc. Defence:';
-		$txt['attacks'] = 'Aanvallen:';
-		$txt['egg_will_hatch_in'] = 'Ei komt uit in:';
-		$txt['begin_pokemon'] = 'Beginpokemon';
+        $txt['mood'] = 'Mood:';
+        $txt['spc_defence_points'] = 'Spc. Defense:';
+        $txt['attacks'] = 'Attacks:';
+        $txt['egg_will_hatch_in'] = 'Egg will hatch in:';
+        $txt['begin_pokemon'] = 'Starter Pok&eacute;mon';
 	}
 
 	######################## SELL ########################
 	elseif($page == 'sell'){
 		#Screen
-		$txt['pagetitle'] = 'Verkoop';
-		$txt['colorbox_text'] = 'Open this window again and this message will still be here.';
-		$txt['title_text_1'] = 'Je kunt maximaal';
-		$txt['title_text_2'] = 'pokemon op de transferlijst zetten die in je huis zijn.<br />
-									 Momenteel heb je';
-		$txt['title_text_3'] = 'pokemon op de transferlijst staan.';
-		$txt['no_pokemon_in_house'] = 'Er zijn geen pokemon in je huis.';
+		$txt['pagetitle'] = 'Sell';
+        $txt['title_text_1'] = 'You can only put';
+        $txt['title_text_2'] = 'Pok&eacute;mon on the transferlist.<br />
+								You currently have';
+        $txt['title_text_3'] = 'Pok&eacute;mon on the transferlist.';
+        $txt['no_pokemon_in_house'] = 'You have no Pok&eacute;mon in your house.';
 		$txt['#'] = '#';
-		$txt['pokemon'] = 'Pokemon';
-		$txt['clamour_name'] = 'Roepnaam';
+        $txt['pokemon'] = 'Pok&eacute;mon';
+        $txt['clamour_name'] = 'Name';
 		$txt['level'] = 'Level';
 		$txt['sell'] = 'Sell';
-		$txt['go_to_transferlist'] = 'Ga naar transferlijst';
+        $txt['go_to_transferlist'] = 'Go to the transferlist';
 	}
 
 	######################## RELEASE ########################
 	elseif($page == 'release'){
 		#Alerts
-		$txt['alert_itemplace'] = 'Let op: U heeft geen itemplek over, dus u krijgt uw ball niet terug als u nu een pokemon vrijlaat.';
-		$txt['alert_not_your_pokemon'] = 'Dit is niet je pokemon.';
-		$txt['alert_beginpokemon'] = 'Dit is je beginpokemon, die kun je niet vrijlaten.';
-		$txt['alert_no_pokemon_selected'] = 'U heeft geen pokemon geselecteerd.';
-		$txt['success_release'] = 'U heeft uw pokemon succesvol vrijgelaten.';
+        $txt['alert_itemplace'] = 'Note: You do not have any room left in your itembox, if you release a Pok&eacute;mon you wont receive the pokeball.';
+        $txt['alert_not_your_pokemon'] = 'This is not your Pok&eacute;mon.';
+        $txt['alert_beginpokemon'] = 'You cannot release your starter Pok&eacute;mon.';
+        $txt['alert_no_pokemon_selected'] = 'Please select a Pok&eacute;mon.';
+        $txt['success_release'] = 'You\'ve released your Pok&eacute;mon.';
 
 		#Screen
-		$txt['pagetitle'] = 'Laat pokemon vrij';
-		$txt['title_text'] = 'Hier kunt u uw pokemon vrijlaten.<br />
-									  De ball waarmee de pokemon is gevangen komt weer bij je items te staan.<br />
-									  <strong>Let op!</strong> Dit kan niet ongedaan worden gemaakt.';
-		$txt['pokemon_team'] = 'Pokemon team';
+        $txt['pagetitle'] = 'Release Pok&eacute;mon';
+        $txt['title_text'] = 'Here you can release your Pok&eacute;mon.<br />
+									  The Pok&eacute;ball which was used to catch the Pok&eacute;mon will be returned.<br />
+									  <div class="blue"><strong>Note:</strong> This cannot be reversed.</div>';
+        $txt['pokemon_team'] = 'Pok&eacute;mon team';
 		$txt['#'] = '#';
-		$txt['pokemon'] = 'Pokemon';
-		$txt['clamour_name'] = 'Roepnaam';
+        $txt['pokemon'] = 'Pok&eacute;mon';
+        $txt['clamour_name'] = 'Nickname';
 		$txt['level'] = 'Level';
 		$txt['release'] = 'Release';
-		$txt['alert_no_pokemon_in_hand'] = 'Er zijn geen pokemon bij je.';
+        $txt['alert_no_pokemon_in_hand'] = 'There are no Pok&eacute;mon in your team.';
 		$txt['button'] = 'Release';
-		$txt['pokemon_at_home'] = 'Pokemon in je huis';
-		$txt['alert_no_pokemon_at_home'] = 'Er zijn geen pokemon in je huis.';
+        $txt['pokemon_at_home'] = 'Pok&eacute;mon in your home';
+        $txt['alert_no_pokemon_at_home'] = 'There are no Pok&eacute;mon in your home.';
 	}
 
 	######################## ITEMS ########################
@@ -1131,56 +1220,56 @@
 	######################## BADGES ########################
 	elseif($page == 'badges'){
 		#Screen
-		$txt['pagetitle'] = 'Badge doos';
+        $txt['pagetitle'] = 'Badge box';
 		$txt['badges'] = 'Badges';
-        $txt['alert_dont_have_badgebox'] = 'Je hebt geen badge doos.';
+        $txt['no_badges_from'] = 'You do not have badges from';
 	}
 
 	######################## HOUSE ########################
 	elseif($page == 'house'){
 		#Alerts
-		$txt['alert_not_your_pokemon'] = 'Dit is niet jouw pokemon.';
-		$txt['alert_house_full'] = 'Je huis is vol.';
-		$txt['success_bring'] = 'Je hebt je pokemon naar je huis gebracht.';
-		$txt['alert_hand_full'] = 'Je hebt al 6 pokemon in je hand.';
-		$txt['alert_pokemon_on_transferlist'] = 'Deze pokemon staat op de transferlijst.';
-		$txt['success_get'] = 'Je hebt je pokemon succesvol opgehaald.';
+        $txt['alert_not_your_pokemon'] = 'This is not your Pok&eacute;mon.';
+        $txt['alert_house_full'] = 'Your house is full.';
+        $txt['success_bring'] = 'You\'ve brought your Pok&eacute;mon home.';
+        $txt['alert_hand_full'] = 'You already have 6 Pok&eacute;mon in your team.';
+        $txt['alert_pokemon_on_transferlist'] = 'This Pok&eacute;mon is on the transferlist.';
+        $txt['success_get'] = 'You successfully retrieved the Pok&eacute;mon.';
 
 		#Screen
-		$txt['pagetitle'] = 'Je huis';
-		$txt['title_text_1'] = 'Momenteel heb je een';
-		$txt['title_text_2'] = 'hier kunnen';
+        $txt['pagetitle'] = 'Your house';
+        $txt['title_text_1'] = 'Currently you have';
+        $txt['title_text_2'] = 'here you can store';
 		$txt['title_text_3'] = 'Pokemons in verblijven.<br><br>
 									  * Pokemon wegbrengen, daar kun je de pokemons naar je huis laten gaan.<br>
 									  * Pokemon ophalen, daar kun je de pokemons terughalen naar je hand.<br><br>
 									  Je kunt pas een Pokemon ophalen als je minimaal 1 plaats vrij hebt in je hand.';
-		$txt['pokemon_bring_away'] = 'Pokemon wegbrengen';
-		$txt['pokemon_pick_up'] = 'Pokemon ophalen';
-		$txt['box'] = 'kartonnen doos';
-		$txt['little_house'] = 'klein huis';
-		$txt['normal_house'] = 'normaal huis';
-		$txt['big_house'] = 'villa';
-		$txt['places_over'] = 'plaatsen vrij';
+        $txt['pokemon_bring_away'] = 'Send Pok&eacute;mon home';
+        $txt['pokemon_pick_up'] = 'Pickup Pok&eacute;mon';
+        $txt['box'] = 'Carboard box';
+        $txt['little_house'] = 'Small house';
+        $txt['normal_house'] = 'normal house';
+        $txt['big_house'] = 'villa';
+        $txt['hotel'] = 'hotel';
+		$txt['places_over'] = 'spots available';
 		$txt['#'] = '#';
-		$txt['clamour_name'] = 'Roepnaam';
+		$txt['clamour_name'] = 'Nickname';
 		$txt['level'] = 'Level';
-		$txt['bring_away'] = 'Breng weg';
-		$txt['take'] = 'Haal op';
-		$txt['button_take'] = 'Go';
-		$txt['button_bring'] = 'Go';
-		$txt['empty'] = 'Leeg';
+        $txt['bring_away'] = 'Pickup';
+        $txt['button_take'] = 'Pickup';
+        $txt['button_bring'] = 'Send home';
+        $txt['empty'] = 'Empty';
 	}
 
 	######################## POKEDEX ########################
 	elseif($page == 'pokedex'){
 		#Screen
 		$txt['pagetitle'] = 'Pokedex';
-		$txt['seen'] = 'Gezien';
-		$txt['had'] = 'Gehad';
-		$txt['have'] = 'Bezit';
+        $txt['seen'] = 'Seen';
+        $txt['had'] = 'Had';
+        $txt['have'] = 'Owned';
 		$txt['#'] = '#';
-		$txt['pokemon'] = 'Pokemon';
-		$txt['name'] = 'Naam';
+        $txt['pokemon'] = 'Pok&eacute;mon';
+        $txt['name'] = 'Name';
 		$txt['type'] = 'Type';
 		$txt['status'] = 'Status';
 	}
@@ -1271,70 +1360,74 @@
 	######################## BUDDYLIST ########################
 	elseif($page == 'buddylist'){
 		#Alerts
-		$txt['success_deleted'] = $_POST['deletenaam'].' is niet meer je buddy.';
-		$txt['alert_buddy_not_yourself'] = 'Je kunt jezelf niet als buddy hebben.';
-		$txt['alert_username_dont_exist'] = 'Speelnaam bestaat niet.';
-		$txt['alert_already_buddy'] = $_POST['buddynaam'].' is al een buddy van je.';
-		$txt['alert_is_blocked'] = $_POST['buddynaam'].' staat in je blocklist.';
-		$txt['success_add'] = $_POST['buddynaam'].' is nu je buddy.';
+        $txt['success_deleted'] = $_POST['deletenaam'].' is no longer a buddy.';
+        $txt['alert_buddy_not_yourself'] = 'You cannot add yourself as a buddy.';
+        $txt['alert_username_dont_exist'] = 'Unknown user.';
+        $txt['alert_already_buddy'] = $_POST['buddynaam'].' already is a buddy or is awaiting approval.';
+        $txt['alert_is_blocked'] = $_POST['buddynaam'].' is in your blocklist.';
+        $txt['success_add'] = $_POST['buddynaam'].' has received a new buddy request.';
+        $txt['alert_receiver_blocked'] = $_POST['buddynaam'].' has blocked you, you cannot add '.$_POST['buddynaam'].' as a buddy.';
+        $txt['alert_receiver_blocked'] = $_POST['buddynaam'].' has blocked you, you cannot add '.$_POST['buddynaam'].' as a buddy.';
+        $txt['alert_communication_ban'] = 'You cannot send a buddy request to '.$_POST['buddynaam'].' as you have a communication ban.';
 
 		#Screen
-		$txt['pagetitle'] = 'Buddylijst';
-		$txt['title_text'] = '<img src="images/icons/groep.png" width="16" height="16" /> <strong>Voeg hier je buddy\'s toe.</strong>';
-		$txt['username'] = 'Speelnaam:';
+        $txt['pagetitle'] = 'Buddylist';
+        $txt['title_text'] = '<img src="images/icons/groep.png" width="16" height="16" /> <strong>Send a buddy request to your friends.</strong>';
+        $txt['username'] = 'Username:';
 		$txt['#'] = '#';
-		$txt['country'] = 'Land';
+        $txt['country'] = 'Country';
 		$txt['status'] = 'Status';
-		$txt['actions'] = 'Acties';
+        $txt['actions'] = 'Actions';
 		$txt['offline'] = 'Offline';
 		$txt['online'] = 'Online';
-		$txt['send_message'] = 'Stuur bericht';
-		$txt['donate_silver'] = 'Doneer silver';
-		$txt['delete_buddy'] = 'Verwijder buddy';
-		$txt['no_buddys'] = 'Je hebt geen buddy\'s.';
-		$txt['button'] = 'Voeg buddy toe';
+        $txt['send_message'] = 'Send message';
+        $txt['donate_silver'] = 'Donate silver';
+        $txt['delete_buddy'] = 'Delete buddy';
+        $txt['no_buddys'] = 'You do not have any buddies.';
+        $txt['button'] = 'Add buddy';
 	}
 
 	######################## POKEMON INFO ########################
 	elseif($page == 'blocklist'){
 		#Alerts
-		$txt['success_deleted'] = $_POST['deletenaam'].' staat niet meer in je blocklist.';
-		$txt['alert_block_yourself'] = 'Je kunt jezelf niet blokkeren.';
-		$txt['alert_unknown_username'] = 'Speelnaam onbekend.';
-		$txt['alert_already_in_blocklist'] = $_POST['blocknaam'].' is al geblokkeerd.';
-		$txt['alert_is_your_buddy'] = $_POST['blocknaam'].' is je buddy al.';
-		$txt['alert_admin_block'] = 'Je kunt geen admin blokkeren.';
-		$txt['success_blocked'] = $_POST['blocknaam'].' is succesvol geblokkeerd.';
+        $txt['success_deleted'] = $_POST['deletenaam'].' is no longer on your blocklist.';
+        $txt['alert_block_yourself'] = 'You cannot block yourself.';
+        $txt['alert_unknown_username'] = 'Username unknown.';
+        $txt['alert_already_in_blocklist'] = $_POST['blocknaam'].' is already in your blocklist.';
+        $txt['alert_is_your_buddy'] = $_POST['blocknaam'].' is your buddy, remove him first.';
+        $txt['alert_admin_block'] = 'You cannot block an admin.';
+        $txt['success_blocked'] = $_POST['blocknaam'].' has been blocked.';
 
 		#Screen
-		$txt['pagetitle'] = 'Blocklijst';
-		$txt['title_text'] = '<img src="images/icons/blokkeer.png" border="0" /> <strong>Speler Blokkeren.</strong><br />Als je een speler hebt geblokkeerd kun je die geen berichten meer sturen, en diegene jou ook niet.';
-		$txt['username'] = 'Speelnaam:';
-		$txt['button'] = 'Blokkeer speler';
+        $txt['pagetitle'] = 'Blocklist';
+        $txt['title_text'] = '<img src="images/icons/blokkeer.png" border="0" /> <strong>Block users.</strong><br />If you block a player they cannot send you or receive your messages.';
+        $txt['username'] = 'Username:';
+        $txt['button'] = 'Block user';
 		$txt['*'] = '*';
 		$txt['#'] = '#';
-		$txt['country'] = 'Land';
+        $txt['country'] = 'Country';
 		$txt['status'] = 'Status';
-		$txt['actions'] = 'Acties';
+        $txt['actions'] = 'Actions';
 		$txt['offline'] = 'Offline';
 		$txt['online'] = 'Online';
-		$txt['block_delete'] = 'Verwijder';
-		$txt['nobody_blocked'] = 'Je hebt niemand geblokkeerd.';
+        $txt['block_delete'] = 'Remove';
+        $txt['nobody_blocked'] = 'You have no blocklist.';
+        $txt['button_add'] = 'Add';
 	}
 
 	######################## SEARCH USER ########################
 	elseif($page == 'search-user'){
 		#Screen
-		$txt['pagetitle'] = 'Zoek een speler';
-		$txt['title_text'] = '<img src="images/icons/groep_magnify.png" border="0" /> <strong>Zoek hier een speler.</strong>';
-		$txt['username'] = 'Speelnaam';
+        $txt['pagetitle'] = 'Search user';
+        $txt['title_text'] = '<img src="images/icons/groep_magnify.png" border="0" /> <strong>Search other users.</strong>';
+        $txt['username'] = 'Username';
 		$txt['#'] = '#';
-		$txt['country'] = 'Land';
+        $txt['country'] = 'Country';
 		$txt['rank'] = 'Rank';
 		$txt['status'] = 'Status';
 		$txt['offline'] = 'Offline';
 		$txt['online'] = 'Online';
-		$txt['button'] = 'Zoek';
+        $txt['button'] = 'Search';
 	}
 
 	######################## PROFILE ########################
@@ -1386,36 +1479,36 @@
 	######################## WORK ########################
 	elseif($page == 'work'){
 		#Alerts
-		$txt['alert_nothing_selected'] = 'Je hebt niets geselecteerd.';
-		$txt['alert_captcha_wrong'] = 'De beveiligingscode is verkeerd.';
-		$txt['and'] = 'en';
-		$txt['seconds'] = 'seconden';
-		$txt['minutes'] = 'minuten';
-		$txt['minute'] = 'minuut';
-		$txt['success_work_1'] = 'Je gaat nu';
-		$txt['success_work_2'] = 'aan het werk.';
+        #Alerts
+        $txt['alert_nothing_selected'] = 'Please select a job.';
+        $txt['and'] = 'and';
+        $txt['seconds'] = 'seconds';
+        $txt['minutes'] = 'minutes';
+        $txt['minute'] = 'minutes';
+        $txt['success_work_1'] = 'You are working now for';
+        $txt['success_work_2'] = '';
 
 		#Screen
 		$txt['pagetitle'] = 'Werken';
 		$txt['#'] = '#';
-		$txt['work_name'] = 'Werk';
-		$txt['duration'] = 'Tijdsduur';
-		$txt['turnover'] = 'Opbrengst';
-		$txt['chance'] = 'Kans';
-		$txt['button'] = 'Werk';
+        $txt['work_name'] = 'Work';
+        $txt['duration'] = 'Time';
+        $txt['turnover'] = 'Profit';
+        $txt['chance'] = 'Chance';
+        $txt['button'] = 'Work';
 
-		$txt['work_1'] = 'Verkoop ranja op het plein';
-		$txt['work_2'] = 'In de Markt helpen';
-		$txt['work_3'] = 'De poke magazine rondbrengen';
-		$txt['work_4'] = 'Pokemon Center schoonmaken';
-		$txt['work_5'] = 'Daag Team Rocket uit voor een potje golf';
-		$txt['work_6'] = 'Zoek waardevolle spullen in de stad';
-		$txt['work_7'] = 'Hou een pokemon demonstratie op het plein';
-		$txt['work_8'] = 'Medisch experiment voor je pokemon';
-		$txt['work_9'] = 'Laat je pokemon freestylen in het park';
+        $txt['work_1'] = 'Sell lemonade on the square';
+        $txt['work_2'] = 'Help in the PokeMarkt';
+        $txt['work_3'] = 'Deliver the PokeMagazine';
+        $txt['work_4'] = 'Clean the Pok&eacute;moncenter';
+        $txt['work_5'] = 'Challenge Team Rocket for a golf session';
+        $txt['work_6'] = 'Scavenge valuables in the city';
+        $txt['work_7'] = 'Keep a Pok&eacute;mon demonstration on the city square';
+        $txt['work_8'] = 'Medically experiment on your Pok&eacute;mon';
+        $txt['work_9'] = 'Let your Pok&eacute;mon freestyle in the park';
 		$txt['work_10'] = 'Help agent Jenny';
-		$txt['work_11'] = 'Laat je pokemon stelen';
-		$txt['work_12'] = 'Beroof een casino met je Pokemon';
+        $txt['work_11'] = 'Go stealing with your Pok&eacute;mon';
+        $txt['work_12'] = 'Let your Pok&eacute;mon rob a casino';
 	}
 
 	######################## TRADERS ########################
@@ -1465,42 +1558,41 @@
 	######################## RACE INVITE ########################
 	elseif($page == 'race-invite'){
 		#Alerts
-		$txt['alert_no_races_today'] = 'Je kunt vandaag niet meer uitnodigingen sturen om te racen.';
-		$txt['alert_no_player'] = 'Je hebt geen speler ingevuld.';
-		$txt['alert_not_yourself'] = 'Je kunt jezelf niet uitdagen.';
-		$txt['alert_unknown_amount'] = 'Ongeldig bedrag.';
-		$txt['alert_no_amount'] = 'Geen bedrag hoeveelheid ingevuld.';
-		$txt['alert_unknown_what'] = 'Kies of je voor silver of gold wilt racen.';
-		$txt['alert_not_enough_silver_or_gold'] = 'Je hebt niet genoeg silver of gold.';
-		$txt['alert_user_unknown'] = 'Speelnaam bestaat niet.';
-		$txt['alert_opponent_not_in'] = 'zit niet in';
-		$txt['alert_opponent_not_casual'] = 'is nog geen rank Casual.';
-		$txt['alert_no_admin'] = 'Je kunt geen admin uitnodigen voor een race.';
-		$txt['success'] = 'Je hebt '.$_POST['naam'].' succesvol uitgedaagd voor een race!';
+        $txt['alert_no_races_today'] = 'You are out of challenges today.';
+        $txt['alert_no_player'] = 'Please fill in a player.';
+        $txt['alert_not_yourself'] = 'You cannot challenge yourself.';
+        $txt['alert_unknown_amount'] = 'Invalid amount.';
+        $txt['alert_no_amount'] = 'Please fill in an amount.';
+        $txt['alert_unknown_what'] = 'Choose if you would like to race for silver or gold.';
+        $txt['alert_not_enough_silver_or_gold'] = 'You do not have enough silver or gold.';
+        $txt['alert_user_unknown'] = 'User does not exist.';
+        $txt['alert_opponent_not_in'] = 'is not in';
+        $txt['alert_opponent_not_casual'] = 'is not rank Casual.';
+        $txt['alert_no_admin'] = 'You cannot challenge an admin for a race.';
+        $txt['success'] = 'You\'ve succesfully challenged '.$_POST['naam'].' for a race!';
 
 		#Screen
-		$txt['pagetitle'] = 'Race';
-		$txt['title_text'] = '<img src="images/icons/vlag.png" width="16" height="16" alt="Race" /> <strong>Daag een speler uit voor een race van 5 kilometer!</strong> <img src="images/icons/vlag.png" width="16" height="16" alt="Race" />';
-		$txt['races_left_today'] = 'Race uitnodigingen wat je vandaag nog kunt versturen:';
-		$txt['premium_10_times'] = 'Premiumleden kunnen 10x per dag iemand uitnodigen, <a href="?page=area-market">word premium hier!</a>.';
-		$txt['player'] = 'Speelnaam:';
-		$txt['silver_or_gold'] = 'Silver of gold:';
-		$txt['amount'] = 'Hoeveel:';
-		$txt['button'] = 'Nodig uit!';
-		$txt['races_opened'] = 'Openstaande uitnodigingen';
-		$txt['races_deleted_3_days'] = 'Als een race uitnodiging ouder is dan 3 dagen word de uitnodiging automatisch verwijderd.';
+        $txt['pagetitle'] = 'Race';
+        $txt['title_text'] = '<img src="images/icons/vlag.png" width="16" height="16" alt="Race" /> <strong>Challenge another player for a race!</strong> <img src="images/icons/vlag.png" width="16" height="16" alt="Race" />';
+        $txt['races_left_today'] = 'Race invites left:';
+        $txt['player'] = 'Username:';
+        $txt['silver_or_gold'] = 'Silver or gold:';
+        $txt['amount'] = 'Amount:';
+        $txt['button'] = 'Challenge';
+        $txt['races_opened'] = 'Open challenges';
+        $txt['races_deleted_3_days'] = 'When a race is older than 3 days it will be removed.';
 		$txt['#'] = '#';
-		$txt['opponent'] = 'Tegenstander';
-		$txt['price'] = 'Inzet';
-		$txt['when'] = 'Uitgenodigd op';
-		$txt['no_races_opened'] = 'Je hebt geen uitnodigingen open staan.';
+        $txt['opponent'] = 'Opponent';
+        $txt['price'] = 'Bet';
+        $txt['when'] = 'Challenged on';
+        $txt['no_races_opened'] = 'You have no open challenges.';
 	}
 
 	######################## RACE ########################
 	elseif($page == 'race'){
 		#Alerts
 		$txt['alert_to_low_rank'] = 'Je moet rank Casual zijn.';
-		$txt['alert_no_pokemon_in_hand'] = 'Je hebt geen pokemon bij je.';
+        $txt['alert_no_pokemon_in_hand'] = 'Je hebt geen Pok&eacute;mon bij je.';
 		$txt['alert_link_invalid'] = 'Link is ongeldig.';
 		$txt['alert_race_invalid'] = 'Race is niet meer beschikbaar.';
 		$txt['alert_not_enough_money'] = 'Je hebt niet genoeg silver of gold.';
@@ -1614,82 +1706,81 @@ Enkele voorbeelden zijn:<br />
 	######################## POKEMON CENTER ########################
 	elseif($page == 'pokemoncenter'){
 		#Alerts
-		$txt['minute'] = 'minuut';
-		$txt['minutes'] = 'minuten';
-		$txt['seconds'] = 'seconden';
-		$txt['success_pokecenter_premium'] = 'Je pokemon worden verzorgd in de tijd:';
-		$txt['success_pokecenter'] = 'Je pokemon worden verzorgd in de tijd:';
+        $txt['minute'] = 'minute';
+        $txt['minutes'] = 'minutes';
+        $txt['seconds'] = 'seconds';
+        $txt['success_pokecenter_premium'] = 'Your Pok&eacute;mon have been cared for.';
+        $txt['success_pokecenter'] = 'Your pokemon will be cared for in:';
 
 		#Screen
-		$txt['pagetitle'] = 'Pokemoncenter';
-		$txt['title_text_admin'] = 'Admins hoeven niet te wachten totdat je pokemon geheald zijn.';
-		$txt['title_text_premium'] = 'Elke pokemon die je beter wilt maken duurt 10 seconden.';
-		$txt['title_text_normal'] = 'Elke pokemon die je beter wilt maken duurt 30 seconden.<br>Voor premiumleden is dit 10 seconden.<br><a href="index.php?page=area-market"><strong>Word hier Premium!</strong></a>';
+        $txt['pagetitle'] = 'Pok&eacute;moncenter';
+        $txt['title_text_premium'] = 'Help your Pok&eacute;mon back to strength.';
+        $txt['title_text_normal'] = 'Going to the Pok&eacute;moncenter takes about 10 seconds.<br/>VIP members dont have a wait time.<br><a href="index.php?page=area-market"><strong>Become a VIP!</strong></a>';
 		$txt['all'] = 'All';
-		$txt['who'] = 'Wie';
+        $txt['who'] = 'Pok&eacute;mon';
 		$txt['health'] = 'Health';
-		$txt['nvt'] = 'Niet van toepassing';
-		$txt['button'] = 'Heal!';
+        $txt['nvt'] = 'Not applicable';
+        $txt['button'] = 'Restore';
 	}
 
 	######################## MARKET ########################
 	elseif($page == 'market'){
 		#Alerts
-		$txt['alert_itemplace'] = 'Let op: U heeft geen itemplek over, dus u kunt niets kopen.';
-		$txt['alert_not_enough_money'] = 'Niet genoeg silver of gold.';
-		$txt['alert_itembox_full_1'] = 'Item box vol! Je kunt nog';
-		$txt['alert_itembox_full_2'] = 'kopen.';
-		$txt['success_market'] = 'Je hebt';
-		$txt['alert_nothing_selected'] = 'Je hebt niks gekozen.';
-		$txt['alert_pokedex_chip'] = 'Je kunt nog geen Pokedex Chip kopen, koop eerst een Pokedex.';
-		$txt['alert_not_enough_place'] = 'Uw itembox is vol.';
-		$txt['alert_hand_full'] = 'Je hebt al 6 pokemon bij je.';
-		$txt['alert_not_in_stock'] = 'Product op het moment niet beschikbaar.';
+        $txt['alert_itemplace'] = 'Note: You only have one item spot left, you cannot buy a new item.';
+        $txt['alert_not_enough_money'] = 'Not enough silver or gold.';
+        $txt['alert_itembox_full_1'] = 'Item box full, you can buy';
+        $txt['alert_itembox_full_2'] = 'more.';
+        $txt['success_market'] = 'You have a ';
+        $txt['alert_nothing_selected'] = 'Please select an item.';
+        $txt['alert_pokedex_chip'] = 'You must own a Pokedex before buying a Pokedex Chip.';
+        $txt['alert_not_enough_place'] = 'Your item box is full.';
+        $txt['alert_hand_full'] = 'You already have 6 Pok&eacute;mon in your team.';
+        $txt['alert_not_in_stock'] = 'Product not available.';
 
 		#Screen
-		$txt['pagetitle'] = 'Markt';
+        $txt['pagetitle'] = 'Market';
 		$txt['balls'] = 'Balls';
 		$txt['potions'] = 'Potions';
 		$txt['items'] = 'Items';
 		$txt['spc_items'] = 'Special items';
 		$txt['stones'] = 'Stones';
 		$txt['attacks'] = 'Attacks';
-		$txt['pokemon'] = 'Pokemon';
+        $txt['pokemon'] = 'Pok&eacute;mon';
 
 		if($_GET['shopitem'] == 'balls'){
 			$txt['pagetitle'] .= ' - Balls';
-			$txt['button_balls'] = 'Koop balls';
+            $txt['button_balls'] = 'Buy pokeballs';
 		}
 		elseif($_GET['shopitem'] == 'potions'){
 			$txt['pagetitle'] .= ' - Potions';
-			$txt['button_potions'] = 'Koop potions';
+            $txt['button_potions'] = 'Buy potions';
 		}
 		elseif($_GET['shopitem'] == 'items'){
 			$txt['pagetitle'] .= ' - Items';
-			$txt['button_items'] = 'Koop items';
+            $txt['button_items'] = 'Buy items';
 		}
 		elseif($_GET['shopitem'] == 'specialitems'){
 			$txt['pagetitle'] .= ' - Special items';
-			$txt['button_spc_items'] = 'Koop special items';
+            $txt['button_spc_items'] = 'Buy special items';
 		}
 		elseif($_GET['shopitem'] == 'stones'){
 			$txt['pagetitle'] .= ' - Stones';
-			$txt['button_stones'] = 'Koop stones';
+            $txt['button_stones'] = 'Buy stones';
 		}
 		elseif($_GET['shopitem'] == 'attacks'){
 			$txt['pagetitle'] .= ' - Attacks';
-			$txt['button_attacks'] = 'Koop attacks';
-			$txt['market_attack_types'] = 'pokemon kunnen deze aanval leren.';
+            $txt['button_attacks'] = 'Buy attacks';
+            $txt['market_attack_types'] = 'Pok&eacute;mon can learn these attacks.';
 		}
 		elseif($_GET['shopitem'] == 'pokemon'){
-			$txt['pagetitle'] .= ' - Pokemon';
-			$txt['button_pokemon'] = 'Koop pokemon';
-			$txt['not_rare'] = 'Niet zeldzaam';
-			$txt['middle_rare'] = 'Beetje zeldzaam';
-			$txt['rare'] = 'Zeldzaam';
-			$txt['out_of_stock_1'] = 'Alle pokemon zijn op het moment verkocht in de';
-			$txt['out_of_stock_2'] = 'markt.';
-			$txt['success_bought_pokemon'] = '1 pokemon egg.';
+            $txt['pagetitle'] .= ' - Pok&eacute;mon';
+            $txt['button_pokemon'] = 'Buy Pok&eacute;mon';
+            $txt['not_rare'] = 'Common';
+            $txt['middle_rare'] = 'A little rare';
+            $txt['rare'] = 'Very rare';
+            $txt['out_of_stock_1'] = 'All Pok&eacute;mon are sold out.';
+            $txt['out_of_stock_2'] = '';
+            $txt['success_bought_pokemon'] = '1 Pokemon egg.';
 		}
 	}
 	######################## MARKET ########################
@@ -1699,7 +1790,7 @@ Enkele voorbeelden zijn:<br />
 		$txt['alert_not_enough_money'] = 'Niet genoeg silver of gold.';
 		$txt['alert_itembox_full_1'] = 'Item box vol! Je kunt nog';
 		$txt['alert_itembox_full_2'] = 'kopen.';
-		$txt['success_market'] = 'Je hebt';
+		$txt['success_market'] = 'Je koopt';
 		$txt['alert_nothing_selected'] = 'Je hebt niks gekozen.';
 		$txt['alert_pokedex_chip'] = 'Je kunt nog geen Pokedex Chip kopen, koop eerst een Pokedex.';
 		$txt['alert_not_enough_place'] = 'Uw itembox is vol.';
@@ -1745,71 +1836,93 @@ Enkele voorbeelden zijn:<br />
 	######################## HOUSE SELLER ########################
 	elseif($page == 'house-seller'){
 		#Alerts
-		$txt['alert_nothing_selected'] = 'Je moet wel een huis selecteren.';
-		$txt['alert_you_own_this_house'] = 'Je hebt dit huis al!';
-		$txt['alert_not_enough_silver'] = 'Je hebt niet genoeg silver voor dit huis.';
-		$txt['alert_already_have_villa'] = 'Je hebt al een Villa je kunt niet beter krijgen.';
-		$txt['alert_you_have_better_now'] = 'Je moet wel beter kopen dan je nu hebt.';
-		$txt['success_house_1'] = 'Je hebt succesvol';
-		$txt['success_house_2'] = 'gekocht.';
+        $txt['alert_nothing_selected'] = 'Please select a home.';
+        $txt['alert_you_own_this_house'] = 'You already own this home';
+        $txt['alert_not_enough_silver'] = 'You do not have enough silver to buy this home.';
+        $txt['alert_already_have_villa'] = 'You already have a Hotel, that is the best home you can buy.';
+        $txt['alert_you_have_better_now'] = 'You cannot buy a home that is lower than your current home';
+        $txt['success_house_1'] = 'You\'ve bought a';
+        $txt['success_house_2'] = '';
 
 		#Screen
-		$txt['pagetitle'] = 'Huizenverkoper';
-		$txt['house1'] = 'Kartonnen doos';
-		$txt['house2'] = 'Klein huis';
-		$txt['house3'] = 'Normaal huis';
+        $txt['pagetitle'] = 'Broker';
+        $txt['house1'] = 'Cardboard box';
+        $txt['house2'] = 'Small house';
+        $txt['house3'] = 'Normal house';
 		$txt['house4'] = 'Villa';
-		$txt['title_text'] = 'Hier bij de huizenverkoper kun je een huis kopen voor je Pokemon.<br />
-							  Je hebt nu een';
-		$txt['house'] = 'Huis';
-		$txt['price'] = 'Prijs';
-		$txt['description'] = 'Omschrijving';
-		$txt['button'] = 'Koop!';
+        $txt['house5'] = 'Hotel';
+        $txt['title_text'] = 'At the broker you can buy a home for your Pok&eacute;mon.<br />
+							  You now own a';
+        $txt['house'] = 'Home';
+        $txt['price'] = 'Price';
+        $txt['description'] = 'Description';
+        $txt['button'] = 'Buy';
+    }
+
+    ######################## POKEMARKET ########################
+    elseif($page == 'pokemarket'){
+        #Screen
+        $txt['pokeballs'] = 'Pok&eacute;balls';
+        $txt['potions'] = 'Potions';
+        $txt['items'] = 'Items';
+        $txt['vitamins'] = 'Vitamins';
+        $txt['stones'] = 'Stones';
+        $txt['eggs'] = 'Eggs';
+        $txt['attacks'] = 'Attacks';
 	}
 
 	######################## TRAVEL ########################
 	elseif($page == 'travel'){
 		#Alerts
-		$txt['alert_no_world'] = 'Je hebt geen wereld gekozen.';
-		$txt['alert_already_in_world'] = 'Je zit al in '.$_POST['wereld'].'.';
-		$txt['alert_world_invalid'] = $_POST['wereld'].' is geen geldige wereld.';
-		$txt['alert_not_enough_money'] = 'Je hebt niet genoeg silver om naar '.$_POST['wereld'].' te varen.';
-		$txt['success_travel'] = 'Je bent aangekomen in '.$_POST['wereld'].', dit kost je';
-		$txt['alert_not_everything_selected'] = 'Niet alles aangevinkt.';
-		$txt['alert_not_your_pokemon'] = 'Deze pokemon is niet van jou.';
-		$txt['alert_no_surf'] = 'Deze pokemon kent geen Surf attack.';
-		$txt['alert_not_strong_enough'] = 'Deze pokemon is niet sterk genoeg.';
-		$txt['success_surf'] = 'Je pokemon heeft je succesvol naar '.$_POST['wereld'].' gevaren.';
+        $txt['alert_no_world'] = 'Please select a world.';
+        $txt['alert_already_in_world'] = 'You already are in '.$_POST['wereld'].'.';
+        $txt['alert_world_invalid'] = $_POST['wereld'].' is not a valid wereld.';
+        $txt['alert_not_enough_money'] = 'You do not have enough silver to sail to '.$_POST['wereld'].'';
+        $txt['success_travel'] = 'You have arrived in '.$_POST['wereld'].', the trip will cost';
+        $txt['alert_not_everything_selected'] = 'Please check all the required fields.';
+        $txt['alert_not_your_pokemon'] = 'This Pok&eacute;mon is not yours.';
+        $txt['alert_no_surf'] = 'This Pok&eacute;mon does not have a Surf attack.';
+        $txt['alert_not_strong_enough'] = 'This Pok&eacute;mon is strong enough.';
+        $txt['success_surf'] = 'Your Pok&eacute;mon sucessfully surfed to '.$_POST['wereld'].'.';
 
 		#Screen
-		$txt['pagetitle'] = 'Reis naar een andere wereld';
-		$txt['title_text'] = 'Je kunt hier een boot huren en varen naar een andere wereld.';
+        $txt['pagetitle'] = 'Reis naar een andere wereld';
+        $txt['title_text'] = 'Rent a boat and travel to another world.';
 		$txt['#'] = '#';
-		$txt['world'] = 'Wereld';
-		$txt['price'] = 'Prijs per pokemon';
-		$txt['price_total'] = 'Prijs totaal';
-		$txt['button_travel'] = 'Go';
-		$txt['title_text_surf'] = 'Als een pokemon de aanval \'Surf\' heeft en de pokemon is level 80+.<br />
-								Dan kun je hier gratis surfen naar een andere wereld!';
-		$txt['pokemon'] = 'Pokemon';
+        $txt['world'] = 'World';
+        $txt['price'] = 'Price per Pok&eacute;mon';
+        $txt['price_total'] = 'Total price';
+        $txt['button_travel'] = 'Travel';
+        $txt['title_text_surf'] = 'If your Pok&eacute;mon has a attack called \'Surf\' and is above level 80.<br />
+								 Then you can surf without any costs to another world!';
+        $txt['pokemon'] = 'Pok&eacute;mon';
 		$txt['button_surf'] = 'Surf';
 		$txt['button_fly'] = 'Fly';
 	}
 
 	######################## TRANSFERLIST ########################
 	elseif($page == 'transferlist'){
+        #Alerts
+        $txt['something_went_wrong'] = 'Something went wrong.';
+        $txt['max_carry'] = 'You cannot carry more than 6 Pok&eacute;mon.';
+        $txt['cancelled_trade'] = 'Pok&eacute;mon trade cancelled.';
+        $txt['no_pokemon_in_trade'] = 'There are no Pok&eacute;mon on the Tradecenter.';
+
 		#Screen
-		$txt['pagetitle'] = 'Transferlijst';
-		$txt['colorbox_text'] = 'Open this window again and this message will still be here.';
-		$txt['title_text_1'] = 'Je hebt nu:';
-		$txt['title_text_2'] = 'Tip: kijk ook naar de aanvallen van de pokemon.';
+        $txt['trade_info'] = '<h3>Welcome in the Tradecenter.</h3><br/>
+		   Here you can offer Pok&eacute;mon which you wish to trade with other players<br/><br/>';
+        $txt['title_text_1'] = 'You now have:';
+        $txt['title_text_2'] = 'Note: check the stats and attacks of the Pok&eacute;mon.';
 		$txt['#'] = '#';
-		$txt['pokemon'] = 'Pokemon';
-		$txt['clamour_name'] = 'Roepnaam';
+        $txt['pokemon'] = 'Pok&eacute;mon';
+        $txt['clamour_name'] = 'Nickname';
+        $txt['name'] = 'Name';
+        $txt['offer'] = 'Offer';
 		$txt['level'] = 'Level';
-		$txt['price'] = 'Prijs';
-		$txt['owner'] = 'Eigenaar';
-		$txt['buy'] = 'Koop';
+        $txt['price'] = 'Price';
+        $txt['owner'] = 'Owner';
+        $txt['buy'] = 'Buy';
+        $txt['add'] = 'Add';
 	}
 
 	######################## DAYCARE ########################
@@ -1832,58 +1945,58 @@ Enkele voorbeelden zijn:<br />
 		$txt['egg_text'] = 'Heej!<br /><br />
 							  We hebben een ei gevonden in onze daycare, wil jij het ei hebben?<br /><br />
 							  <input type="submit" name="accept" value="Ja graag!" class="text_long"><input type="submit" name="dontaccept" value="Nee dankje." class="text_long" style="margin-left:10px;">';
-		$txt['normal_user'] = 'Je kan maximaal 1 Pok&eacute;mon naar de daycare brengen, premiumleden kunnen 2 pokemon.';
-		$txt['premium_user'] = 'Je kan maximaal 2 Pok&eacute;mon naar de daycare brengen.';
-		$txt['title_text'] = 'Een Pok&eacute;mon in de daycare zetten kost <img src="images/icons/silver.png" title="Silver" /> 250 per pokemon.<br />
-			Per nieuw level komt daar nog eens <img src="images/icons/silver.png" title="Silver" /> 500 bovenop.<br />
-			<small>Evolueren en aanvallen leren doet de Pok&eacute;mon pas als je hem ophaalt.</small>';
-		$txt['give_pokemon_text'] = 'Geef een Pok&eacute;mon aan de daycare beheerder:';
-		$txt['button_bring'] = 'Geef';
-		$txt['take_pokemon_text'] = 'Pok&eacute;mon die in de daycare zitten';
+		$txt['normal_user'] = 'You can only bring 1 Pok&eacute;mon to the daycare, VIP members can bring up to 2 Pok&eacute;mon to the daycare.';
+		$txt['premium_user'] = 'You can only bring 2 Pok&eacute;mon to the daycare.';
+		$txt['title_text'] = 'Binging a Pok&eacute;mon to the daycare costs about <img src="images/icons/silver.png" title="Silver" /> 250 per Pok&eacute;mon.<br />
+			For every new level <img src="images/icons/silver.png" title="Silver" /> 500 will be added to that amount.<br />
+			<small>Once you pickup your Pok&eacute;mon it will be triggered to evolving and learn new attacks.</small>';
+		$txt['give_pokemon_text'] = 'Bring a Pok&eacute;mon to the daycare:';
+		$txt['button_bring'] = 'Give';
+		$txt['take_pokemon_text'] = 'Pok&eacute;mon that currently are in the daycare';
 		$txt['#'] = '#';
-		$txt['name'] = 'Naam';
+		$txt['name'] = 'Name';
 		$txt['level'] = 'Level';
 		$txt['levelup'] = 'Level up';
-		$txt['cost'] = 'Kosten';
-		$txt['buy'] = 'Koop';
-		$txt['button_take'] = 'Haal op';
+		$txt['cost'] = 'Costs';
+		$txt['buy'] = 'Buy';
+		$txt['button_take'] = 'Pick up';
 	}
 
 	######################## NAME SPECIALIST ########################
 	elseif($page == 'name-specialist'){
 		#Alerts
-		$txt['alert_nothing_selected'] = 'Je hebt geen pokemon geselecteerd.';
-		$txt['alert_not_enough_silver'] = 'Je hebt niet genoeg silver.';
-		$txt['alert_name_too_long'] = 'Naam mag niet langer als 12 tekens.';
-		$txt['alert_not_your_pokemon'] = 'Deze pokemon is niet van jou.';
-		$txt['success_namespecialist'] = 'De nieuwe naam is:';
+        $txt['alert_nothing_selected'] = 'Please select a Pok&eacute;mon.';
+        $txt['alert_not_enough_silver'] = 'You do not have enough silver.';
+        $txt['alert_name_too_long'] = 'Please pick a name which isn\'t longer than 12 characters.';
+        $txt['alert_not_your_pokemon'] = 'This Pok&eacute;mon isn\'t yours.';
+        $txt['success_namespecialist'] = 'The nickname of your Pok&eacute;mon is:';
 
 		#Screen
-		$txt['pagetitle'] = 'Namenspecialist';
-		$txt['title_text'] = 'Hier kun je de naam van je pokemon veranderen!<br />
-							Per pokemon kost dit';
+        $txt['pagetitle'] = 'Namenspecialist';
+        $txt['title_text'] = 'Here you can give your Pok&eacute;mon a nickname!<br />
+							The costs per Pok&eacute;mon is';
 		$txt['#'] = '#';
-		$txt['name_now'] = 'Naam nu';
-		$txt['button'] = 'Verander naam';
+        $txt['name_now'] = 'Name';
+        $txt['button'] = 'Change name';
 	}
 
-	######################## NAME SPECIALIST ########################
+	######################## SHINY SPECIALIST ########################
 	elseif($page == 'shiny-specialist'){
 		#Alerts
-		$txt['alert_no_pokemon_selected'] = 'Geen pokemon geselecteerd.';
-		$txt['alert_pokemon_is_egg'] = 'Deze pokemon is een ei.';
-		$txt['alert_not_your_pokemon'] = 'Dit is niet jouw pokemon.';
-		$txt['alert_already_shiny'] = 'Pokemon is al shiny.';
-		$txt['alert_pokemon_not_in_hand'] = 'Pokemon is niet bij je.';
-		$txt['alert_not_enough_gold'] = 'Je hebt niet genoeg gold.';
-		$txt['success'] = 'Je pokemon is nu shiny!';
+		$txt['alert_no_pokemon_selected'] = 'Please select a Pok&eacute;mon.';
+		$txt['alert_pokemon_is_egg'] = 'This isn\'t a Pok&eacute;mon yet.';
+		$txt['alert_not_your_pokemon'] = 'This isn\'t your Pok&eacute;mon.';
+		$txt['alert_already_shiny'] = 'Your Pok&eacute;mon already is a shiny.';
+		$txt['alert_pokemon_not_in_hand'] = 'This Pok&eacute;mon isn\'t in your team.';
+		$txt['alert_not_enough_gold'] = 'You do not have enough gold.';
+		$txt['success'] = 'Your Pok&eacute;mon is a shiny Pok&eacute;mon!';
 
 		#Screen
-		$txt['pagetitle'] = 'Shiny specialist';
-		$txt['title_text'] = 'Wetenschappers hebben iets nieuws ontdekt:<br />
-Door een pokemon veel gold te geven word een pokemon door de impact van het glimmende gold Shiny!<br />
-Bij elke pokemon is het aantal gold verschillend, zeldzame pokemon hebben bijvoorbeeld meer gold nodig.<br />
-Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
+        $txt['pagetitle'] = 'Shiny specialist';
+		$txt['title_text'] = 'Scientists have discovered something new: <br />
+By giving a pokemon a lot of gold, a pokemon changes to a shining shiny <br />
+For each pokemon, the amount of gold is different, for example, rare pokemon need more gold. <br />
+Here you can make a pokemon shiny by giving him the necessary gold.';
 		$txt['#'] = '#';
 		$txt['gold_need'] = 'Gold';
 		$txt['button'] = 'Go!';
@@ -1892,30 +2005,30 @@ Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
 	######################## JAIL ########################
 	elseif($page == 'jail'){
 		#Alerts
-		$txt['alert_already_broke_out'] = $_POST['naam'].' is al uitgebroken.';
-		$txt['alert_already_free'] = $_POST['naam'].' is al vrij.';
-		$txt['success_bust'] = 'Je hebt '.$_POST['naam'].' succesvol uitgebroken.';
-		$txt['alert_bust_failed_1'] = 'Het is je mislukt om '.$_POST['naam'].' uit te breken. Je zit nu zelf';
-		$txt['alert_bust_failed_2'] = 'in de gevangenis.';
-		$txt['alert_not_enough_silver'] = 'Je hebt niet genoeg silver om '.$_POST['naam'].' uit te kopen.';
-		$txt['success_bought'] = 'Je hebt '.$_POST['naam'].' uitgekocht voor';
+        $txt['alert_already_broke_out'] = $_POST['naam'].' already has escaped.';
+        $txt['alert_already_free'] = $_POST['naam'].' is already out.';
+        $txt['success_bust'] = 'You\'ve successfully helped '.$_POST['naam'].' with escaping.';
+        $txt['alert_bust_failed_1'] = 'The attempt to escape failed you and '.$_POST['naam'].'';
+        $txt['alert_bust_failed_2'] = 'are now in jail.';
+        $txt['alert_not_enough_silver'] = 'You do not have enough silver to buy out '.$_POST['naam'];
+        $txt['success_bought'] = 'You successfully bailed out '.$_POST['naam'].' for';
 
 		#Screen
-		$txt['pagetitle'] = 'Gevangenis';
-		$txt['title_text'] = 'Bust je medespelers uit de gevangenis, als het mislukt zit je zelf in de gevangenis. <br />
-							  Als het wel lukt krijg je rankpoints en is diegene vrij!<br />
-							  Je kunt ze ook uitkopen, dit kost je geld maar je weet zeker dat diegene vrij komt.';
+        $txt['title_text'] = 'Break out other players from jail, if you fail you will end up in jail as well. <br />
+							  If you succeed you will gain experience and you fellow friend will be free!<br />
+							  You can also buy out another user, this will succeed but you will gain no experience.
+							  ';
 		$txt['#'] = '#';
-		$txt['username'] = 'Speelnaam';
-		$txt['country'] = 'Land';
-		$txt['time'] = 'Tijd';
-		$txt['cost'] = 'Kosten';
-		$txt['buy_out'] = 'Koop uit';
-		$txt['bust'] = 'Bust';
-		$txt['button_buy'] = 'Koop';
-		$txt['button_bust'] = 'Bust';
-		$txt['nobody_injail_1'] = 'Momenteel zitten er geen spelers in de';
-		$txt['nobody_injail_2'] = 'gevangenis.';
+        $txt['username'] = 'Username';
+        $txt['country'] = 'Country';
+        $txt['time'] = 'Time';
+        $txt['cost'] = 'Costs';
+        $txt['buy_out'] = 'Bail out';
+        $txt['bust'] = 'Break out';
+        $txt['button_buy'] = 'Bail out';
+        $txt['button_bust'] = 'Break out';
+        $txt['nobody_injail_1'] = 'Currently there are no users in';
+        $txt['nobody_injail_2'] = 'in jail.';
 	}
 
 	######################## FLIP A COIN ########################
@@ -2011,90 +2124,84 @@ Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
 	######################## Forum Categories ########################
 	elseif($page == 'forum-categories'){
 		#Alerts
-		$txt['alert_no_name'] = 'Geen naam ingevuld.';
-		$txt['alert_name_too_short'] = 'Naam te kort, minimaal 3 tekens.';
-		$txt['alert_name_too_long'] = 'Naam te lang, maximaal 20 tekens.';
-		$txt['alert_no_icon'] = 'Geen icoon URL ingevuld.';
-		$txt['alert_icon_doenst_exist'] = 'Icoon bestaat niet.';
-		$txt['alert_name_already_taken'] = 'Categorie naam bestaat al.';
-		$txt['success_add_category'] = 'Succesvol een categorie gestart.';
-		$txt['success_edit_category'] = 'Succesvol de categorie bewerkt.';
+        $txt['alert_no_name'] = 'Please fill in a name.';
+        $txt['alert_name_too_short'] = 'Name is too short, min. 3 characters.';
+        $txt['alert_name_too_long'] = 'Name is too long, max. 20 characters.';
+        $txt['alert_no_icon'] = 'Fill in an icon.';
+        $txt['alert_icon_doenst_exist'] = 'Icon does not exist.';
+        $txt['alert_name_already_taken'] = 'Category already exists.';
+        $txt['success_add_category'] = 'Successfully created a new category.';
+        $txt['success_edit_category'] = 'Successfully modified a category.';
 
 		#Screen
 		$txt['pagetitle'] = 'Forum';
 		$txt['game-forum'] = ''.GLOBALDEF_SITENAME.' forum';
 		$txt['#'] = '#';
-		$txt['name'] = 'Naam';
+        $txt['name'] = 'Name';
 		$txt['threads'] = 'Topics';
-		$txt['messages'] = 'Berichten';
-		$txt['last_post'] = 'Laatste post';
-		$txt['nothing_posted'] = 'Nog niets gepost.';
-		$txt['edit_category'] = 'Bewerk categorie';
-		$txt['add_category'] = 'Voeg categorie toe';
-		$txt['name_of_category'] = 'Naam van categorie:';
-		$txt['icon_url'] = 'Icoon URL:';
-		$txt['button'] = 'Voeg categorie toe';
+        $txt['messages'] = 'Posts';
+        $txt['last_post'] = 'Last post';
+        $txt['nothing_posted'] = '';
+        $txt['edit_category'] = 'Edit category';
+        $txt['add_category'] = 'Add';
+        $txt['name_of_category'] = 'Category name:';
+        $txt['icon_url'] = 'Icon URL:';
+        $txt['button'] = 'Add';
 	}
 
 	######################## Forum threads ########################
 	elseif($page == 'forum-threads'){
 		#Alerts
-		$txt['alert_no_name'] = 'Geen naam ingevuld.';
-		$txt['alert_name_too_short'] = 'Naam te kort, minimaal 3 tekens.';
-		$txt['alert_name_too_long'] = 'Naam te lang, maximaal 20 tekens.';
-		$txt['alert_name_already_taken'] = 'Topic naam bestaat al.';
-		$txt['success_add_thread'] = 'Succesvol een topic gestart.';
-		$txt['success_edit_thread'] = 'Succesvol de topic bewerkt.';
-		$txt['success_changed_status'] = 'Succesvol status van de topic veranderd.';
+        $txt['alert_no_name'] = 'Please fill in a name.';
+        $txt['alert_name_too_short'] = 'Name is too short, min. 3 characters.';
+        $txt['alert_name_too_long'] = 'Name is too long, max. 20 characters.';
+        $txt['alert_name_already_taken'] = 'Topic already exists.';
+        $txt['success_add_thread'] = 'You\'ve stared a topic, open it to add a post';
+        $txt['success_edit_thread'] = 'Successfully modified a topic.';
+        $txt['success_changed_status'] = 'Successfully modified a topic.';
 
 		#Screen
 		$txt['pagetitle'] = 'Forum';
 		$txt['game-forum'] = ''.GLOBALDEF_SITENAME.' forum';
 		$txt['#'] = '#';
 		$txt['title'] = 'Titel';
-		$txt['maker'] = 'Auteur';
-		$txt['messages'] = 'Berichten';
-		$txt['last_post'] = 'Laatste post';
-		$txt['no_threads'] = 'Er zijn geen topics in deze categorie.';
-		$txt['no_last_post'] = 'Nog geen berichten.';
+        $txt['maker'] = 'Author';
+        $txt['messages'] = 'Posts';
+        $txt['last_post'] = 'Last post';
+        $txt['no_threads'] = 'There are no topics in this category.';
+        $txt['no_last_post'] = 'No posts.';
 		$txt['open_thread'] = 'Open topic';
 		$txt['close_thread'] = 'Close topic';
-		$txt['edit_thread'] = 'Bewerk topic';
+        $txt['edit_thread'] = 'Edit topic';
 		$txt['thread_is_open'] = 'Topic is open';
 		$txt['thread_is_closed'] = 'Topic is closed';
-		$txt['add_thread'] = 'Voeg topic toe.';
-		$txt['english_topics'] = 'Altijd een engelse benaming.';
-		$txt['name_of_thread'] = 'Naam van topic:';
-		$txt['button'] = 'Voeg topic toe';
+        $txt['add_thread'] = 'Start a topic:';
+        $txt['english_topics'] = 'Altijd een engelse benaming.';
+        $txt['name_of_thread'] = 'Topic:';
+        $txt['button'] = 'Add';
 	}
 
 	######################## Forum messages ########################
 	elseif($page == 'forum-messages'){
 		#Alerts
-		$txt['alert_no_text'] = 'Geen tekst ingevuld.';
-		$txt['alert_already_send'] = 'Dit bericht heb je al eens verstuurd in deze topic.';
-		$txt['success_post_message'] = 'Succesvol een bericht erin gezet.';
-		$txt['alert_not_admin'] = 'U heeft niet de benodigde rechten.';
-		$txt['alert_message_doesnt_exist'] = 'Dit bericht ID bestaat niet.';
-		$txt['success_edit_message'] = 'Succesvol bericht bewerkt.';
-		$txt['success_message_delete'] = 'Bericht is succesvol verwijderd.';
+        $txt['alert_no_text'] = 'Please fill in a post.';
+        $txt['alert_already_send'] = 'This post has been sent earlier.';
+        $txt['success_post_message'] = 'Response successfull.';
+        $txt['alert_not_admin'] = 'You do not have the rights.';
+        $txt['alert_message_doesnt_exist'] = 'This post does not exist.';
+        $txt['success_edit_message'] = 'Succesfully edited the post.';
+        $txt['success_message_delete'] = 'Successfully removed.';
 
 		#Screen
-		$txt['pagetitle'] = 'Forum';
-		$txt['game-forum'] = ''.GLOBALDEF_SITENAME.' forum';
-		$txt['you_must_be_online'] = 'Let op: je kunt alleen een bericht verzenden wanneer je online bent.';
-		$txt['topic_closed'] = 'Let op: dit topic is <strong>gesloten</strong>.';
-		$txt['please_talk_english'] = 'Praat a.u.b. engels op dit forum zodat iedereen het kan begrijpen.';
-		$txt['no_messages'] = 'Er zijn nog geen berichten.';
-		$txt['quote_this_message'] = 'Quote dit bericht';
-		$txt['edit_this_message'] = 'Bewerk dit bericht';
-		$txt['delete_this_message'] = 'Verwijder dit bericht';
-		$txt['first_login'] = 'Je moet je inloggen voordat je kunt reageren.';
-		$txt['topic_closed_no_reply'] = 'Dit <strong>topic is gesloten</strong> en je kan dus niet reageren.';
-		$txt['colorbox_text'] = 'Open this window again and this message will still be here.';
-		$txt['add_message'] = 'Voeg bericht toe';
-		$txt['link_text_effects'] = '<u><a href="codes.php?category=forum" class="colorbox" title="Tekst effecten voor forum"><b>Hier</b></a></u> kun je zien hoe je tekst effecten moet toepassen of plaatjes invoegen.';
-		$txt['button'] = 'Voeg bericht toe';
+        $txt['topic_closed'] = 'Note: this topic is <strong>closed</strong>.';
+        $txt['no_messages'] = 'There are no posts.';
+        $txt['quote_this_message'] = 'Quote post';
+        $txt['edit_this_message'] = 'Edit post';
+        $txt['delete_this_message'] = 'Remove post';
+        $txt['first_login'] = 'You need to login to respond.';
+        $txt['topic_closed_no_reply'] = 'This topic is <strong>closed</strong>.';
+        $txt['add_message'] = 'Reply:';
+        $txt['button'] = 'Send';
 	}
 
 	######################## Beginning ########################
@@ -2104,10 +2211,8 @@ Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
 		$txt['title_text'] = 'Welkom op '.GLOBALDEF_SITEDOMAIN.'.<br />
 							  Mijn naam is professor Oak. <br />
 							  Dit zijn de regels van '.GLOBALDEF_SITEDOMAIN.'.<br /><br />
-							  * '.GLOBALDEF_SITENAME.' niet in een slecht daglicht zetten.<br />
-							  * Respecteer beheerders en andere spelers.<br />
+							  * Je mag maar 1 account hebben.<br />
 							  * Niet schelden tegen andere spelers.<br />
-							  * Niet bedelen bij de admins of moderators.<br />
 							  * Niet adverteren voor andere spellen.<br /><br />
 							  Als je je niet aan deze regels houdt word je verbannen van de site.';
 		$txt['button']	= 'Ga verder';
@@ -2145,188 +2250,218 @@ Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
 		$txt['title_text'] = 'Sorry, deze pagina is niet toegankelijk voor jou. Log in met een account om deze pagina te zien.';
 	}
 	
+    ########################## Fising ##########################
+    elseif($page == 'fishing'){
+        #Alerts
+        $txt['alert_no_fishing_rod'] = 'You have no Fishing rod.';
+        $txt['fish'] = '';
+        $txt['alert_cant_fish_without'] = 'You can\'t fish without a';
+        $txt['alert_no_premium'] = 'You cannot fish today.<br/>Premium members can fish up to 6 times a day. <a href="index.php?page=area-market"><strong>become premium here</strong></a>!';
+        $txt['alert_cant_fish'] = 'You cannot fish today.';
+
+        $txt['with_a'] = 'With a';
+        $txt['youve'] = 'you\'ve caught a';
+        $txt['caught'] = '';
+        $txt['the_jury'] = 'The jury gave';
+        $txt['points'] = 'points';
+        $txt['granted'] = 'for the catch.';
+
+        #Screen
+        $txt['title'] = 'Fishing';
+        $txt['fishing_text'] = 'Welcome in the fishing championship.<br/> The one who catches the biggest fish will receive the grand prize!<br/><br/>
+        <b>1e place:</b> 2000 <img src="images/icons/silver.png"><br>
+        <b>2de place:</b> 1500 <img src="images/icons/silver.png"><br>
+        <b>3de place:</b> 1000 <img src="images/icons/silver.png"><br><br>
+
+        <small><b><font color=red>Note:</font></b> Every new catch will overwrite your last score.</small>';
+        $txt['fish_rod'] = 'Fishing rod';
+        $txt['start'] = 'Start';
+        $txt['topscore_today'] = 'Top score today';
+        $txt['topscore_yesterday'] = 'Top score yesterday';
+        $txt['user'] = 'User';
+        $txt['score'] = 'Points';
+    }
+
 	######################## Attack Map ########################
 	elseif($page == 'attack/attack_map'){
 		#Alerts
-		$txt['alert_no_fishing_rod'] = 'Je hebt geen Fishing rod.';
-		$txt['alert_no_cave_suit'] = 'Je hebt geen Cave suit.';
-		$txt['alert_error'] = 'Er is een fout opgetreden. Meld dit a.u.b. aan <a href=\"?page=send-message&player=Skank\">Skank</a>.<br /> Vermeld de wereld, het gebied en de error:';
-		$txt['alert_no_pokemon'] = 'Je hebt geen levende pokemon opzak.';
+		$txt['alert_no_fishing_rod'] = 'You have no Fishing rod, go to the store to buy one.';
+		$txt['alert_no_cave_suit'] = 'You have no Cave suit, go to the store to buy one.';
+        $txt['alert_no_pokemon'] = 'The Pok&eacute;mon in your team are hurt, go to the Pok&eacute;moncenter.';
 		
 		#Screen
-		$txt['pagetitle'] = 'Attackmap';
-		$txt['title_text'] = 'Kies je plek waar je tegen een pokemon wilt vechten!';
+        $txt['to_pokemoncenter'] = 'Go to the Pok&eacute;moncenter.';
+		$txt['title_text'] = 'Choose an area where you want to fight a Pok&eacute;mon!';
 	}
 	
 	######################## Attack Gyms ########################
 	elseif($page == 'attack/gyms'){
 		#Alerts
-		$txt['alert_itemplace'] = 'Let op: U heeft geen itemplek over, dus u wint de HM niet als u nu een gevecht aangaat.';
-		$txt['alert_rank_too_less'] = 'Je rank is niet hoog genoeg voor deze gym.';
-		$txt['alert_wrong_world'] = 'Je zit in de verkeerde wereld.';
-		$txt['alert_gym_finished'] = 'Je hebt deze gym al behaald.';
-		$txt['alert_no_pokemon'] = 'Je hebt geen pokemon opzak.';
-		$txt['begindood'] = "Al je pokemon die je opzak hebt zijn knock out.";
+        $txt['alert_itemplace'] = 'Note: You have no more room in your itembox, if an item drops there will be no room to store it.';
+        $txt['alert_rank_too_less'] = 'Your do not have the rank for this gym yet.';
+        $txt['alert_wrong_world'] = 'You are in the wrong world.';
+        $txt['alert_gym_finished'] = 'You already finished this gym.';
+        $txt['alert_no_pokemon'] = 'You have no Pok&eacute;mon in your team.';
+        $txt['begindood'] = "The Pok&eacute;mon in your team are hurt, go to the Pok&eacute;moncenter.";
 		
 		#Screen
-		$txt['pagetitle'] = 'Gyms';
-		$txt['finished'] = 'Gehaald';
-		$txt['rank_too_less'] = 'Rank te laag';
+        $txt['pagetitle'] = 'Gyms';
+        $txt['finished'] = 'Finished';
+        $txt['rank_too_less'] = 'Rank too low';
 		$txt['leader'] = 'Leader:';
-		$txt['from_rank'] = 'Vanaf rank';
+        $txt['from_rank'] = 'From rank';
+        $txt['challenge'] = 'Challenge';
 	}
 	
 	######################## Attack Duel invite ########################
 	elseif($page == 'attack/duel/invite'){
 		#Alerts
-		$txt['alert_not_yourself'] = 'Je kunt jezelf niet uitdagen.';
-		$txt['alert_youre_not_premium'] = 'Jij bent geen premium speler, dus je kunt niemand uitdagen.';
-		$txt['alert_unknown_amount'] = 'Ongeldig bedrag.';
-		$txt['alert_not_enough_silver'] = 'Je hebt niet genoeg silver.';
-		$txt['alert_all_pokemon_ko'] = 'Al je pokemon zijn knock out.';
-		$txt['alert_opponent_not_premium'] = 'is geen premiumlid.';
-		$txt['alert_opponent_not_in'] = 'zit niet in';
-		$txt['alert_opponent_not_traveller'] = 'is nog geen rank Traveller.';
-		$txt['alert_opponent_duelevent_off'] = 'heeft dueluitnodigingen uitgeschakeld.';
-		$txt['alert_opponent_already_fighting'] = 'is bezig met een gevecht.';
-		$txt['waiting_for_accept'] = 'is uitgedaagd, wachten totdat hij/zij accepteert.';
-		$txt['alert_opponent_no_silver'] = 'Je tegenstander heeft geen geld.';
-		$txt['alert_opponent_no_health'] = 'Je tegenstander geen levende pokemon.';
-		$txt['alert_user_unknown'] = 'Speelnaam bestaat niet.';
+        $txt['alert_not_yourself'] = 'You can\'t challenge yourself.';
+        $txt['alert_unknown_amount'] = 'Please fill in an amount.';
+        $txt['alert_not_enough_silver'] = 'You do not have enough silver.';
+        $txt['alert_all_pokemon_ko'] = 'All your Pok&eacute;mon are knock out.';
+        $txt['alert_opponent_not_in'] = 'is not in';
+        $txt['alert_opponent_not_traveller'] = 'does not have the rank Traveller.';
+        $txt['alert_opponent_duelevent_off'] = 'has disabled duel invites.';
+        $txt['alert_opponent_already_fighting'] = 'is currently in a battle.';
+        $txt['waiting_for_accept'] = 'has been challanged, wait untill the invite is accepted.';
+        $txt['alert_opponent_no_silver'] = 'Your opponent doesn\'t have enough silver.';
+        $txt['alert_opponent_no_health'] = 'Your opponent doesn\'t have alive Pok&eacute;mon.';
+        $txt['alert_user_unknown'] = 'User does not exist.';
 		
 		#Screen
-		$txt['pagetitle'] = 'Duel';
-		$txt['title_text'] = '<p><img src="images/icons/duel.png" /> <strong>Daag een speler uit voor een duel.</strong> <img src="images/icons/duel.png" /><br />
-    De speler moet wel premium en beschikbaar zijn.</p>';
-		$txt['player'] = 'Speelnaam:';
-		$txt['money'] = 'Inzet:';
-		$txt['button_duel'] = 'Daag uit';
+        $txt['title_text'] = '<p><img src="images/icons/duel.png" /> <strong>Challenge another user for a duel.</strong> <img src="images/icons/duel.png" /><br />
+    Note: The user needs to be online.</p>';
+        $txt['player'] = 'Username:';
+        $txt['money'] = 'Bet:';
+        $txt['button_duel'] = 'Challenge';
+        $txt['waiting'] = 'Waiting';
 	}
 	
 	######################## Attack Duel invited ########################
 	elseif($page == 'attack/duel/invited'){
 		#Alerts
-		$txt['alert_not_enough_silver'] = 'Je hebt niet genoeg silver.';
-		$txt['alert_all_pokemon_ko'] = 'Al je pokemon zijn knock out.';
-		$txt['success_accepted'] = 'Je hebt het duel geaccepteerd.';
-		$txt['success_cancelled'] = 'Je hebt het duel geannuleerd.';
-		$txt['alert_too_late'] = 'had je uitgedaagd voor een duel. Je was helaas te laat.';
+		$txt['alert_not_enough_silver'] = 'You do not have enough silver.';
+		$txt['alert_all_pokemon_ko'] = 'All your Pok&eacute;mon are knock out.';
+		$txt['success_accepted'] = 'You\'ve accepted the duel.';
+		$txt['success_cancelled'] = 'You\'ve cancelled the duel.';
+		$txt['alert_too_late'] = 'invited you for a duel. You where to late with your response.';
 		
 		#Screen
-		$txt['pagetitle'] = 'Je word uitgedaagd';
-		$txt['dueltext_1'] = 'Dit duel heeft een inzet van:';
-		$txt['dueltext_2'] = 'daagt je uit voor een duel.';
-		$txt['accept'] = 'Accepteer';
-		$txt['cancel'] = 'Annuleer';
+		$txt['pagetitle'] = 'You are beeing challenged';
+		$txt['dueltext_1'] = 'The duel has a bet of:';
+		$txt['dueltext_2'] = 'challenges you for a duel.';
+		$txt['accept'] = 'Accept';
+		$txt['cancel'] = 'Deny';
 	}
 	
 	######################## Attack Wild ########################
 	elseif($page == 'attack/wild/wild-attack'){
 		#Screen
-		$txt['you_won'] = 'Jij hebt gewonnen.';
-		$txt['you_lost'] = 'Jij hebt verloren.';
-		$txt['you_lost_1'] = 'Je verliest <img src=\'images/icons/silver.png\' title=\'Silver\'>';
-		$txt['you_lost_2'] = '<br><a href=\'?page=pokemoncenter\'>Klik hier om naar de pokemon center te gaan.</a>';
-		$txt['you_first_attack'] = 'Jij mag de eerste aanval doen.';
-		$txt['opponent_first_attack'] = 'mag de eerste aanval doen.';
-		$txt['opponents_turn'] = 'mag aanvallen.';
-		$txt['your_turn'] = 'Jij mag aanvallen.';
-		$txt['have_to_change_1'] = 'Je';
-		$txt['have_to_change_2'] = 'is knock out, je moet wisselen.';
-		$txt['next_time_wait'] = 'Wacht voortaan totdat het gevecht is afgelopen.';
-		$txt['fight_finished'] = 'Gevecht is al afgelopen.';
-		$txt['success_catched_1'] = 'Je hebt';
-		$txt['success_catched_2'] = 'gevangen!';
-		$txt['no_item_selected'] = 'Je moet wel een item kiezen!';
-		$txt['potion_no_pokemon_selected'] = 'Je moet wel een pokemon kiezen!';
-		$txt['busy_with_attack'] = 'Bezig met aanval.';
-		$txt['have_already'] = 'Je hebt al een';
+		$txt['you_won'] = 'You\'ve won.';
+		$txt['you_lost'] = 'You\'ve lost.';
+		$txt['you_lost_1'] = 'You lost <img src=\'images/icons/silver.png\' title=\'Silver\'>';
+		$txt['you_lost_2'] = '<br><a href=\'?page=pokemoncenter\'>Click here to go to the Pok&eacute;moncenter.</a>';
+		$txt['you_first_attack'] = 'You\'re the first to attack.';
+		$txt['opponent_first_attack'] = 'is the first to attack.';
+		$txt['opponents_turn'] = 'is attacking.';
+		$txt['your_turn'] = 'You\'re attacking.';
+		$txt['have_to_change_1'] = 'Your';
+		$txt['have_to_change_2'] = 'is knock out, you nee swtich Pok&eacute;mon.';
+		$txt['next_time_wait'] = 'Wait until the battle is over.';
+		$txt['fight_finished'] = 'The battle is finished.';
+		$txt['success_catched_1'] = 'You\'ve cought';
+		$txt['success_catched_2'] = '!';
+		$txt['no_item_selected'] = 'Please choose an item';
+		$txt['potion_no_pokemon_selected'] = 'Please choose a Pok&eacute;mon';
+		$txt['busy_with_attack'] = 'Attacking..';
+		$txt['have_already'] = 'You already have';
 		$txt['a_wild'] = 'a wild';
 		$txt['potion_text'] = 'Which pokemon do you want to give the';
 		$txt['*'] = '*';
 		$txt['pokemon'] = 'Pokemon';
 		$txt['level'] = 'Level';
 		$txt['health'] = 'Health';
-		$txt['potion_egg_text'] = 'Niet van toepassing';
+		$txt['potion_egg_text'] = 'Not applicable';
 		$txt['button_potion'] = 'Give';
-		$txt['attack'] = 'Aanval';
-		$txt['change'] = 'Wissel';
+		$txt['attack'] = 'Attack';
+		$txt['change'] = 'Switch';
 		$txt['items'] = 'Items';
-		$txt['button_item'] = 'Gebruik';
-		$txt['must_attack'] = 'moet aanvallen';
+		$txt['button_item'] = 'Use';
+		$txt['must_attack'] = 'has to attack';
 		$txt['is_ko'] = 'is knock out';
 		$txt['flinched'] = 'is flinched';
-		$txt['sleeps'] = 'slaapt.';
-		$txt['awake'] = 'is wakker geworden.';
-		$txt['frozen'] = 'is bevroren.';
-		$txt['no_frozen'] = 'is ontdooit.';
-		$txt['not_paralyzed'] = 'is niet langer paralyzed.';
+		$txt['sleeps'] = 'sleeps.';
+		$txt['awake'] = 'has woken up.';
+		$txt['frozen'] = 'is frozen.';
+		$txt['no_frozen'] = 'is defrosting.';
+		$txt['not_paralyzed'] = 'is no longer paralyzed.';
 		$txt['paralyzed'] = 'is paralyzed.';
-		$txt['fight_over'] = 'Het gevecht is afgelopen.';
-		$txt['choose_another_pokemon'] = 'Kies een andere pokemon.';
-		$txt['use_attack_1'] = 'deed';
-		$txt['use_attack_2'] = ', hij raakt. Je pokemon is Knock Out.<br />';
-		$txt['use_attack_2_hit'] = ', hij raakt.';
-		$txt['did'] = 'doet';
-		$txt['hit!'] = ', raak!';
-		$txt['your_attack_turn'] = '<br />Het is nu jouw beurt.';
-		$txt['opponent_choose_attack'] = 'kiest een aanval.';
-		
-		$txt['pagetitle'] = 'Wilde pokemon gevecht';
-		
+		$txt['fight_over'] = 'The battle is over.';
+		$txt['choose_another_pokemon'] = 'Choose anothe Pok&eacute;mon.';
+		$txt['use_attack_1'] = 'used';
+		$txt['use_attack_2'] = ' and hit. Your Pok&eacute;mon is knocked out.<br />';
+		$txt['use_attack_2_hit'] = 'And hit.';
+		$txt['did'] = 'Uses';
+		$txt['hit!'] = 'and hit!';
+		$txt['your_attack_turn'] = '<br />It is your turn now.';
+		$txt['opponent_choose_attack'] = 'Chooses an attack.';
+
+        $txt['pagetitle'] = 'Wilde pokemon gevecht';
+
 		//Start Fight
-		$txt['begindood'] = "Al je pokemon die je opzak hebt zijn knock out.";
-		$txt['opponent_error'] = "Error: Geen tegenstander Bekend.";
+		$txt['begindood'] = "All the Pok&eacute;mon in your team are knocked out.";
+		$txt['opponent_error'] = "Error: No opponent found.";
 		
 		//Attack General
-		$txt['success_catched_1'] = "Je hebt ";
-		$txt['success_catched_2'] = "gevangen. Het gevecht is afgelopen.";
-		$txt['new_pokemon_dead']   = " kan niet vechten. Hij is knock out!";
-		$txt['not_your_turn'] = " moet aanvallen.";
+		$txt['success_catched_1'] = "You've caught ";
+		$txt['success_catched_2'] = ". The battle finished.";
+		$txt['new_pokemon_dead']   = " cannot battle because he's knocked out.";
+		$txt['not_your_turn'] = " is attacking.";
 		
 		//Change Pokemon
-		$txt['change_block'] = "Je bent geraakt door Block je kunt niet ruilen!";
-		$txt['change_egg']  = "Je kunt geen ei inbrengen!";
-		$txt['success_change_1']  = "Je wisselt van pokemon.";
-		$txt['success_change_2'] = "mag nu aanvallen.";
-		$txt['success_change_you_attack'] = "Je wisselt van pokemon. Je mag nu aanvallen";
+		$txt['change_block'] = "You can't switch, You've been hit by block";
+		$txt['change_egg']  = "You cannot use an egg!";
+		$txt['success_change_1']  = "Switching Pok&eacute;mon.";
+		$txt['success_change_2'] = "is attacking..";
+		$txt['success_change_you_attack'] = "You've switched Pok&eacute;mon, you can attack now";
 		
 		//Use Pokeball
-		$txt['ball_choose'] = "Kies een item dat je bezit, of doe een aanval.";
-		$txt['hand_house_full'] = "Je hebt geen ruimte meer voor een nieuwe pokemon.";  
-		$txt['ball_have'] = "Je moet wel een pokeball gebruiken.";
-		$txt['ball_amount'] = "Je hebt geen ";
-		$txt['ball_throw_1'] = "Je gooit een ";
-		$txt['ball_throw_2'] = ". Je hebt ";
-		$txt['ball_success'] = " gevangen.";
-		$txt['ball_failure'] = " niet gevangen.";
-		$txt['ball_success_2'] = " zit nu in je huis.";
+		$txt['ball_choose'] = "Choose an item or attack.";
+		$txt['hand_house_full'] = "You have no more room left for a new Pok&eacute;mon.";
+		$txt['ball_have'] = "You have to use a Pok&eacute;ball.";
+		$txt['ball_amount'] = "You do not have a ";
+		$txt['ball_throw_1'] = "You throw a ";
+		$txt['ball_throw_2'] = ". ";
+		$txt['ball_success'] = " was caught.";
+		$txt['ball_failure'] = " has escaped.";
+		$txt['ball_success_2'] = " is in your house.";
 		
 		//Use potion
-		$txt['potion_choose'] = "Kies een item dat je bezit, of doe een aanval.";  
-		$txt['potion_have'] = "Je moet wel een potion gebruiken.";
-		$txt['potion_life_full'] = " heeft al vol leven.";
-		$txt['potion_amount'] = "Je hebt geen ";
-		$txt['potion_life_zero_1'] = "Je kunt ";
-		$txt['potion_life_zero_2'] = " niet healen";
-		$txt['potion_give_1'] = "Je geeft ";
-		$txt['potion_give_2'] = " een ";
-		$txt['potion_give'] = "Je gebruikt een ";
-		$txt['potion_give_end_1'] = " is genezen";
-		$txt['potion_give_end_2'] = " is weer half levend";
-		$txt['potion_give_end_3'] = " is weer levend";
+		$txt['potion_choose'] = "Choose an item or attack.";
+		$txt['potion_have'] = "Use the potion.";
+		$txt['potion_life_full'] = " already has full health.";
+		$txt['potion_amount'] = "You cannot ";
+		$txt['potion_life_zero_1'] = "You cant restore ";
+		$txt['potion_life_zero_2'] = "";
+		$txt['potion_give_1'] = "You gave a ";
+		$txt['potion_give_2'] = "  ";
+		$txt['potion_give'] = "You've used a ";
+		$txt['potion_give_end_1'] = " is cured";
+		$txt['potion_give_end_2'] = " has healed";
+		$txt['potion_give_end_3'] = " has healed";
 		
 		//Run
-		$txt['success_run'] = "Je bent ontsnapt van ";
-		$txt['failure_run'] = "Je kon niet ontkomen van ";
+		$txt['success_run'] = "You've escaped from ";
+		$txt['failure_run'] = "You could not escape from ";
 		
 		//Function
-		$txt['recieve'] = "krijgt";
-		$txt['recieve_boost'] = "krijgt een boosted";
-		$txt['recieve_premium_boost'] = "krijgt een premiumboosted";
-		$txt['recieve_boost_and_premium'] = "krijgt een boosted en premium boosted";
+		$txt['recieve'] = "You receive";
+		$txt['recieve_boost'] = "a boosted";
+		$txt['recieve_premium_boost'] = "a premium boosted";
+		$txt['recieve_boost_and_premium'] = "a boosted and premium boosted";
 		
-		$txt['exp_points'] = "exp punten.";
+		$txt['exp_points'] = "experience gain.";
 	}
   ######################## Trainer Attack ########################
 	elseif($page == 'attack/trainer/trainer-attack'){
@@ -2509,4 +2644,21 @@ Je kunt hier een pokemon shiny maken door hem het benodigde gold te geven.';
 		$txt['shiny'] = "Shiny";
         $txt['normal'] = "Normal";
         $txt['amount_caught'] = "Has been caught ".$query2." times.";
+    }
+    elseif($page == 'clan-invite'){
+        #Alerts
+        $txt['alert_no_clan_leader'] = "You are not a leader of a clan.";
+        $txt['alert_no_name'] = "Please fill in a name.";
+        $txt['alert_clan_full'] = "Your clan is full, upgrade your clan to allow more members.";
+        $txt['alert_already_in_clan'] = "The player you are trying to invite already has a clan.";
+        $txt['alert_player_does_not_exist'] = "The player you are trying to invite doesn't exist.";
+        $txt['invite_text'] = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> ' . $gebruiker['username'] . ' has invited you to his clan, named <strong>' . $clan['clan_naam'] . '</strong>.<a href="?page=clan-invite2&id=' . $claninputid . '&code=' . $code . '&accept=1">Accept</a>, <a href="?page=clan-invite2&id=' . $claninputid . '&code=' . $code . '&accept=0">Refuse</a>.';
+        $txt['invite_sent'] = 'Invite sent to ' . $_POST['naam'] . '';
+
+        #Screen
+        $txt['invite_a_player_for_clan'] = "Invite a player for ".$clan['clan_naam'].".";
+        $txt['max_invite_text'] = "<p>A level ".$clan['clan_level']." clan can have ".$clanmembers." members.</p><p>You can invite ".$claninvites." members.</p>";
+        $txt['invite_button'] = "Invite";
+        $txt['outstanding_invites'] = "No pending invites.";
+        $txt['no_clan'] = "<center>You do not have a clan, create a clan <a href='?page=clan-make'>here</a>.</center>";
     }

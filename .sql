@@ -13880,9 +13880,9 @@ INSERT INTO `settings` (`id`, `setting`, `value`, `globaldef`) VALUES
 (17, 'siteProtocol', 'https', 1),
 (18, 'siteLogo', 'https://pokeworld.nl/img/pokeworld.png', 1),
 (19, 'Facebook', 'https://www.facebook.com/Pokeworld-1000758966613047/', 1),
-(20, 'adminUid', '17007', 1);
-(21, 'GoogleRecaptchaSecretkey', '', 1);
-(22, 'GoogleRecaptchaSitekey', '', 1);
+(20, 'adminUid', '17007', 1),
+(21, 'GoogleRecaptchaSecretkey', '', 1),
+(22, 'GoogleRecaptchaSitekey', '', 1),
 (23, 'Language', '', 1);
 
 CREATE TABLE `shoutbox` (
