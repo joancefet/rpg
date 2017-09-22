@@ -42,8 +42,8 @@ if(isset($_GET['reageren'])){
     }
 
     ?>
-    <div class='newstitle wordwrap'><?= $getNews['datum'] ?>: <?= $getNews['titel_nl'] ?></div>
-    <div class='newscontent'><?= replaceEmoticons($getNews['text_nl']) ?></div>
+    <div class='newstitle wordwrap'><?= $getNews['datum'] ?>: <?= $getNews['titel_'.GLOBALDEF_LANGUAGE] ?></div>
+    <div class='newscontent'><?= replaceEmoticons($getNews['text_'.GLOBALDEF_LANGUAGE]) ?></div>
     <div class='newsfooter' style="margin-bottom: 5px;">
         <a href="?page=home"><< Nieuws</a>
     </div><br/>
@@ -73,7 +73,7 @@ if(isset($_GET['reageren'])){
             $(document).ready(function () {
                 $('#summernote').summernote({
                     theme: 'yeti',
-                    lang: "nl-NL",
+                    lang: "<?=GLOBALDEF_EDITORLANGUAGE?>",
                     callbacks : {
                     onImageUpload: function(image) {
                         uploadImage(image[0]);
@@ -173,7 +173,7 @@ if(isset($_GET['reageren'])){
         $subpage = $_GET['subpage'];
     }
 
-    $textNl = $db->query("SELECT text_nl FROM nieuws");
+    $textNl = $db->query("SELECT text_".GLOBALDEF_LANGUAGE." FROM nieuws");
     $aantal_rows = $textNl->rowCount();
 
     #Max aantal berichten per pagina
@@ -182,7 +182,7 @@ if(isset($_GET['reageren'])){
     if ($aantal_paginas == 0) $aantal_paginas = 1;
     $pagina = $subpage * $max - $max;
 
-    $sql = $db->query("SELECT id,titel_nl,text_nl,DATE_FORMAT(`datum`,'%d-%m-%Y') AS `datum`,UNIX_TIMESTAMP(datum) AS DATE FROM nieuws
+    $sql = $db->query("SELECT id,titel_".GLOBALDEF_LANGUAGE.",text_".GLOBALDEF_LANGUAGE.",DATE_FORMAT(`datum`,'%d-%m-%Y') AS `datum`,UNIX_TIMESTAMP(datum) AS DATE FROM nieuws
 								ORDER BY DATE DESC
 								LIMIT " . $pagina . ", " . $max . "");
 
@@ -224,8 +224,8 @@ if(isset($_GET['reageren'])){
         ?>
         <hr>
         <form method="post" action="index.php?page=home">
-            <div class='newstitle wordwrap'><?= $select['datum'] ?>: <?= $select['titel_nl'] ?></div>
-            <div class='newscontent'><?= replaceEmoticons($select['text_nl']) ?></div>
+            <div class='newstitle wordwrap'><?= $select['datum'] ?>: <?= $select['titel_'.GLOBALDEF_LANGUAGE] ?></div>
+            <div class='newscontent'><?= replaceEmoticons($select['text_'.GLOBALDEF_LANGUAGE]) ?></div>
             <div class='newsfooter' style="margin-bottom: 5px;">
                 <a href='?page=news&reageren&uid=<?= $select['id'] ?>'>Reageren (<?= $nieuws_reacties ?>)</a>
                 <?if(!empty($_SESSION['id'])){?>

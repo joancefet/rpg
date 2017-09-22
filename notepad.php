@@ -10,7 +10,7 @@ include("includes/security.php");
     $(document).ready(function () {
         $('#summernote').summernote({
             theme: 'yeti',
-            lang: "nl-NL",
+            lang: "<?=GLOBALDEF_EDITORLANGUAGE?>",
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'italic', 'underline', 'clear']],

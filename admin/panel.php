@@ -18,7 +18,7 @@ if ($gebruiker['admin'] < 1) {
                 <td width="50">
                     <center><img src="images/icons/alert_red.png"/></center>
                 </td>
-                <td width="130"><a href="index.php?page=admin/reset">Reset het spel</a></td>
+                <td width="130"><a href="index.php?page=admin/reset">Reset the game</a></td>
             </tr>
             <?
         }
@@ -30,7 +30,7 @@ if ($gebruiker['admin'] < 1) {
                 <td width="50">
                     <center><img src="images/icons/gear.gif"/></center>
                 </td>
-                <td width="130"><a href="index.php?page=admin/settings">Instellingen</a></td>
+                <td width="130"><a href="index.php?page=admin/settings">Settings</a></td>
             </tr>
             <?
         }
@@ -59,19 +59,19 @@ if ($gebruiker['admin'] < 1) {
             <td>
                 <center><img src="images/icons/user_view.png"/></center>
             </td>
-            <td><a href="index.php?page=admin/search-on-ip">Zoek op IP</a></td>
+            <td><a href="index.php?page=admin/search-on-ip">Search on IP</a></td>
         </tr>
         <tr>
             <td>
                 <center><img src="images/icons/groep_magnify.png"/></center>
             </td>
-            <td><a href="index.php?page=admin/more-accounts">Multi accounts chekken</a></td>
+            <td><a href="index.php?page=admin/more-accounts">Multi account check</a></td>
         </tr>
         <tr>
             <td>
                 <center><img src="images/icons/key_delete.png"/></center>
             </td>
-            <td><a href="index.php?page=admin/wrong-login">Verkeerde inlog</a></td>
+            <td><a href="index.php?page=admin/wrong-login">Login incorrect</a></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -93,19 +93,19 @@ if ($gebruiker['admin'] < 1) {
                 <td>
                     <center><img src="images/icons/gebeurtenis.png" alt=""/></center>
                 </td>
-                <td><a href="index.php?page=admin/change-newspage">Nieuws</a></td>
+                <td><a href="index.php?page=admin/change-newspage">News</a></td>
             </tr>
             <tr>
                 <td>
                     <center><img src="images/icons/gebeurtenis.png" alt=""/></center>
                 </td>
-                <td><a href="index.php?page=admin/change-bovenstuk">Bovenkant</a></td>
+                <td><a href="index.php?page=admin/change-bovenstuk">Top</a></td>
             </tr>
             <tr>
                 <td>
                     <center><img src="images/icons/tekst_add.png"/></center>
                 </td>
-                <td><a href="index.php?page=admin/mass-message">Massa bericht</a></td>
+                <td><a href="index.php?page=admin/mass-message">Mass message</a></td>
             </tr>
             <?
         }
@@ -114,7 +114,7 @@ if ($gebruiker['admin'] < 1) {
             <td>
                 <center><img src="images/icons/comments.png"/></center>
             </td>
-            <td><a href="index.php?page=admin/messages">Berichten</a></td>
+            <td><a href="index.php?page=admin/messages">Messages</a></td>
         </tr>
         <?
         if ($gebruiker['admin'] >= 3) {
@@ -123,7 +123,7 @@ if ($gebruiker['admin'] < 1) {
                 <td>
                     <center><img src="images/icons/email.png"/></center>
                 </td>
-                <td><a href="index.php?page=admin/mass-mail">Massa e-mail</a></td>
+                <td><a href="index.php?page=admin/mass-mail">Mass e-mail</a></td>
             </tr>
             <?
         }
@@ -142,7 +142,7 @@ if ($gebruiker['admin'] < 1) {
                 <td>
                     <center><img src="images/icons/doneer.png"/></center>
                 </td>
-                <td><a href="index.php?page=admin/pay-list">Betaal lijst</a></td>
+                <td><a href="index.php?page=admin/pay-list">Donations</a></td>
             </tr>
             <?
         }
@@ -152,25 +152,31 @@ if ($gebruiker['admin'] < 1) {
                 <td>
                     <center><img src="images/icons/pokeball.gif"/></center>
                 </td>
-                <td><a href="index.php?page=admin/new-starter">Nieuwe starter</a></td>
+                <td><a href="index.php?page=admin/new-starter">Give a new starter</a></td>
             </tr>
             <tr>
                 <td>
                     <center><img src="images/icons/egg2.gif"/></center>
                 </td>
-                <td><a href="index.php?page=admin/give-egg">Geef een baby egg</a></td>
+                <td><a href="index.php?page=admin/give-egg">Give a new baby egg</a></td>
             </tr>
             <tr>
                 <td>
                     <center><img src="images/icons/pokeball.gif"/></center>
                 </td>
-                <td><a href="index.php?page=admin/give-pokemon">Geef een pokémon</a></td>
+                <td><a href="index.php?page=admin/give-pokemon">Give a Pokémon</a></td>
             </tr>
             <tr>
                 <td>
                     <center><img src="images/icons/basket_put.png"/></center>
                 </td>
-                <td><a href="index.php?page=admin/give-pack">Geef een Pakket</a></td>
+                <td><a href="index.php?page=admin/give-pack">Give a pack</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <center><img src="images/icons/options.png"/></center>
+                </td>
+                <td><a href="index.php?page=admin/item-add">Give a item</a></td>
             </tr>
             <?
         }
@@ -180,24 +186,18 @@ if ($gebruiker['admin'] < 1) {
                 <td>
                     <center><img src="images/icons/gold.png"/></center>
                 </td>
-                <td><a href="index.php?page=admin/massa-gold">Geef iedereen gold</a></td>
+                <td><a href="index.php?page=admin/massa-gold">Donate gold to all players</a></td>
             </tr>
             <tr>
                 <td>
                     <center><img src="images/icons/boy.gif"/></center>
                 </td>
-                <td><a href="index.php?page=admin/massa-premium">Iedereen premium acc</a></td>
+                <td><a href="index.php?page=admin/massa-premium">Donate premium for all players</a></td>
             </tr>
             <?
         }
         if ($gebruiker['admin'] >= 2) {
             ?>
-            <tr>
-                <td>
-                    <center><img src="images/icons/options.png"/></center>
-                </td>
-                <td><a href="index.php?page=admin/item-add">Items toevoegen</a></td>
-            </tr>
             <td colspan="2">
                 <div style="padding-top:10px;">
                     <HR>
@@ -208,7 +208,7 @@ if ($gebruiker['admin'] < 1) {
                 <td>
                     <center><img src="images/icons/on-transferlist.gif"/></center>
                 </td>
-                <td><a href="index.php?page=admin/tournament">Tournament</a></td>
+                <td><a href="index.php?page=admin/tournament">Start a tournament</a></td>
             </tr>
             <?
         }

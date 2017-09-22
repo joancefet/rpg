@@ -527,19 +527,20 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             <div class="hbg">
                 <!-- logo -->
                 <div id="logo">
-                    <a href="/?page=home"><img src="<?=GLOBALDEF_SITELOGO?>" alt="" width="170px" /></a>      </div>
+                    <a href="/?page=home"><img src="<?=GLOBALDEF_SITELOGO?>" alt="" width="170px" /></a>
+                </div>
                 <!-- navbar -->
                 <?php if(empty($_SESSION['id'])){ ?>
                     <div class="space">
                         <div class="menu nav">
                             <ul class="menu main-navigation">
 
-                                <li class="menu li"><a href="?page=home">Home</a></li>
-                                <li class="menu li"><a href="?page=register">Registreren</a></li>
-                                <li class="menu li"><a href="?page=information">Informatie</a></li>
-                                <li class="menu li"><a href="?page=statistics">Statistieken</a></li>
-                                <li class="menu li"><a href="?page=rankinglist">Ranglijst</a></li>
-                                <li class="menu li"><a href="?page=contact">Contact</a></li>
+                                <li class="menu li"><a href="?page=home"><?=$txt['menu_home']?></a></li>
+                                <li class="menu li"><a href="?page=register"><?=$txt['menu_register']?></a></li>
+                                <li class="menu li"><a href="?page=information"><?=$txt['menu_information']?></a></li>
+                                <li class="menu li"><a href="?page=statistics"><?=$txt['menu_statistics']?></a></li>
+                                <li class="menu li"><a href="?page=rankinglist"><?=$txt['menu_rankinglist']?></a></li>
+                                <li class="menu li"><a href="?page=contact"><?=$txt['menu_contact']?></a></li>
 
                             </ul>
                         </div>
@@ -549,144 +550,144 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         <div class="menu nav">
                             <ul class="menu main-navigation">
 
-                                <li class="menu"><a class="menu" href="#">Algemeen</a>
+                                <li class="menu"><a class="menu" href="#"><?=$txt['menu_algemeen']?></a>
                                     <ul class="menu">
-                                        <?php if($gebruiker['admin'] >= 1) echo '<li class="menu li"><a href="?page=admin/panel">Admin paneel</a></li>'; ?>
-                                        <li class="menu li"><a href="#">Mijn account &raquo;</a>
+                                        <?php if($gebruiker['admin'] >= 1) echo '<li class="menu li"><a href="?page=admin/panel">'.$txt['menu_admin_panel'].'</a></li>'; ?>
+                                        <li class="menu li"><a href="#"><?=$txt['menu_my_account']?> &raquo;</a>
                                             <ul class="menu">
-                                                <li class="menu li"><a href="?page=account-options&category=personal">Instellingen</a></a></li>
-                                                <li class="menu li"><a href="?page=account-options&category=profile">Mijn profiel</a></li>
-                                                <li class="menu li"><a href="?page=account-options&category=picture">Mijn afbeeldingen</a></li>
-                                                <li class="menu li"><a href="?page=promotion">Promoten</a></li>
-                                                <li class="menu li"><a href="?page=buddies">Buddies</a></li>
-                                                <? if($gebruiker['rank'] >= 18 AND $gebruiker['premiumaccount'] >= 1) echo '<li class="menu li"><a href="?page=lvl-choose">Kies level</a></li>'; ?>
-                                                <li class="menu li"><a href="?page=account-options&category=password">Wachtwoord</a></li>
-                                                <li class="menu li"><a href="?page=account-options&category=restart">Reset account</a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=personal"><?=$txt['menu_settings']?></a></a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=profile"><?=$txt['menu_my_profile']?></a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=picture"><?=$txt['menu_my_images']?></a></li>
+                                                <li class="menu li"><a href="?page=promotion"><?=$txt['menu_promote']?></a></li>
+                                                <li class="menu li"><a href="?page=buddies"><?=$txt['menu_buddylist']?></a></li>
+                                                <? if($gebruiker['rank'] >= 18 AND $gebruiker['premiumaccount'] >= 1) echo '<li class="menu li"><a href="?page=lvl-choose">'.$txt['menu_choose_lvl'].'</a></li>'; ?>
+                                                <li class="menu li"><a href="?page=account-options&category=password"><?=$txt['menu_password']?></a></li>
+                                                <li class="menu li"><a href="?page=account-options&category=restart"><?=$txt['menu_reset']?></a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu li"><a href="#">Informatie &raquo;</a>
+                                        <li class="menu li"><a href="#"><?=$txt['menu_information']?> &raquo;</a>
                                             <ul class="menu">
                                                 <li class="menu li"><a href="?page=information"><?=GLOBALDEF_SITENAME?></a></li>
-                                                <li class="menu li"><a href="?page=information&category=pokemon-info">Pok&eacute;mon</a></li>
-                                                <li class="menu li"><a href="?page=information&category=attack-info">Aanvallen</a></li>
-                                                <li class="menu li"><a href="?page=ranklist">Rangen</a></li>
+                                                <li class="menu li"><a href="?page=information&category=pokemon-info"><?=$txt['menu_pokemon']?></a></li>
+                                                <li class="menu li"><a href="?page=information&category=attack-info"><?=$txt['menu_attack']?></a></li>
+                                                <li class="menu li"><a href="?page=ranklist"><?=$txt['menu_rankinglist']?></a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu li"><a href="?page=search-user">Speler zoeken</a></li>
-                                        <li class="menu li"><a href="?page=statistics">Statistieken</a></li>
-                                        <li class="menu li"><a href="?page=rankinglist">Ranglijst</a></li>
-                                        <li class="menu li"><a href="?page=forum-categories">Forum</a></li>
-                                        <li class="menu li"><a href="?page=logout">Uitloggen</a></li>
+                                        <li class="menu li"><a href="?page=search-user"><?=$txt['menu_search']?></a></li>
+                                        <li class="menu li"><a href="?page=statistics"><?=$txt['menu_statistics']?></a></li>
+                                        <li class="menu li"><a href="?page=rankinglist"><?=$txt['menu_rankinglist']?></a></li>
+                                        <li class="menu li"><a href="?page=forum-categories"><?=$txt['menu_forum']?></a></li>
+                                        <li class="menu li"><a href="?page=logout"><?=$txt['menu_logout']?></a></li>
                                     </ul>
                                 </li>
 
-                                <li class="menu"><a class="menu" href="#">Mijn huis</a>
+                                <li class="menu"><a class="menu" href="#"><?=$txt['menu_my_home']?></a>
                                     <ul class="menu">
-                                        <li class="menu li"><a href="#">Mijn Pok&eacute;mon &raquo;</a>
+                                        <li class="menu li"><a href="#"><?=$txt['menu_my_pokemon']?> &raquo;</a>
                                             <ul class="menu">
-                                                <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=extended">Informatie</a></li>'; ?>
+                                                <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=extended">'.$txt['menu_information'].'</a></li>'; ?>
                                                 <? if($gebruiker['in_hand'] != 0 || $gebruiker['rank'] >= 4){ ?>
-                                                    <? if($gebruiker['in_hand'] > 1) echo '<li class="menu li"><a href="?page=modify-order">Wijzig volgorde</a></li>';
+                                                    <? if($gebruiker['in_hand'] > 1) echo '<li class="menu li"><a href="?page=modify-order">'.$txt['menu_change_order'].'</a></li>';
                                                     ?>
-                                                    <li class="menu li"><a href="?page=house&option=bringaway">Wegbrengen</a></li>
-                                                    <li class="menu li"><a href="?page=house&option=pickup">Ophalen</a></li>
-                                                    <?if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=release">Vrijlaten</a></li>'; ?>
+                                                    <li class="menu li"><a href="?page=house&option=bringaway"><?=$txt['menu_return']?></a></li>
+                                                    <li class="menu li"><a href="?page=house&option=pickup"><?=$txt['menu_retrieve']?></a></li>
+                                                    <?if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=release">'.$txt['menu_release'].'</a></li>'; ?>
                                                 <? } ?>
                                             </ul>
                                         </li>
                                         <li class="menu li"><a href="#">Mijn Store &raquo;</a>
                                             <ul class="menu">
-                                                <li class="menu li"><a href="?page=store&player=<?=$gebruiker['username']?>">Mijn Store</a></li>
-                                                <li class="menu li"><a href="?page=layout">Store Layout</a></li>
+                                                <li class="menu li"><a href="?page=store&player=<?=$gebruiker['username']?>"><?=$txt['menu_my_store']?></a></li>
+                                                <li class="menu li"><a href="?page=layout"><?=$txt['menu_layout']?></a></li>
                                             </ul>
                                         </li>
                                         <li class="menu li"><a href="#">Mijn Items &raquo;</a>
                                             <ul class="menu">
-                                                <li class="menu li"><a href="?page=items">Items</a></li>
-                                                <?php if($gebruiker['Badge case'] == 1) echo '<li class="menu li"><a href="?page=badges">Badges</a></li>'; ?>
-                                                <?php if($gebruiker['Pokedex'] == 1) echo '<li class="menu li"><a href="?page=pokedex&world=Kanto">Pokedex</a></li>'; ?>
+                                                <li class="menu li"><a href="?page=items"><?=$txt['menu_items']?></a></li>
+                                                <?php if($gebruiker['Badge case'] == 1) echo '<li class="menu li"><a href="?page=badges">'.$txt['menu_badges'].'</a></li>'; ?>
+                                                <?php if($gebruiker['Pokedex'] == 1) echo '<li class="menu li"><a href="?page=pokedex&world='.$gebruiker['wereld'].'">'.$txt['menu_pokedex'].'</a></li>'; ?>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li class="menu"><a href="#" class="menu">Activiteiten</a>
+                                <li class="menu"><a href="#" class="menu"><?=$txt['menu_activities']?></a>
                                     <ul class="menu">
-                                        <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=attack/attack_map">Aanvallen</a></li>'; ?>
-                                        <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=trainer">Trainer battle</a></li>'; ?>
-                                        <li class="menu li"><a href="?page=missies">Missies</a></li>
-                                        <li class="menu li"><a href="?page=work">Werken</a></li>
-                                        <li class="menu li"><a href="?page=travel">Reizen</a></li>
-                                        <li class="menu li"><a href="?page=fishing">Vissen</a></li>
+                                        <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=attack/attack_map">'.$txt['menu_attack'].'</a></li>'; ?>
+                                        <? if($gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=trainer">'.$txt['menu_trainer'].'</a></li>'; ?>
+                                        <li class="menu li"><a href="?page=missies"><?=$txt['menu_missions']?></a></li>
+                                        <li class="menu li"><a href="?page=work"><?=$txt['menu_work']?></a></li>
+                                        <li class="menu li"><a href="?page=travel"><?=$txt['menu_travel']?></a></li>
+                                        <li class="menu li"><a href="?page=fishing"><?=$txt['menu_fishing']?></a></li>
                                     </ul>
                                 </li>
 
-                                <li class="menu"><a href="#" class="menu">Town</a>
+                                <li class="menu"><a href="#" class="menu"><?=$txt['menu_town']?></a>
                                     <ul class="menu">
-                                        <li class="menu li"><a href="?page=pokemoncenter">Pok&eacute;moncenter</a></li>
-                                        <li class="menu li"><a href="?page=town">Centrum &raquo;</a>
+                                        <li class="menu li"><a href="?page=pokemoncenter"><?=$txt['menu_pokemoncenter']?></a></li>
+                                        <li class="menu li"><a href="?page=town"><?= $txt['menu_city']?> &raquo;</a>
                                             <ul class="menu">
-                                                <li class="menu li"><a href="?page=house-seller">Makelaar</a></li>
-                                                <li class="menu li"><a href="?page=bank&x=pinstort">Bank</a></li>
-                                                <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=attack/gyms">Gym</a></li>'; ?>
-                                                <li class="menu li"><a href="?page=daycare">Daycare</a></li>
-                                                <li class="menu li"><a href="?page=name-specialist">Naam Specialist</a></li>
-                                                <li class="menu li"><a href="?page=shiny-specialist">Shiny Specialist</a></li>
+                                                <li class="menu li"><a href="?page=house-seller"><?=$txt['menu_broker']?></a></li>
+                                                <li class="menu li"><a href="?page=bank&x=pinstort"><?=$txt['menu_bank']?></a></li>
+                                                <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=attack/gyms">'.$txt['menu_gym'].'</a></li>'; ?>
+                                                <li class="menu li"><a href="?page=daycare"><?=$txt['menu_daycare']?></a></li>
+                                                <li class="menu li"><a href="?page=name-specialist"><?=$txt['menu_name_specialist']?></a></li>
+                                                <li class="menu li"><a href="?page=shiny-specialist"><?=$txt['menu_shiny_specialist']?></a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu li"><a href="?page=pokemarket">Pok&eacute;markt &raquo;</a>
+                                        <li class="menu li"><a href="?page=pokemarket"><?=$txt['menu_pokemarkt']?> &raquo;</a>
                                             <ul class="menu">
-                                                <li class="menu li"><a href="?page=market&shopitem=balls">Pok&eacute;balls</a></li>
-                                                <li class="menu li"><a href="?page=market&shopitem=potions">Potions</a></li>
-                                                <li class="menu li"><a href="?page=market&shopitem=items">Items</a></li>
-                                                <li class="menu li"><a href="?page=market&shopitem=specialitems">Vitamins</a></li>
-                                                <li class="menu li"><a href="?page=market&shopitem=stones">Stones</a></li>
-                                                <li class="menu li"><a href="?page=market&shopitem=pokemon">Eggs</a></li>
+                                                <li class="menu li"><a href="?page=market&shopitem=balls"><?=$txt['menu_pokeballs']?></a></li>
+                                                <li class="menu li"><a href="?page=market&shopitem=potions"><?=$txt['menu_potions']?></a></li>
+                                                <li class="menu li"><a href="?page=market&shopitem=items"><?=$txt['menu_items']?></a></li>
+                                                <li class="menu li"><a href="?page=market&shopitem=specialitems"><?=$txt['menu_vitamins']?></a></li>
+                                                <li class="menu li"><a href="?page=market&shopitem=stones"><?=$txt['menu_stones']?></a></li>
+                                                <li class="menu li"><a href="?page=market&shopitem=pokemon"><?=$txt['menu_eggs']?></a></li>
                                                 <? if($gebruiker['rank'] >= 5) { ?>
-                                                    <li class="menu li"><a href="?page=market&shopitem=attacks">Aanvallen</a></li>
+                                                    <li class="menu li"><a href="?page=market&shopitem=attacks"><?=$txt['menu_attack']?></a></li>
                                                 <? } ?>
                                             </ul>
                                         </li>
                                         <? if($gebruiker['rank'] >= 3) { ?>
-                                            <li class="menu li"><a href=#">Rocket hideout &raquo;</a>
+                                            <li class="menu li"><a href=#"><?=$txt['menu_rocket_hideout']?> &raquo;</a>
                                                 <ul class="menu">
-                                                    <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=sell">Verkoop Pok&eacute;mon</a></li>';?>
-                                                    <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=transferlist">In de verkoop</a></li>';?>
+                                                    <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=sell">'.$txt['menu_sell_pokemon'].'</a></li>';?>
+                                                    <? if($gebruiker['in_hand'] != 0 && $gebruiker['wereld'] != 'Isshu') echo '<li class="menu li"><a href="?page=transferlist">'.$txt['menu_sales'].'</a></li>';?>
                                                 </ul>
                                             </li>
                                         <? } ?>
-                                        <li class="menu li"><a href="?page=casino">Game corner &raquo;</a>
+                                        <li class="menu li"><a href="?page=casino"><?=$txt['menu_game_corner']?> &raquo;</a>
                                             <ul class="menu">
-                                                <li class="menu li"><a href="?page=multiblackjack">Blackjack</a></li>
-                                                <li class="menu li"><a href="?page=flip-a-coin">Kop of munt</a></li>
-                                                <li class="menu li"><a href="?page=slots">Pok&eacute;slots</a></li>
-                                                <li class="menu li"><a href="?page=who-is-it-quiz">Wie is het quiz</a></li>
-                                                <li class="menu li"><a href="?page=wheel-of-fortune">Rad van fortuin</a></li>
-                                                <li class="menu li"><a href="?page=poke-scrambler">Pok&eacute;mon naam raden</a></li>
-                                                <li class="menu li"><a href="?page=kluis">Kluis kraken</a></li>
-                                                <li class="menu li"><a href="?page=mystery-gift">Geheime code</a></li>
+                                                <li class="menu li"><a href="?page=multiblackjack"><?=$txt['menu_blackjack']?></a></li>
+                                                <li class="menu li"><a href="?page=flip-a-coin"><?=$txt['menu_heads_or_tail']?></a></li>
+                                                <li class="menu li"><a href="?page=slots"><?=$txt['menu_pokeslots']?></a></li>
+                                                <li class="menu li"><a href="?page=who-is-it-quiz"><?=$txt['menu_who_is_it']?></a></li>
+                                                <li class="menu li"><a href="?page=wheel-of-fortune"><?=$txt['menu_wheel_of_fortune']?></a></li>
+                                                <li class="menu li"><a href="?page=poke-scrambler"><?=$txt['menu_pokemon_name']?></a></li>
+                                                <li class="menu li"><a href="?page=kluis"><?=$txt['menu_crack_the_vault']?></a></li>
+                                                <li class="menu li"><a href="?page=mystery-gift"><?=$txt['menu_secret_code']?></a></li>
                                             </ul>
                                         </li>
-                                        <li class="menu li"><a href="?page=jail">Gevangenis</a></li>
+                                        <li class="menu li"><a href="?page=jail"><?=$txt['menu_jail']?></a></li>
                                     </ul>
                                 </li>
                                 <li class="menu li"><a href="#"><?=GLOBALDEF_SITENAME?></a>
                                     <ul class="menu">
-                                        <li class="menu li"><a href="?page=trade-center">Tradecenter</a></li>
-                                        <? if($gebruiker['rank'] >= 5 && $gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=attack/duel/invite">Duel</a></li>'; ?>
-                                        <? if($gebruiker['rank'] >= 4) echo '<li class="menu li"><a href="?page=race-invite">Race</a></li>'; ?>
-                                        <? if($gebruiker['rank'] >= 5) echo '<li class="menu li"><a href="#">Clan &raquo;</a>'; ?>
+                                        <li class="menu li"><a href="?page=trade-center"><?=$txt['menu_trade']?></a></li>
+                                        <? if($gebruiker['rank'] >= 5 && $gebruiker['in_hand'] != 0) echo '<li class="menu li"><a href="?page=attack/duel/invite">'.$txt['menu_duel'].'</a></li>'; ?>
+                                        <? if($gebruiker['rank'] >= 4) echo '<li class="menu li"><a href="?page=race-invite">'.$txt['menu_race'].'</a></li>'; ?>
+                                        <? if($gebruiker['rank'] >= 5) echo '<li class="menu li"><a href="#">'.$txt['menu_clan'].' &raquo;</a>'; ?>
                                         <ul class="menu">
-                                            <? if($gebruiker['clan'] != '') echo '<li class="menu li"><a href="?page=clan-profile&clan='.$gebruiker['clan'].'">Mijn clan</a></li>'; ?>
-                                            <li class="menu li"><a href="?page=clan-make">Nieuwe clan</a></li>
-                                            <? if($gebruiker['clan'] != '') echo '<li class="menu li"><a href="?page=clan-invite">Nodig speler uit</a></li>'; ?>
-                                            <li class="menu li"><a href="?page=clan-rank">Clan rank</a></li>
+                                            <? if($gebruiker['clan'] != '') echo '<li class="menu li"><a href="?page=clan-profile&clan='.$gebruiker['clan'].'">'.$txt['menu_my_clan'].'</a></li>'; ?>
+                                            <li class="menu li"><a href="?page=clan-make"><?=$txt['menu_new_clan']?></a></li>
+                                            <? if($gebruiker['clan'] != '') echo '<li class="menu li"><a href="?page=clan-invite">'.$txt['menu_invite_player'].'</a></li>'; ?>
+                                            <li class="menu li"><a href="?page=clan-rank"><?=$txt['menu_clan_rank']?></a></li>
                                         </ul>
                                     </ul>
                                 </li>
-                                <li class="menu li"><a href="?page=area-market"><center><?php echo $txt['menu_area_market']; ?> <img src="images/items/Poke%20ball.png" width="14" height="14" alt="Go Right" /></center></a>
+                                <li class="menu li"><a href="?page=area-market"><center><?php echo $txt['menu_premium']; ?> <img src="images/items/Poke%20ball.png" width="14" height="14" alt="Go Right" /></center></a>
                                     <? if($gebruiker['premiumaccount'] >= 1) echo '<ul class="menu">
-                                        <li class="menu li"><a href="?page=premiummarket">Premium Markt</a></li>
+                                        <li class="menu li"><a href="?page=premiummarket">'.$txt['menu_premiu_market'].'</a></li>
                                     </ul>'; ?>
                                 </li>
 
@@ -728,9 +729,9 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="box-con">
                         <div class="slider">
                             <ul id="slider">
-                                <li><a href="#"><img src="img/slides/04.jpg" alt="" /><span>Creer een pokemon team!</span></a></li>
-                                <li><a href="#"><img src="img/slides/02.jpg" alt="" /><span>Begin nu snel en wees vele andere voor!</a></li>
-                                <li><a href="#"><img src="img/slides/03.jpg" alt="" /><span>Verken nieuwe plaatsen!</span></a></li>
+                                <li><a href="#"><img src="img/slides/04.jpg" alt="" /><span><?=$txt['slider_slide_1']?></span></a></li>
+                                <li><a href="#"><img src="img/slides/02.jpg" alt="" /><span><?=$txt['slider_slide_2']?></a></li>
+                                <li><a href="#"><img src="img/slides/03.jpg" alt="" /><span><?=$txt['slider_slide_3']?></span></a></li>
                             </ul>
                             <div class="slider-overlay"></div>
                         </div>
@@ -751,7 +752,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         <div class="box-title">
                             <span class="icon"><span class="icon-info"></span></span>
 
-                            <h2>Nieuws</h2>
+                            <h2><?=$txt['main_news']?></h2>
                         </div>
                         <div class="box-con">
                             <div class="news"></div>
@@ -771,7 +772,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="box-title">
                         <span class="icon"><span class="icon-info"></span></span>
 
-                        <h2>Advertentie</h2>
+                        <h2><?$txt['heading_advertisement']?></h2>
                     </div>
                     <div class="box-con">
                         <div align="center" style="padding-left:20px;padding-right:20px;">
@@ -825,7 +826,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                 <div class="box-top"></div>
                 <div class="box-title">
                     <span class="icon"><span class="icon-ann"></span></span>
-                    <h2>Welkom op <span><?=GLOBALDEF_SITENAME?></span></h2>
+                    <h2><?=$txt['main_welcome']?> <span><?=GLOBALDEF_SITENAME?></span></h2>
                 </div>
                 <div class="box-con">
                     <div class="rel"></div>
@@ -846,7 +847,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="box-title">
                         <span class="icon"><span class="icon-info"></span></span>
 
-                        <h2>Nieuws</h2>
+                        <h2><?=$txt['main_news']?></h2>
                     </div>
                     <div class="box-con">
                         <div class="news"></div>
@@ -861,9 +862,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="box-top"></div>
                     <div class="box-title">
                         <span class="icon"><span class="icon-ann"></span></span>
-                        <h2>Online<span><?php
-                                echo ' spelers'; ?>
-                        </span></h2>
+                        <?= $txt['online_users_title'] ?>
                     </div>
                     <div class="box-con">
                         <div class="rel"></div>
@@ -876,12 +875,12 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                 ($_GET['page'] != 'clan-shoutbox')){
 
                 if (getBans('',$_SESSION['naam'],"chat") === true){
-                    echo '<center>Je hebt helaas een chat ban, je mag niet meer gebruik maken van de shoutbox.</center>';
+                    echo $txt['main_chatban'];
                 }else{ ?>
                     <div class="box-top"></div>
                     <div class="box-title">
                         <span class="icon"><span class="icon-ann"></span></span>
-                        <h2><span>Shoutbox</span></h2>
+                        <h2><span><?=$txt['main_shoutbox']?></span></h2>
                     </div>
                     <script type="text/javascript">
                         function insertSmiley(smiley)
@@ -899,7 +898,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                             <script type="text/javascript" src="js/shoutbox.js"></script>
 
                             <ul id="messages" class="wordwrap">
-                                <li>Bezig met berichten ophalen…</li>
+                                <li><?=$txt['main_retrieving_messages']?></li>
                             </ul>
 
                             <form action="/shoutbox/sendmessage.php" method="post" id="shoutbox">
@@ -910,7 +909,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                 }
                                 ?>
                                 <br/><br/>
-                                <button class="button_mini" style="margin-right:8px;min-width: 275px;" type="submit">Versturen</button>
+                                <button class="button_mini" style="margin-right:8px;min-width: 275px;" type="submit"><?=$txt['main_submit']?></button>
                             </form>
                         </div>
 
@@ -942,7 +941,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="box-top"></div>
                     <div class="box-title">
                         <span class="icon"><span class="icon-cam"></span></span>
-                        <h2>Screenshots</h2>
+                        <h2><?=$txt['main_screenshots']?></h2>
                     </div>
                     <div class="box-con">
                         <div class="screenshots">
@@ -999,7 +998,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <!-- calendar -->
                     <div class="sb-title">
                         <span class="icon"><span class="icon-moon"></span></span>
-                        <h3>STATISTIEKEN</h3></div>
+                        <h3><?=$txt['main_statistics']?></h3></div>
                     <?php
                     #Tel leden online
                     $expire = "60";
@@ -1017,19 +1016,19 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="sb-con">
                         <ul class="stats">
                             <li>
-                                <label class="servertijd">Servertijd</label>
+                                <label class="servertijd"><?=$txt['stat_servertime']?></label>
                                 <span><script type="text/javascript">writeclock()</script></span>
                             </li>
                             <li>
-                                <label class="ledentotaal">Aantal leden</label>
+                                <label class="ledentotaal"><?=$txt['stat_amount_member']?></label>
                                 <span><?php echo $stats['aantal']; ?></span>
                             </li>
                             <li>
-                                <label class="ledenonline">Leden online</label>
+                                <label class="ledenonline"><?=$txt['stat_members_online']?></label>
                                 <span><?php echo $stats['online']; ?></span>
                             </li>
                             <li>
-                                <label class="nieuwvandaag">Nieuw vandaag</label>
+                                <label class="nieuwvandaag"><?=$txt['stat_new_today']?></label>
                                 <span><?php echo $stats['nieuw']; ?></span>
                             </li>
                         </ul>
@@ -1039,7 +1038,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <!-- calendar -->
                     <div class="sb-title">
                         <span class="icon"><span class="icon-moon"></span></span>
-                        <h3>Linkpartners</h3></div>
+                        <h3><?=$txt['stat_linkpartners']?></h3></div>
 
                     <div class="sb-con">
                         <ul class="stats">
@@ -1056,54 +1055,53 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="sb-title">
                         <span class="icon"><span class="icon-moon"></span></span>
 
-                        <h3>STATISTIEKEN</h3></div>
+                        <h3><?=$txt['main_statistics']?></h3></div>
                     <div class="sb-con">
                         <ul class="stats">
                             <li>
-                                <label class="servertijd">Servertijd</label>
+                                <label class="servertijd"><?=$txt['stat_servertime']?></label>
                                 <span><script type="text/javascript">writeclock()</script></span>
                             </li>
                             <li>
-                                <label class="username">Gebruikersnaam</label>
+                                <label class="username"><?=$txt['stat_player']?></label>
                                 <span><a
                                             href="?page=profile&player=<?php echo $gebruiker['username']; ?>"><?php echo $gebruiker['username']; ?></a></span>
                             </li>
                             <li>
-                                <label class="world">Wereld</label>
+                                <label class="world"><?=$txt['stat_world']?></label>
                                 <span><?php echo $gebruiker['wereld']; ?></span>
                             </li>
                             <li>
-                                <label class="silver">Silver</label>
+                                <label class="silver"><?=$txt['stat_silver']?></label>
                                 <span><?php echo highamount($gebruiker['silver']); ?></span>
                             </li>
                             <li>
-                                <label class="gold">Goud</label>
+                                <label class="gold"><?=$txt['stat_gold']?></label>
                                 <span><?php echo highamount($gebruiker['gold']); ?></span>
                             </li>
                             <li>
-                                <label class="bank">Bank</label>
+                                <label class="bank"><?=$txt['stat_bank']?></label>
                                 <span><?php echo highamount($gebruiker['bank']); ?></span>
                             </li>
                             <li>
-                                <label class="respect">Mijn respect</label>
+                                <label class="respect"><?=$txt['stat_respect']?></label>
                                 <span><?php echo $gebruiker['respect_add']; ?></span>
                             </li>
 
                             <li>
-                                <label class="message">Berichten</label>
+                                <label class="message"><?=$txt['stat_messages']?></label>
                                 <span><?php echo $inbox_txt; ?></span>
                             </li>
                             <li>
-                                <label class="event">Event</label>
+                                <label class="event"><?=$txt['stat_event']?></label>
                                 <span><?php echo $event_txt; ?></span>
                             </li>
                             <li>
-                                <label class="notepad">Notepad</label>
-                                <span><span><a
-                                                href="?page=notepad">Notepad</a></span></span>
+                                <label class="notepad"><?=$txt['stat_notepad']?></label>
+                                <span><span><a href="?page=notepad"><?=$txt['stat_notepad']?></a></span></span>
                             </li>
                             <li>
-                                <label class="premium">Premium</label>
+                                <label class="premium"><?=$txt['stat_premium']?></label>
                                 <span><? echo $premium_txt; ?></span>
                             </li>
                             <!-- <li>
@@ -1122,7 +1120,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     */?></span>
                         </li>-->
                             <li>
-                                <label class="rank">Rank vordering</label><br/><br/>
+                                <label class="rank"><?=$txt['stat_ranking']?></label><br/><br/>
 
                                 <div class="stats-container">
                                     <div style="width: <? echo $gebruiker_rank['procent']; ?>%;">
@@ -1130,7 +1128,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                 </div>
                             </li>
                             <li>
-                                <label class="allpokemon">Alle Pokemon</label><br/>
+                                <label class="allpokemon"><?=$txt['stat_all_pokemon']?></label><br/>
                                 <span>
 					<div class="stats-container">
                         <div style="width: <? echo $gebruiker_pokemon['procent']; ?>%;">
@@ -1145,7 +1143,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="sb-title">
                         <span class="icon"><span class="icon-moon"></span></span>
 
-                        <h3>TEAM</h3></div>
+                        <h3><?=$txt['main_team']?></h3></div>
                     <div class="sb-con">
                         <div class="pokemon_hand_box">
                             <ul>
@@ -1177,14 +1175,14 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                                 ?></ul>
                         </div>
                         <div class="sb-sep"></div>
-                        <a href="?page=extended" class="ilink"><b>Uitgebreide informatie</b></a>
+                        <a href="?page=extended" class="ilink"><b><?=$txt['main_extended']?></b></a>
                         <?
                         if ($gebruiker['muziekaan'] == 1){
                             ?>
                             <div class="sb-title">
                                 <span class="icon"><span class="icon-music"></span></span>
 
-                                <h3>Muziek</h3></div>
+                                <h3><?=$txt['main_music']?></h3></div>
                             <div class="sb-con" style="padding:20px;">
                                 <? getCurrentMusic($_GET['page']); ?>
                             </div>
@@ -1194,7 +1192,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                         ?>
                         <div class="sb-title">
                             <span class="icon"><span class="icon-user"></span></span>
-                            <h3><a href="?page=forum-categories" style="color: white;">Laatste topics</a></h3></div>
+                            <h3><a href="?page=forum-categories" style="color: white;"><?=$txt['main_active_topics']?></a></h3></div>
                         <div class="sb-con">
                             <li style="list-style: none;margin-left: 20px;">
                                 <br/>
@@ -1214,7 +1212,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
 
                                 }
                                 ?>
-                                <a href="?page=forum-categories"><span>Naar het forum</a></span><br/>
+                                <a href="?page=forum-categories"><span><?=$txt['main_latest_topics_goto']?></a></span><br/>
                                 <br/>
                             </li>
                         </div>
@@ -1225,11 +1223,11 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <div class="sb-title">
                         <span class="icon"><span class="icon-search"></span></span>
 
-                        <h3>Zoek een pokemon</h3></div>
+                        <h3><?=$txt['main_search_pokemon']?></h3></div>
                     <div class="sb-con" style="padding:20px;">
                         <form method="get" action="/">
                             <input name="pokemon" type="text" class="text_long" style="width: 95%;"><br/><br/>
-                            <button type="submit" class="button" name="zoeken">Zoeken</button>
+                            <button type="submit" class="button" name="zoeken"><?=$txt['main_search_pokemon_button']?></button>
 
                         </form>
                     </div>
@@ -1239,7 +1237,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
                     <? if ($gebruiker['reclame'] == 1){ ?>
                         <div class="sb-title">
                             <span class="icon"><span class="icon-moon"></span></span>
-                            <h3>Advertentie</h3></div>
+                            <h3><?=$txt['main_advertisement']?></h3></div>
                         <div class="sb-con">
                             <div align="center" style="padding-left:20px;padding-right:20px;">
                                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -1277,7 +1275,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             <div class="w960">
                 <!-- info -->
                 <div class="left">
-                    <a href="/"><img src="<?=GLOBALDEF_SITELOGO?>" alt="" width="90px"/></a>Pokemon And All Respective Names are Trademark & &copy; of Nintendo 1996-2013
+                    <a href="/"><img src="<?=GLOBALDEF_SITELOGO?>" alt="" width="90px"/></a><?=$txt['main_rights']?>
 
                 </div>
             </div>
@@ -1333,7 +1331,7 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             </style>
 
             <div id="note">
-                <?=getSetting('maintenanceMessage')?> <a id="close">[sluiten]</a>
+                <?=getSetting('maintenanceMessage')?> <a id="close"><?=$txt['main_close_button']?></a>
             </div>
             <script>
                 close = document.getElementById("close");
@@ -1350,7 +1348,10 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
 
         <!-- include summernote css/js-->
         <script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
-        <script src="includes/summernote/lang/summernote-nl-NL.js"></script>
+        <!-- only include summernote language if it isn't english -->
+        <?if(GLOBALDEF_EDITORLANGUAGE != 'en-EN'){?>
+        <script src="includes/summernote/lang/summernote-<?=GLOBALDEF_EDITORLANGUAGE?>.js"></script>
+        <?}?>
 
         <script type="text/javascript" src="../js/chat.js"></script>
         <link type="text/css" rel="stylesheet" media="all" href="../css/chat.css" />
@@ -1404,10 +1405,11 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
 
                     if ($endDrop) {
 
-                        echo showToastr("success", "<a href='?page=items'>Er is een <b>" . $megaStones[$randomStoneDrop] . "</b> gedropt!</a>");
+                        include_once('language/language-general.php');
+                        echo showToastr("success", $txt['alert_stone_drop_1'].$megaStones[$randomStoneDrop].$txt['alert_stone_drop_2']);
                         mysql_query("UPDATE `gebruikers_item` SET `" . $megaStones[$randomStoneDrop] . "`=`" . $megaStones[$randomStoneDrop] . "`+1 WHERE `user_id`='" . $gebruiker['user_id'] . "'");
 
-                        $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> Er is een <b>' . $megaStones[$randomStoneDrop] . '</b> gedropt, hij is automatisch in je item box geplaatst.';
+                        $event = $txt['alert_stone_drop_message_1'].$megaStones[$randomStoneDrop].$txt['alert_stone_drop_message_2'];
 
                         $result = $db->prepare("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen)
                                       VALUES (NOW(), :to, :event, '0')");
@@ -1421,20 +1423,20 @@ if((empty($_SESSION['id']) or $gebruiker['sneeuwaan']) AND 1==2){?>
             //show toast on new message
             if ($inbox_new) {
                 if ($inbox_new == 1) {
-                    $inbox_new = 'een nieuw bericht';
+                    $inbox_new = $txt['new_message'];
                 } else {
-                    $inbox_new = $inbox_new . ' nieuwe berichten';
+                    $inbox_new = $inbox_new .' '. $txt['new_messages'];
                 }
-                echo showToastr("info", "<a href='?page=inbox'>Je hebt $inbox_new.</a>");
+                echo showToastr("info", "<a href='?page=inbox'>".$txt['you_have']." ".$inbox_new.".</a>");
             }
             //show toast on new event
             if ($event_new) {
                 if ($event_new == 1) {
-                    $event_new = 'een nieuw evenement';
+                    $event_new = $txt['new_event'];
                 } else {
-                    $event_new = $event_new . ' nieuwe evenementen';
+                    $event_new = $event_new .' '. $txt['new_events'];
                 }
-                echo showToastr("info", "<a href='?page=events'>Je hebt $event_new.</a>");
+                echo showToastr("info", "<a href='?page=events'>".$txt['you_have']." ".$event_new.".</a>");
             }
         }
         ?>

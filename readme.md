@@ -1,6 +1,6 @@
 # pokemon-rpg
 
-Import the .sql file into your database and edit the values of settings to your need
+Import the .sql file followed by the .sql-updates file into your database and edit the values of the table 'settings' to your needs
 
 Define database values in scheduler/cronConfig.php
 Define database values in includes/config.php

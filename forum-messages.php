@@ -513,7 +513,7 @@ else{ ?>
 $(document).ready(function() {
     $('#summernote').summernote({
         theme: 'yeti',
-        lang: "nl-NL",
+        lang: "<?=GLOBALDEF_EDITORLANGUAGE?>",
         callbacks : {
         onImageUpload: function(image) {
             uploadImage(image[0]);

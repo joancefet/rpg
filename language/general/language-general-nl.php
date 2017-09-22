@@ -1,157 +1,233 @@
 <?php
 	//Language things
-	$lang['taalshort']    		= 'en';
-	$lang['taalgeneral']  		= 'Canada';
-	$lang['taal']         		= 'Canada';
+	$lang['taalshort']    		= 'nl';
+	$lang['taalgeneral']  		= 'Nederlands';
+	$lang['taal']         		= 'Nederlands';
 
-	//top of the site things & footer text...
-	$txt['online_at'] = 'online on';
-	$txt['footer_made_by'] = 'Made by darskhifty';
-	$txt['footer_copyright'] = 'copy; '.GLOBALDEF_SITENAME.' - '.date('Y');
-	
-	$txt['logo_text'] = GLOBALDEF_SITENAME.' | Become a Pokemon Master!';
-	$txt['login_username'] = 'Username';
-	$txt['login_password'] = 'Password';
-	$txt['login_forgot_username'] = 'Forgot username?';
-	$txt['login_forgot_password'] = 'Forgot password?';
-	//$txt['login_activation'] = 'Activate your account';
-	$txt['login_button'] = 'Login';
-	
-	#Stats
-	$txt['stats_users_total'] = 'Users total:';
-	$txt['stats_users_online'] = 'Users online:';
-	$txt['stats_users_new_today'] = 'New today:';
-	$txt['stats_premiumtext'] = 'dag(en)';
-	$txt['stats_become_premium'] = 'Nee';
-	$txt['stats_full'] = 'vol';
-	$txt['stats_new'] = 'nieuw';
-	$txt['stats_none'] = 'Geen';
-	$txt['stats_servertime'] = 'Servertime';
-	$txt['stats_username'] = 'Username';
-	$txt['stats_world'] = 'World';
-	$txt['stats_rank_progress'] = 'Rank progress';
-	$txt['stats_all_pokemon'] = 'All pokemon';
-	$txt['stats_premium'] = 'Premium';
-	$txt['stats_silver'] = 'Silver';
-	$txt['stats_gold'] = 'Gold';
-	$txt['stats_bank'] = 'Bank';
-	$txt['stats_message'] = 'Message';
-	$txt['stats_event'] = 'Events';
-
-	#Menu titles
-	$txt['title_login'] = 'Login';
-	$txt['title_team'] = 'Team';
-	$txt['title_options'] = 'Options';
-	$txt['title_statistics'] = 'Statistics';
-	$txt['title_general'] = 'General';
-	$txt['title_my_pokemon'] = 'My pokemon';
-	$txt['title_my_items'] = 'My items';
-	$txt['title_linkpartners'] = 'Linkpartners';
-	$txt['title_communication'] = 'Communication';
-	$txt['title_actions'] = 'Actions';
-	$txt['title_buildings'] = 'Buildings';
-	
-	#Menu items
+######################## Menu ########################
+    #Main menu
 	$txt['menu_home'] = 'Home';
-	$txt['menu_register'] = 'Register';
-	$txt['menu_information'] = 'Information';
-	$txt['menu_game_info'] = 'Game info';
-	$txt['menu_pokemon_info'] = 'Pokemon info';
-	$txt['menu_attack_info'] = 'Attack info';
+	$txt['menu_register'] = 'Registreren';
+	$txt['menu_information'] = 'Informatie';
+    $txt['menu_rankinglist'] = 'Ranglijst';
+    $txt['menu_contact'] = 'Contact';
 	$txt['menu_forum'] = 'Forum';
-	$txt['menu_statistics'] = 'Statistics';
-	$txt['menu_news'] = 'News';
-	$txt['menu_rankinglist'] = 'Ranking list';
-	$txt['menu_contact'] = 'Contact';
-	$txt['menu_admin_panel'] = 'Admin panel';
-	$txt['menu_logout'] = 'Logout';
-	$txt['menu_account_options'] = 'Account options';
-	$txt['menu_account_options_personal'] = 'Personal';
-	$txt['menu_account_options_password'] = 'Password';
-	$txt['menu_account_options_profile'] = 'Profile';
-	$txt['menu_account_options_restart'] = 'Restart account';
-	$txt['menu_promotion_for_silver'] = 'Promotion for Silver';
-	$txt['menu_modify_order'] = 'Modify order';
-	$txt['menu_extended'] = 'Extended';
-	$txt['menu_sell'] = 'Sell';
-	$txt['menu_release'] = 'Release pokemon';
+    $txt['menu_statistics'] = 'Statistieken';
+
+    #General
+    $txt['menu_algemeen'] = 'Algemeen';
+    $txt['menu_admin_panel'] = 'Admin paneel';
+    $txt['menu_my_account'] = 'Mijn account';
+    $txt['menu_settings'] = 'Instellingen';
+    $txt['menu_my_profile'] = 'Mijn profiel';
+    $txt['menu_my_images'] = 'Mijn Afbeeldingen';
+    $txt['menu_promote'] = 'Promotie';
+    $txt['menu_buddylist'] = 'Buddies';
+    $txt['menu_blocklist'] = 'Blocklijst';
+    $txt['menu_choose_lvl'] = 'Kies level';
+    $txt['menu_password'] = 'Wachtwoord';
+    $txt['menu_reset'] = 'Reset account';
+    $txt['menu_pokemon'] = 'Pok&eacute;mon';
+    $txt['menu_attack'] = 'Aanvallen';
+    $txt['menu_search'] = 'Speler zoeken';
+    $txt['menu_logout'] = 'Uitloggen';
+
+    #My home
+    $txt['menu_my_home'] = 'Mijn huis';
+	$txt['menu_my_pokemon'] = 'Mijn Pok&eacute;mon';
+	$txt['menu_change_order'] = 'Wijzig volgorde';
+
+	$txt['menu_return'] = 'Wegbrengen';
+	$txt['menu_retrieve'] = 'Ophalen';
+    $txt['menu_release'] = 'Vrijlaten';
+    $txt['menu_my_items'] = 'Mijn Items';
 	$txt['menu_items'] = 'Items';
-	$txt['menu_badge_box'] = 'Badge box';
-	$txt['menu_house'] = 'My house';
-	$txt['menu_house_bringaway'] = 'Put away pokemon';
-	$txt['menu_house_take'] = 'Withdraw pokemon';
+    $txt['menu_badges'] = 'Badges';
 	$txt['menu_pokedex'] = 'Pokedex';
-	$txt['menu_inbox'] = 'Inbox';
-	$txt['menu_send_message'] = 'Send message';
-	$txt['menu_events'] = 'Events';
-	$txt['menu_buddylist'] = 'Buddylist';
-	$txt['menu_blocklist'] = 'Blocklist';
-	$txt['menu_area_messenger'] = 'Messenger';
-	$txt['menu_search_user'] = 'Search player';
-	$txt['menu_attack'] = 'Attack';
-	$txt['menu_gyms'] = 'Gyms';
-	$txt['menu_work'] = 'Work';
+    $txt['menu_my_store'] = 'Mijn Store';
+    $txt['menu_layout'] = 'Layout';
+
+    #Activities
+	$txt['menu_activities'] = 'Activiteiten';
+    $txt['menu_trainer'] = 'Trainer';
+    $txt['menu_missions'] = 'Missions';
+	$txt['menu_work'] = 'Werken';
+	$txt['menu_travel'] = 'Reizen';
+    $txt['menu_fishing'] = 'Vissen';
+    $txt['menu_trade'] = 'Trade';
 	$txt['menu_duel'] = 'Duel';
-	$txt['menu_traders'] = 'Traders';
-	$txt['menu_spy'] = 'Spy';
-	$txt['menu_duel'] = 'Duel';
-	$txt['menu_tournament'] = 'Tournament';
 	$txt['menu_race'] = 'Race';
-	$txt['menu_steal'] = 'Steal';
-	$txt['menu_choose_level'] = 'Choose level';
-	$txt['menu_pokemoncenter'] = 'Pokemon center';
-	$txt['menu_market'] = 'Market';
-	$txt['menu_market_balls'] = 'Pokeballs';
-	$txt['menu_market_potions'] = 'Potions';
-	$txt['menu_market_items'] = 'Items';
-	$txt['menu_market_specialitems'] = 'Special items';
-	$txt['menu_market_stones'] = 'Stones';
-	$txt['menu_market_pokemon'] = 'Pokemon';
-	$txt['menu_market_attacks'] = 'Attacks';
+    $txt['menu_clan'] = 'Clan';
+    $txt['menu_my_clan'] = 'Mijn clan';
+    $txt['menu_new_clan'] = 'Nieuwe clan';
+    $txt['menu_invite_player'] = 'Nodig speler uit';
+    $txt['menu_clan_rank'] = 'Clan rank';
+
+    #Town
+    $txt['menu_town'] = 'Town';
+    $txt['menu_pokemoncenter'] = 'Pok&eacute;moncenter';
+    $txt['menu_city'] = 'Centrum';
+    $txt['menu_broker'] = 'Makelaar';
 	$txt['menu_bank'] = 'Bank';
-	$txt['menu_house_seller'] = 'House seller';
-	$txt['menu_travel'] = 'Travel';
-	$txt['menu_transferlist'] = 'Transferlist';
+    $txt['menu_gym'] = 'Gym';
 	$txt['menu_daycare'] = 'Daycare';
-	$txt['menu_namespecialist'] = 'Name specialist';
-	$txt['menu_shinyspecialist'] = 'Shiny specialist';
-	$txt['menu_jail'] = 'Jail';
-	$txt['menu_casino'] = 'Casino';
-	$txt['menu_flipacoin'] = 'Kop of munt';
-	$txt['menu_who_is_it_quiz'] = 'Wie is het quiz';
-	$txt['menu_wheeloffortune'] = 'Rad van fortuin';
-	$txt['menu_lottery'] = 'Lottery';
-	$txt['menu_area_market'] = 'Premium';
-    $txt['menu_blackjackmp'] = 'Blackjack multiplayer';
+    $txt['menu_name_specialist'] = 'Naam Specialist';
+    $txt['menu_shiny_specialist'] = 'Shiny Specialist';
+    $txt['menu_pokemarkt'] = 'Pok&eacute;markt';
+    $txt['menu_pokeballs'] = 'Pok&eacute;balls';
+    $txt['menu_potions'] = 'Potions';
+    $txt['menu_vitamins'] = 'Vitamins';
+    $txt['menu_stones'] = 'Stones';
+    $txt['menu_eggs'] = 'Eggs';
+    $txt['menu_rocket_hideout'] = 'Rocket hideout';
+    $txt['menu_sell_pokemon'] = 'Verkoop Pok&eacute;mon';
+    $txt['menu_sales'] = 'In de verkoop';
+    $txt['menu_game_corner'] = 'Game corner';
+    $txt['menu_blackjack'] = 'Blackjack';
+    $txt['menu_heads_or_tail'] = 'Kop of munt';
     $txt['menu_pokeslots'] = 'Pok&eacute;slots';
-    $txt['menu_guess_that_pokemon'] = 'Pok&eacute;mon naam raden';
-    $txt['menu_crack_the_safe'] = 'Kraak de kluis';
+    $txt['menu_who_is_it'] = 'Wie is het quiz';
+    $txt['menu_wheel_of_fortune'] = 'Rad van fortuin';
+    $txt['menu_pokemon_name'] = 'Pok&eacute;mon naam';
+    $txt['menu_crack_the_vault'] = 'Kluis kraken';
     $txt['menu_secret_code'] = 'Geheime code';
-	
-	//LOGIN alerts
-	$txt['alert_no_username'] = 'No username inserted.';
-	$txt['alert_no_password'] = 'No password inserted.';
-	$txt['alert_account_banned'] = 'Account is banned.';
-	$txt['alert_time_sentence'] = 'Time penalty:';
-	$txt['alert_unknown_username'] = 'Username unknown.';
-	$txt['alert_timepenalty'] = '20 min time penalty.';
-	$txt['alert_trys_left_1'] = 'Wrong, 1 try left.';
-	$txt['alert_trys_left_2'] = 'Wrong, 2 try\'s left.';
+    $txt['menu_jail'] = 'Gevangenis';
+
+    #Premium
+    $txt['menu_premium'] = 'Premium';
+    $txt['menu_premiu_market'] = 'Premium Markt';
+
+    #Main
+    $txt['main_welcome'] = 'Welkom op';
+    $txt['main_news'] = 'Nieuws';
+    $txt['main_latest_events'] = 'Laatste gebeurtenissen';
+    $txt['main_active_topics'] = 'Actieve Topics';
+    $txt['main_subject'] = 'Onderwerp';
+    $txt['main_author'] = 'Auteur';
+    $txt['main_replies'] = 'Reacties';
+    $txt['main_shoutbox'] = 'Shoutbox';
+    $txt['main_chatban'] = 'Je hebt helaas een chat ban, je mag niet meer gebruik maken van de shoutbox.';
+    $txt['main_retrieving_messages'] = 'Bezig met berichten ophalen...';
+    $txt['main_submit'] = 'Verzenden';
+    $txt['main_team'] = 'Team';
+    $txt['main_extended'] = 'Uitgebreide informatie';
+    $txt['main_music'] = 'Muziek';
+    $txt['main_rights'] = 'Copyright &copy; 2016-'.date("Y").' '.GLOBALDEF_SITENAME.' - Alle rechten voorbehouden';
+    $txt['main_statistics'] = 'STATISTIEKEN';
+    $txt['main_advertisement'] = 'Advertentie';
+    $txt['main_screenshots'] = 'Screenshots';
+    $txt['main_latest_topics_goto'] = 'Naar het forum';
+    $txt['main_search_pokemon'] = 'Zoek een pokemon';
+    $txt['main_search_pokemon_button'] = 'Zoeken';
+    $txt['main_close_button'] = '[sluiten]';
+
+    #alerts
+    $txt['alert_stone_drop_1'] = "<a href='?page=items'>Er is een <b>";
+    $txt['alert_stone_drop_2'] = "</b> gedropt!</a>";
+    $txt['alert_stone_drop_message_1'] = '<img src="images/icons/blue.png" width="16" height="16" class="imglower"> Er is een <b>';
+    $txt['alert_stone_drop_message_2'] = '</b> gedropt, hij is automatisch in je item box geplaatst.';
+    $txt['you_have'] = 'Je hebt';
+    $txt['new_messages'] = 'nieuwe berichten';
+    $txt['new_message'] = 'een nieuw bericht';
+    $txt['new_events'] = 'nieuwe evenementen';
+    $txt['new_event'] = 'een nieuw evenement';
+
+    #Login
+    $txt['login_login'] = 'Login';
+    $txt['login_username'] = 'Speelnaam';
+    $txt['login_password'] = 'Password';
+    $txt['login_log_in'] = 'Login';
+    $txt['login_forgot_username'] = 'Speelnaam vergeten?';
+    $txt['login_forgot_password'] = 'Wachtwoord vergeten?';
+
+    #Linkpartners
+    $txt['linkpartners'] = 'Linkpartners';
+
+    #Statistics
+    $txt['stat_servertime'] = 'Servertijd';
+    $txt['stat_amount_member'] = 'Aantal leden';
+    $txt['stat_members_online'] = 'Leden online';
+    $txt['stat_new_today'] = 'Nieuw vandaag';
+    $txt['stat_linkpartners'] = 'Linkpartners';
+    $txt['stat_player'] = 'Gebruikersnaam';
+    $txt['stat_world'] = 'Wereld';
+    $txt['stat_silver'] = 'Silver';
+    $txt['stat_gold'] = 'Goud';
+    $txt['stat_bank'] = 'Bank';
+    $txt['stat_respect'] = 'Mijn respect';
+    $txt['stat_messages'] = 'Berichten';
+    $txt['stat_event'] = 'Event';
+    $txt['stat_notepad'] = 'Notepad';
+    $txt['stat_premium'] = 'Premium';
+    $txt['stat_ranking'] = 'Rank vordering';
+    $txt['stat_all_pokemon'] = 'Alle Pokemon';
+    $txt['stats_premiumtext'] = 'dag(en)';
+    $txt['stats_become_premium'] = 'Nee';
+    $txt['stats_full'] = 'vol';
+    $txt['stats_new'] = 'nieuw';
+    $txt['stats_none'] = 'Geen';
+
+    #adverts
+    $txt['ads_no_premium'] = 'Geen advertenties? neem reclame vrij!';
+    $txt['ads_enable'] = 'De inkomsten uit de banners hebben wij nodig om de '.GLOBALDEF_SITENAME.' uit te breiden.<br />Zou je alsjeblieft adblocker willen uitzetten zodat wij de website kunnen onderhouden?';
+
+    #Event alerts
+    $txt['drop_alert_a'] = 'Er is een';
+    $txt['drop_alert_has_dropped'] = 'gedropt!';
+    $txt['drop_alert_has_dropped_itembox'] = 'gedropt, hij is automatisch in je item box geplaatst.';
+
+    $txt['event_alert_you_have'] = 'Je hebt';
+
+    #login alerts
+	$txt['alert_no_username'] = 'Geen gebruikersnaam opgegeven.';
+	$txt['alert_no_password'] = 'Geen wachtwoord opgegeven.';
+	$txt['alert_account_banned'] = 'Je account is verbannen.';
+	$txt['alert_time_sentence'] = 'Je hebt een tijdelijke ban van 20 minuten.';
+	$txt['alert_unknown_username'] = 'Gebruikersnaam onbekend.';
+	$txt['alert_timepenalty'] = 'Je hebt een tijdelijke ban van 20 minuten.';
+	$txt['alert_trys_left_1'] = 'Wachtwoord fout, Je hebt nog een poging.';
+	$txt['alert_trys_left_2'] = 'Wachtwoord fout, Je hebt nog twee pogingen.';
 	$txt['alert_account_not_activated'] = '<a href="?page=activate"><font color="000000">Je account is nog niet geactiveerd activeer hem hier</font></a>';
 	
-	//Ingame.inc
-	$txt['popup_pokemon'] = 'Name:';
+	#Ingame.inc
+	$txt['popup_pokemon'] = 'Naam:';
 	$txt['popup_clamour_name'] = 'Nick name:';
 	$txt['popup_type'] = 'Type:';
 	$txt['popup_level'] = 'Level:';
 	$txt['popup_mood'] = 'Mood:';
-	$txt['pop_up_powertotal'] = 'Total power:';
+	$txt['pop_up_powertotal'] = 'Totaal power:';
 	$txt['popup_ball'] = 'Ball:';
-	$txt['popup_attacks'] = 'Attacks:';
-	$txt['popup_hp'] = 'Hp:';
+	$txt['popup_attacks'] = 'Aanval:';
+	$txt['popup_hp'] = 'HP:';
 	$txt['popup_exp'] = 'Exp:';
 	$txt['popup_begin'] = 'Beginner pokemon:';
 	
-	//Users online page
-	$txt['online_users'] = 'Online spelers';
-	$txt['nobody_online'] = 'Er is niemand online';
+	#online users
+	$txt['online_users_title'] = '<h2>Online<span> Spelers</span></h2>';
+    $txt['online_users'] = 'Online Spelers';
+	$txt['nobody_online'] = 'Niemand online';
+    $txt['online_owner'] = 'Naam';
+    $txt['online_owner'] = 'Eigenaar';
+    $txt['online_mod'] = 'Moderator';
+    $txt['online_user'] = 'Speler';
+    $txt['online_mobile'] = 'Mobiel';
+    $txt['online_members'] = 'Ledenlijst';
+
+    #gebieden
+    $txt['grass'] = "Gras";
+    $txt['lava'] = "Lava";
+    $txt['water'] = "Water";
+    $txt['cave'] = "Grot";
+    $txt['beach'] = "Strand";
+    $txt['fightschool'] = "Vechtschool";
+    $txt['ghosthouse'] = "Spookhuis";
+
+    #uploads
+    $txt['uploads_invalid'] = 'Ongeldig bestandstype. alleen jpg, jpeg, gif of png is toegestaan. maximaal 2mb.';
+    $txt['uploads_profile_success'] = 'Profiel foto aangepast.';
+    $txt['uploads_cover_success'] = 'Cover aangepast.';
+
+    #slider
+    $txt['slider_slide_1'] = 'Creer een pokemon team!';
+    $txt['slider_slide_2'] = 'Begin nu snel en wees vele andere voor!';
+    $txt['slider_slide_3'] = 'Verken nieuwe plaatsen!';

@@ -11,7 +11,7 @@ $teller = 0;
 <p>
 <h3>
     <?php
-    if ($aantal > 0) echo $txt['online_users'] . ' (' . $aantal . '):';
+    if ($aantal > 0) echo $txt[''] . $txt['online_users'].' (' . $aantal . '):';
     else echo $txt['nobody_online']; ?>
 </h3><br/>
 <?
@@ -80,18 +80,18 @@ if ($aantal > 0) {
 ?>
 <hr>
 <br/>
-<b><span style='color: Red;'>Naam</span></b> <img src="images/icons/user_admin.png" width="16" height="16" border="0"
-                                                  alt="Crew" title="Owner" style="margin-bottom:-3px;"> = Eigenaar ||
+<b><span style='color: Red;'><?=$txt['online_name']?></span></b> <img src="images/icons/user_admin.png" width="16" height="16" border="0"
+                                                  alt="<?=$txt['online_owner']?>" title="<?=$txt['online_owner']?>" style="margin-bottom:-3px;"> = <?=$txt['online_owner']?> ||
 <b><span
-        style='color: blue;'>Naam</span></b> <img src="images/icons/user_mod.png" width="16" height="16" border="0"
-                                                  alt="Crew" title="Moderator"
-                                                  style="margin-bottom:-3px;"> = Moderator || <b><span
-        style='color: Black;'>Naam</span></b> <img src="images/icons/user.png" width="16" height="16" border="0"
-                                                   alt="User" title="Speler" style="margin-bottom:-3px;"> = Speler || <b><span
-        style='color: dimgrey;'>Naam</span></b> <img src="images/icons/mobile.png" width="16" height="16" border="0"
-                                                   alt="User" title="Speler" style="margin-bottom:-3px;"> = Mobiel <a
+        style='color: blue;'><?=$txt['online_name']?></span></b> <img src="images/icons/user_mod.png" width="16" height="16" border="0"
+                                                  alt="<?=$txt['online_mod']?>" title="<?=$txt['online_mod']?>"
+                                                  style="margin-bottom:-3px;"> = <?=$txt['online_mod']?> || <b><span
+        style='color: Black;'><?=$txt['online_name']?></span></b> <img src="images/icons/user.png" width="16" height="16" border="0"
+                                                   alt="<?=$txt['online_mod']?>" title="<?=$txt['online_mod']?>" style="margin-bottom:-3px;"> = <?=$txt['online_mod']?> || <b><span
+        style='color: dimgrey;'><?=$txt['online_name']?></span></b> <img src="images/icons/mobile.png" width="16" height="16" border="0"
+                                                   alt="<?=$txt['online_mobile']?>" title="<?=$txt['online_mobile']?>" style="margin-bottom:-3px;"> = <?=$txt['online_mobile']?> <a
     href="?page=rankinglist" style='float:right;'><img src="images/icons/all.png" width="16"
-                                                                            height="16" border="0" alt="Ledenlijst"
-                                                                            title="Leden" style="margin-bottom:-3px;">
-    Ledenlijst</a>
+                                                                            height="16" border="0" alt="<?=$txt['online_members']?>"
+                                                                            title="<?=$txt['online_members']?>" style="margin-bottom:-3px;">
+    <?=$txt['online_members']?></a>
 </p>

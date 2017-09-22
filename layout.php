@@ -61,7 +61,7 @@ if (isset($_POST['profiel'])) {
 $(document).ready(function() {
     $('#store').summernote({
         theme: 'yeti',
-        lang: "nl-NL",
+        lang: "<?=GLOBALDEF_EDITORLANGUAGE?>",
         callbacks : {
         onImageUpload: function(image) {
             uploadImage(image[0]);
@@ -81,7 +81,7 @@ $(document).ready(function() {
     });
     $('#profilestore').summernote({
         theme: 'yeti',
-        lang: "nl-NL",
+        lang: "<?=GLOBALDEF_EDITORLANGUAGE?>",
         callbacks : {
         onImageUpload: function(image) {
             uploadImage(image[0]);
