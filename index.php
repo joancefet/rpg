@@ -2,6 +2,12 @@
 session_start();
 date_default_timezone_set('Europe/Amsterdam');
 
+#version check as long as the source isn't PHP7+ ready
+if (version_compare(phpversion(), '5.6.31', '<')) {
+    echo 'PokeWorld currently only supports PHP v5.6.31 or lower.';
+    exit;
+}
+
 include_once('includes/config.php');
 include_once('includes/ingame.inc.php');
 include_once('includes/globaldefs.php');
