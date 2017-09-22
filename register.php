@@ -6,7 +6,6 @@ if (isset($_POST['registreer'])) {
     $voornaam = $_POST['voornaam'];
     $achternaam = $_POST['achternaam'];
     $land = $_POST['land'];
-    $gebdate = $_POST['year'] . '-' . $_POST['month'] . '-' . $_POST['day'];
     $inlognaam = $_POST['inlognaam'];
     $wachtwoord = $_POST['wachtwoord'];
     $wachtwoord_nogmaals = $_POST['wachtwoord_nogmaals'];
@@ -146,13 +145,12 @@ if (isset($_POST['registreer'])) {
 
             #add the user to the database
 
-            $addUser = $db->prepare("INSERT INTO `gebruikers` (`account_code`, `land`, `profielfoto`, `username`, `geb_datum`, `datum`, `aanmeld_datum`, `wachtwoord`, `email`, `ip_aangemeld`, `wereld`, `referer`)
-          VALUES (:activatiecode, :land, :userCharacter, :inlognaam, :gebdate, :Udate, :Udate, :wachtwoordmd5, :email, :remoteAddr , :wereld, :referer)");
+            $addUser = $db->prepare("INSERT INTO `gebruikers` (`account_code`, `land`, `profielfoto`, `username`, `datum`, `aanmeld_datum`, `wachtwoord`, `email`, `ip_aangemeld`, `wereld`, `referer`)
+          VALUES (:activatiecode, :land, :userCharacter, :inlognaam, :Udate, :Udate, :wachtwoordmd5, :email, :remoteAddr , :wereld, :referer)");
             $addUser->bindParam(':activatiecode', $activatiecode, PDO::PARAM_STR);
             $addUser->bindParam(':land', $land, PDO::PARAM_STR);
             $addUser->bindParam(':userCharacter', $character, PDO::PARAM_STR);
             $addUser->bindParam(':inlognaam', $inlognaam, PDO::PARAM_STR);
-            $addUser->bindParam(':gebdate', $gebdate, PDO::PARAM_STR);
             $addUser->bindParam(':Udate', $date, PDO::PARAM_STR);
             $addUser->bindParam(':wachtwoordmd5', $wachtwoordmd5, PDO::PARAM_STR);
             $addUser->bindParam(':email', $email, PDO::PARAM_STR);
@@ -390,25 +388,25 @@ if (isset($_POST['registreer'])) {
             <td class="normal_td"><select name="wereld" class="text_select">
                     <option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
                         echo 'checked';
-                    } ?>>Kanto
+                    } ?> value="Kanto">Kanto
                     </option>
-                    <option> <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
+                    <option value="Johto"> <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
                             echo 'checked';
                         } ?>Johto
                     </option>
-                    <option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
+                    <option value="Hoenn" <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
                         echo 'checked';
                     } ?>>Hoenn
                     </option>
-                    <option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
+                    <option value="Sinnoh" <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kanto") {
                         echo 'checked';
                     } ?>>Sinnoh
                     </option>
-                    <option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Unova") {
+                    <option value="Unova" <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Unova") {
                         echo 'checked';
                     } ?>>Unova
                     </option>
-                    <option <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kalos") {
+                    <option value="Kalos" <?php if (isset($_POST['wereld']) && $_POST['wereld'] == "Kalos") {
                         echo 'checked';
                     } ?>>Kalos
                     </option>
