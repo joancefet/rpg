@@ -11,14 +11,20 @@ $_GET['category'] = 'pokemon-info';
 include_once('../language/language-pages.php');
 
 if (isset($_GET['pokemon']) && $_GET['pokemon'] != $txt['choosepokemon']) {
-    $info = mysql_fetch_assoc(mysql_query("SELECT pokemon_wild.wild_id, naam, zeldzaamheid, type1, type2, gebied, wereld, COUNT(pokemon_speler.wild_id) AS hoeveelingame
-										FROM pokemon_wild
-										LEFT JOIN pokemon_speler
-										ON pokemon_wild.wild_id = pokemon_speler.wild_id
-										WHERE pokemon_wild.wild_id = '" . $_GET['pokemon'] . "'
-										GROUP BY pokemon_wild.wild_id"));
-    $levelensql = mysql_query("SELECT * FROM levelen WHERE wild_id = '" . $_GET['pokemon'] . "' ORDER BY level ASC");
-    $aantallevelen = mysql_num_rows($levelensql);
+    $pokemonSQL = $db->prepare("SELECT pokemon_wild.wild_id, naam, zeldzaamheid, type1, type2, gebied, wereld, COUNT(pokemon_speler.wild_id) AS hoeveelingame
+                    FROM pokemon_wild
+                    LEFT JOIN pokemon_speler
+                    ON pokemon_wild.wild_id = pokemon_speler.wild_id
+                    WHERE pokemon_wild.wild_id = :pokemon
+                    GROUP BY pokemon_wild.wild_id");
+    $pokemonSQL->bindParam(':pokemon', $_GET['pokemon'], PDO::PARAM_STR);
+    $pokemonSQL->execute();
+    $info = $pokemonSQL->fetch(PDO::FETCH_ASSOC);
+
+    $levelensql = $db->prepare("SELECT * FROM levelen WHERE wild_id = :pokemon ORDER BY level ASC");
+    $levelensql->bindParam(':pokemon', $_GET['pokemon'], PDO::PARAM_STR);
+    $levelensql->execute();
+    $aantallevelen = $levelensql->fetchColumn();
 
     if ($info['zeldzaamheid'] == 1) $zeldzaam = $txt['not_rare'];
     elseif ($info['zeldzaamheid'] == 2) $zeldzaam = $txt['a_bit_rare'];
@@ -32,14 +38,6 @@ if (isset($_GET['pokemon']) && $_GET['pokemon'] != $txt['choosepokemon']) {
 
     if (empty($info['type2'])) $info['type'] = '<table><tr><td><div class="type ' . $info['type1'] . '">' . $info['type1'] . '</div></td></tr></table>';
     else $info['type'] = '<table><tr><td><div class="type ' . $info['type1'] . '">' . $info['type1'] . '</div></td><td> <div class="type ' . $info['type2'] . '">' . $info['type2'] . '</div></td></tr></table>';
-
-    $file = 'logs.txt';
-    // Open the file to get existing content
-    $current = file_get_contents($file);
-    // Append a new person to the file
-    $current .= "Username: " . $_SESSION['naam'] . " - Pokemon: " . $info['naam'] . " tijd: ".date("d.m.y H:i:s")."\n";
-    // Write the contents back to the file
-    file_put_contents($file, $current);
 
     echo '
     <div style="padding-bottom: 20px;">
@@ -75,7 +73,7 @@ if (isset($_GET['pokemon']) && $_GET['pokemon'] != $txt['choosepokemon']) {
   			<td width="100"><strong>' . $txt['evolution'] . '</strong></td>
   		</tr>';
 
-        while ($levelen = mysql_fetch_assoc($levelensql)) {
+        while ($levelen = $levelensql->fetch(PDO::FETCH_ASSOC)) {
             if ($levelen['wat'] == 'att') {
                 echo '
     			<tr>
@@ -83,7 +81,8 @@ if (isset($_GET['pokemon']) && $_GET['pokemon'] != $txt['choosepokemon']) {
     				<td>' . $levelen['aanval'] . '</td>
     		 	</tr>';
             } else {
-                $evolutie = mysql_fetch_assoc(mysql_query("SELECT wild_id, naam FROM pokemon_wild WHERE wild_id = '" . $levelen['nieuw_id'] . "'"));
+                $evolutieSQL = $db->query("SELECT wild_id, naam FROM pokemon_wild WHERE wild_id = '" . $levelen['nieuw_id'] . "'");
+                $evolutie = $evolutieSQL->fetch(PDO::FETCH_ASSOC);
             }
 
             if ($levelen['wat'] == 'evo' && $levelen['level'] < 100) {
@@ -119,4 +118,3 @@ if (isset($_GET['pokemon']) && $_GET['pokemon'] != $txt['choosepokemon']) {
 		</tr>';
     echo '</table>';
 }
-?>
