@@ -5,21 +5,26 @@ include("includes/security.php");
 $page = 'items';
 #Goeie taal erbij laden voor de page
 include_once('language/language-pages.php');
-mysql_query("set character_set_client='utf8'");
-mysql_query("set character_set_results='utf8'");
-mysql_query("set collation_connection='utf8'");
 
 #Something is sold
 
 #query
-$itemdata = mysql_fetch_assoc(mysql_query("SELECT gebruikers_item.*, gebruikers_tmhm.*
-											   FROM gebruikers_item
-											   INNER JOIN gebruikers_tmhm
-											   ON gebruikers_item.user_id = gebruikers_tmhm.user_id
-											   WHERE gebruikers_item.user_id = '" . $_SESSION['id'] . "'"));
+$itemdataSQL = $db->prepare("SELECT gebruikers_item.*, gebruikers_tmhm.*
+                         FROM gebruikers_item
+                         INNER JOIN gebruikers_tmhm
+                         ON gebruikers_item.user_id = gebruikers_tmhm.user_id
+                         WHERE gebruikers_item.user_id = :uid");
+$itemdataSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+$itemdataSQL->execute();
+$itemdata = $itemdataSQL->fetch(PDO::FETCH_ASSOC);
+
 
 if (isset($_POST['verkoop'])) {
-    $select = mysql_fetch_assoc(mysql_query("SELECT `naam`, `soort`, `silver`, `gold` FROM `markt` WHERE `naam`='" . $_POST['name'] . "'"));
+    $selectSQL = $db->prepare("SELECT `naam`, `soort`, `silver`, `gold` FROM `markt` WHERE `naam`=:name");
+    $selectSQL->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
+    $selectSQL->execute();
+    $select = $selectSQL->fetch(PDO::FETCH_ASSOC);
+
     if ($select['soort'] == "items") $_POST['amount'] = 1;
     if (empty($_POST['amount']))
         $error = '<div class="red">' . $txt['alert_no_amount'] . '</div>';
@@ -43,15 +48,34 @@ if (isset($_POST['verkoop'])) {
             $show = '<img src="images/icons/silver.png" title="Silver"> ' . $price;
         }
 
-        if ($select['soort'] == "tm")
-            mysql_query("UPDATE `gebruikers_tmhm` SET `" . $_POST['name'] . "`=`" . $_POST['name'] . "`-'" . $_POST['amount'] . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
-        else
-            mysql_query("UPDATE `gebruikers_item` SET `" . $_POST['name'] . "`=`" . $_POST['name'] . "`-'" . $_POST['amount'] . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
+        if ($select['soort'] == "tm") {
+            $lessTM = $db->prepare("UPDATE `gebruikers_tmhm` SET `:name`=`:name`-:amount WHERE `user_id`=:uid");
+            $lessTM->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
+            $lessTM->bindValue(':amount', $_POST['amount'], PDO::PARAM_INT);
+            $lessTM->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+            $lessTM->execute();
+        } else {
+            $lessItem = $db->prepare("UPDATE `gebruikers_item` SET `:name`=`:name`-:amount WHERE `user_id`=:uid");
+            $lessItem->bindValue(':amount', $_POST['amount'], PDO::PARAM_INT);
+            $lessItem->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
+            $lessItem->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+            $lessItem->execute();
+        }
 
-        mysql_query("UPDATE `gebruikers` SET `silver`=`silver`+'" . $bedrag . "', `gold`=`gold`+'" . $bedrag_gold . "' WHERE `user_id`='" . $_SESSION['id'] . "'");
+        $updateMoney = $db->prepare("UPDATE `gebruikers` SET `silver`=`silver`+:bedrag, `gold`=`gold`+:bedrag_gold WHERE `user_id`=:uid");
+        $updateMoney->bindValue(':bedrag', $bedrag);
+        $updateMoney->bindValue(':bedrag_gold', $bedrag_gold);
+        $updateMoney->bindValue(':uid', $_SESSION['id']);
+        $updateMoney->execute();
+
         $error = '<div class="green">' . $txt['success_items'] . ' ' . $show . '</div>';
         #Load new data
-        $itemdata = mysql_fetch_assoc(mysql_query("SELECT gebruikers_item.*, gebruikers_tmhm.* FROM gebruikers_item INNER JOIN gebruikers_tmhm ON gebruikers_item.user_id = gebruikers_tmhm.user_id WHERE gebruikers_item.user_id = '" . $_SESSION['id'] . "'"));
+        $itemdataSQL = $db->prepare("SELECT gebruikers_item.*, gebruikers_tmhm.* FROM gebruikers_item INNER JOIN gebruikers_tmhm ON gebruikers_item.user_id = gebruikers_tmhm.user_id WHERE gebruikers_item.user_id = :uid");
+        $itemdataSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+        $itemdataSQL->execute();
+        $itemdata = $itemdataSQL->fetch(PDO::FETCH_ASSOC);
+
+
     }
 }
 if (isset($_POST['winkel'])) {
@@ -92,10 +116,9 @@ if (isset($_POST['winkel'])) {
 
                 }
 
-                $q = "UPDATE `" . $targetTable . "` SET `" . $getProduct['naam'] . "`=`" . $getProduct['naam'] . "`-'1' WHERE `user_id`=:user_id;
+                $st = $db->prepare("UPDATE `" . $targetTable . "` SET `" . $getProduct['naam'] . "`=`" . $getProduct['naam'] . "`-'1' WHERE `user_id`=:user_id;
                        INSERT INTO `gebruikers_store` (`user_id` ,`soort` ,`item`,`prijs`,`currency`)
-                        VALUES (:user_id, :soort, :item, :prijs, :currency)";
-                $st = $db->prepare($q);
+                        VALUES (:user_id, :soort, :item, :prijs, :currency)");
                 $st->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
                 $st->bindValue(':soort', $getProduct['soort'], PDO::PARAM_STR);
                 $st->bindValue(':item', $getProduct['naam'], PDO::PARAM_STR);
@@ -123,7 +146,9 @@ if (isset($_POST['winkel'])) {
 }
 
 #alle gegevens ophalen voor alle opties
-$marktsql = mysql_query("SELECT `id`, `soort`, `naam`, `silver`, `gold`, `omschrijving_nl` FROM markt ORDER BY soort ASC, id ASC");
+$marktsql = $db->prepare("SELECT `id`, `soort`, `naam`, `silver`, `gold`, `omschrijving_nl` FROM markt ORDER BY soort ASC, id ASC");
+$marktsql->execute();
+
 if ($gebruiker['itembox'] == 'Red box') $ruimte['max'] = 250;
 elseif ($gebruiker['itembox'] == 'Blue box') $ruimte['max'] = 100;
 elseif ($gebruiker['itembox'] == 'Yellow box') $ruimte['max'] = 50;
@@ -145,7 +170,7 @@ $spcitems = 0;
 $stones = 0;
 $megastones = 0;
 $bag_seen = False;
-while ($result = mysql_fetch_assoc($marktsql)) {
+while ($result = $marktsql->fetch(PDO::FETCH_ASSOC)) {
     #Show Megastons
     if ($result['soort'] == "megastone") {
         if ($itemdata[$result['naam']] > 0) {
@@ -588,7 +613,10 @@ while ($result = mysql_fetch_assoc($marktsql)) {
 
         $inaam = $result['naam'];
 
-        $tmsql = mysql_fetch_assoc(mysql_query("SELECT `type2` FROM tmhm WHERE `naam` = '" . $inaam . "'"));
+        $tmsqlQuery = $db->prepare("SELECT `type2` FROM tmhm WHERE `naam` = :name");
+        $tmsqlQuery->bindValue(':name', $inaam, PDO::PARAM_STR);
+        $tmsqlQuery->execute();
+        $tmsql = $tmsqlQuery->fetch(PDO::FETCH_ASSOC);
 
         if ($itemdata[$result['naam']] > 0) {
             $tm++;

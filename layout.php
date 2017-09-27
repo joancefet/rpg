@@ -45,7 +45,11 @@ if (isset($_POST['profiel'])) {
     $storetekst = '<div class="green">Je store instellingen zijn opgeslagen.</div>';
 }
 
-    $text = mysql_fetch_assoc(mysql_query("SELECT `store`,`profilestore`,`hasStore` FROM `gebruikers` WHERE `user_id`='".$_SESSION['id']."'"));
+    $textSQL = $db->prepare("SELECT `store`,`profilestore`,`hasStore` FROM `gebruikers` WHERE `user_id`=:uid");
+    $textSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+    $textSQL->execute();
+
+    $text = $textSQL->fetch(PDO::FETCH_ASSOC);
     
     if($text['hasStore']){
         $checked = 'checked';

@@ -44,11 +44,19 @@ if(isset($_POST['travel'])){
       $travelerror = '<div class="red">'.$txt['alert_not_enough_money'].'</div>';
     else{ #Speler heeft genoeg silver.
       #silver minderen en nieuwe wereld opslaan
-      mysql_query("UPDATE `gebruikers` SET `silver`=`silver`-'".$prijss."', `wereld`='".$wereld."' WHERE `user_id`='".$_SESSION['id']."'");
+      $payAndMove = $db->prepare("UPDATE `gebruikers` SET `silver`=`silver`-:price, `wereld`=:world WHERE `user_id`=:uid");
+      $payAndMove->bindValue(':price', $prijss, PDO::PARAM_INT);
+      $payAndMove->bindValue(':world', $wereld, PDO::PARAM_STR);
+      $payAndMove->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+      $payAndMove->execute();
+
       $travelerror = '<div class="green">'.$txt['success_travel'].' <img src="images/icons/silver.png" title="Silver"> '.$prijsmooi.'</div>';
         //complete mission 3
         if($gebruiker['missie_3'] == 0){
-          mysql_query("UPDATE `gebruikers` SET `missie_3`=1, `silver`=`silver`+750,`rankexp`=rankexp+50 WHERE `user_id`='".$gebruiker['user_id']."'");
+          $completeMission3 = $db->prepare("UPDATE `gebruikers` SET `missie_3`=1, `silver`=`silver`+750,`rankexp`=rankexp+50 WHERE `user_id`=:uid");
+          $completeMission3->bindValue(':uid', $gebruiker['user_id'], PDO::PARAM_INT);
+          $completeMission3->execute();
+
           echo showToastr("info", "Je hebt een missie behaald!");
         }
     }
@@ -64,8 +72,12 @@ if(isset($_POST['surf'])){
 	}
 	else{
 	  #query voor alle info
-	  $pkmninfo = mysql_fetch_assoc(mysql_query("SELECT id, user_id, level, aanval_1, aanval_2, aanval_3, aanval_4 FROM pokemon_speler WHERE id = '".$_POST['pokemonid']."'"));
-	  #De eerste letter verandere in hoofdletter
+
+    $pkmninfoSQL = $db->prepare("SELECT id, user_id, level, aanval_1, aanval_2, aanval_3, aanval_4 FROM pokemon_speler WHERE id = :pokeId");
+    $pkmninfoSQL->bindValue(':pokeId', $_POST['pokemonid'], PDO::PARAM_INT);
+    $pkmninfo = $pkmninfoSQL->fetch(PDO::FETCH_ASSOC);
+
+ 	  #De eerste letter verandere in hoofdletter
 	  $wereld = $_POST['wereld'];
 	  $wereld = ucfirst($wereld);
 	  #eigenaar check
@@ -83,9 +95,12 @@ if(isset($_POST['surf'])){
 	  #Kijken of de pokemon level 80 is
 	  elseif($pkmninfo['level'] < 80)
 			$surferror = '<div class="red">'.$txt['alert_not_strong_enough'].'</div>';
-	  #Alles goed:	
-	  else{ 
-		  mysql_query("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".$_SESSION['id']."'");
+	  #Alles goed:
+	  else{
+      $updateWorld = $db->prepare("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`=:uid");
+      $updateWorld->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+      $updateWorld->execute();
+
 		  $travelerror = '<div class="green">'.$txt['success_surf'].'</div>';
 	  }
 	}
@@ -101,7 +116,11 @@ if(isset($_POST['fly'])){
 	}
 	else{
 	  #query voor alle info
-	  $pkmninfo = mysql_fetch_assoc(mysql_query("SELECT id, user_id, level, aanval_1, aanval_2, aanval_3, aanval_4 FROM pokemon_speler WHERE id = '".$_POST['pokemonid']."'"));
+    $pkmninfoSQL = $db->prepare("SELECT id, user_id, level, aanval_1, aanval_2, aanval_3, aanval_4 FROM pokemon_speler WHERE id = :pokeId");
+    $pkmninfoSQL->bindValue(':pokeId', $_POST['pokemonid'], PDO::PARAM_INT);
+    $pkmninfoSQL->execute();
+    $pkmninfo = $pkmninfoSQL->fetch(PDO::FETCH_ASSOC);
+
 	  #De eerste letter verandere in hoofdletter
 	  $wereld = $_POST['wereld'];
 	  $wereld = ucfirst($wereld);
@@ -120,9 +139,12 @@ if(isset($_POST['fly'])){
 	  #Kijken of de pokemon level 80 is
 	  elseif($pkmninfo['level'] < 80)
 			$flyerror = '<div class="red">'.$txt['alert_not_strong_enough'].'</div>';
-	  #Alles goed:	
-	  else{ 
-		  mysql_query("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`='".$_SESSION['id']."'");
+	  #Alles goed:
+	  else{
+      $updateWorld = $db->prepare("UPDATE `gebruikers` SET `wereld`='".$wereld."' WHERE `user_id`=:uid");
+      $updateWorld->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+      $updateWorld->execute();
+
 		  $travelerror = '<div class="green">'.$txt['success_fly'].'</div>';
 	  }
 	}
@@ -247,7 +269,7 @@ if($travelerror) echo $travelerror; ?>
           <td class="normal_td" rowspan="5">
             <?
             #Pokemon query ophalen
-            while($pokemon = mysql_fetch_assoc($pokemon_sql)){
+            while($pokemon = $pokemon_sql->fetch(PDO::FETCH_ASSOC)){
               #Gegevens juist laden voor de pokemon
               $pokemon = pokemonei($pokemon);
               $pokemon['naam'] = pokemon_naam($pokemon['naam'],$pokemon['roepnaam']);
@@ -257,7 +279,6 @@ if($travelerror) echo $travelerror; ?>
               if($pokemonei['baby'] != "Ja") echo '<label><img src="'.$pokemon['animatie'].'" width="32" height="32"><input type="radio" name="pokemonid" value="'.$pokemon['id'].'"></label><br/>';
               else echo '<label><img src="images/items/Poke ball.png" width="32" height="32"><br /><input type="radio" name="pokemonid" value="'.$pokemon['id'].' disabled"><label>';
             }
-            mysql_data_seek($pokemon_sql, 0);
             ?>
           </td>
         </tr>
@@ -342,7 +363,7 @@ if($travelerror) echo $travelerror; ?>
           <td class="normal_td" rowspan="5">
             <?
             #Pokemon query ophalen
-            while($pokemon = mysql_fetch_assoc($pokemon_sql)){
+            while($pokemon = $pokemon_sql->fetch(PDO::FETCH_ASSOC)){
               #Gegevens juist laden voor de pokemon
               $pokemon = pokemonei($pokemon);
               $pokemon['naam'] = pokemon_naam($pokemon['naam'],$pokemon['roepnaam']);
@@ -352,7 +373,6 @@ if($travelerror) echo $travelerror; ?>
               if($pokemonei['baby'] != "Ja") echo '<label><img src="'.$pokemon['animatie'].'" width="32" height="32"><input type="radio" name="pokemonid" value="'.$pokemon['id'].'"></label><br/>';
               else echo '<img src="images/items/Poke ball.png" width="32" height="32"><br /><input type="radio" name="pokemonid" value="'.$pokemon['id'].' disabled"></label>';
             }
-            mysql_data_seek($pokemon_sql, 0);
             ?>
           </td>
         </tr>
