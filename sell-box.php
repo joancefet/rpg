@@ -58,6 +58,8 @@ if($count < $allowed){
   		echo '<div class="red">'.$txt['alert_too_low_rank'].'</div>';
     elseif($select['user_id'] != $_SESSION['id'])
       echo '<div class="red">'.$txt['alert_not_your_pokemon'].'</div>';
+    elseif(empty($_POST['silver']))
+      echo '<div class="red">'.$txt['alert_no_amount'].'</div>';
     elseif((!empty($_POST['buyer'])) && (mysql_num_rows($buyer_sql) == 0))
       echo '<div class="red">'.$txt['alert_user_dont_exist'].'</div>';
     elseif($select['opzak'] == 'tra')

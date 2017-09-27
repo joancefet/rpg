@@ -2431,7 +2431,7 @@ Here you can make a pokemon shiny by giving him the necessary gold.';
 		$txt['hand_house_full'] = "You have no more room left for a new Pok&eacute;mon.";
 		$txt['ball_have'] = "You have to use a Pok&eacute;ball.";
 		$txt['ball_amount'] = "You do not have a ";
-		$txt['ball_throw_1'] = "You throw a ";
+		$txt['ball_throw_1'] = "You threw a ";
 		$txt['ball_throw_2'] = ". ";
 		$txt['ball_success'] = " was caught.";
 		$txt['ball_failure'] = " has escaped.";

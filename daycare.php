@@ -201,7 +201,9 @@ if(isset($_POST['haalop'])){
                 if($gebruiker['in_hand'] > 0) mysql_data_seek($pokemon_sql, 0);
                 mysql_data_seek($pokemon_sql, 0);
                 while($pokemon = mysql_fetch_assoc($pokemon_sql)){
-                    echo '<option value="'.$pokemon['id'].'">'.$pokemon['naam'].'</option>';
+                    if($pokemon['ei'] == 0) {
+                        echo '<option value="' . $pokemon['id'] . '">' . $pokemon['naam'] . '</option>';
+                    }
                 }
 				mysql_data_seek($pokemon_sql, 0);
             ?></select>

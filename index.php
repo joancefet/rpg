@@ -507,9 +507,9 @@ if(isset($_SESSION['id']) and ($gebruiker['admin'] == 3 or getSetting('showExitB
                              DELETE FROM `pokemon_speler_gevecht` WHERE `user_id`=:user_id;
                              DELETE FROM `pokemon_wild_gevecht` WHERE `aanval_log_id`=:attack_id;
                              DELETE FROM `aanval_log` WHERE `user_id`=:user_id";
-            $stmt = $db->prepare($getAttack);
+            $stmt = $db->prepare($removeAttack);
             $stmt->bindParam(':user_id', $_SESSION['id'], PDO::PARAM_INT);
-            $stmt->bindParam(':attack_id', $_SESSION['id'], PDO::PARAM_INT);
+            $stmt->bindParam(':attack_id', $res['id'], PDO::PARAM_INT);
             $stmt->execute();
         }
     }

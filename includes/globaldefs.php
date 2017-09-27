@@ -1,4 +1,5 @@
 <?php
+
 $file = 'cache/globaldefs.php';
 
 if (file_exists($file)) {

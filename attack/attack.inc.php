@@ -93,11 +93,11 @@ function pokemon_grow($txt){
           $pokemonnaam = htmlspecialchars($select['naam_goed'], ENT_QUOTES);
 		  
 			#Event taal pack includen
-			//$eventlanguagesql = mysql_fetch_assoc(mysql_query("SELECT land FROM gebruikers WHERE user_id = '".$_SESSION['id']."'"));
-			//$eventlanguage = GetEventLanguage($eventlanguagesql['land']);
-            //include('../slanguage/events/language-events-'.$eventlanguage.'.php');
-            include('../language/events/language-events-nl.php');
-            $txt['event_is_level_up'] = 'heeft een nieuw level!';
+			$eventlanguagesql = mysql_fetch_assoc(mysql_query("SELECT land FROM gebruikers WHERE user_id = '".$_SESSION['id']."'"));
+			$eventlanguage = GetEventLanguage($eventlanguagesql['land']);
+            include('../language/events/language-events-'.$eventlanguage.'.php');
+            /*include('../language/events/language-events-nl.php');
+            $txt['event_is_level_up'] = 'heeft een nieuw level!';*/
 
             if($pokemonnaam) {
               $event = '<img src="images/icons/blue.png" width="16" height="16" class="imglower" /> ' . $pokemonnaam . ' ' . $txt['event_is_level_up'];

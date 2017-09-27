@@ -1,9 +1,9 @@
 <?
 //connection vars
 $dbhost = "localhost";
-$dblogin = "";
+$dblogin = "root";
 $dbpassword = "";
-$dbdatabase = "";
+$dbdatabase = "rpgdb";
 
 //set up the old connection
 $connection = mysql_connect($dbhost, $dblogin, $dbpassword); 
