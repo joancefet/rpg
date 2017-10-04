@@ -189,9 +189,7 @@ if ($countPokemon) {
 
                 $info = create_new_attack($query['wild_id'], $leveltegenstander, $gebied);
                 if (empty($info['bericht'])) {
-                       echo '<script type="text/javascript">
-                            window.location.href = \'?page=attack/wild/wild-attack\';
-                            </script>';
+                    header("Location: ?page=attack/wild/wild-attack");exit;
                 } else {
                     echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
                 }
