@@ -138,7 +138,10 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
         }
 
         //Load Attack Infos
-        $attack_info = mysql_fetch_array(mysql_query("SELECT `naam`, `sterkte`, `hp_schade`, `soort`, `mis`, `aantalkeer`, `effect_kans`, `effect_naam`, `stappen`, `laden`, `recoil`, `extra`, `andereaanval`, `ontwijk` FROM `aanval` WHERE `naam`='" . $attack_name . "'"));
+        $attackInfoSQL = $db->prepare("SELECT `naam`, `sterkte`, `hp_schade`, `soort`, `mis`, `aantalkeer`, `effect_kans`, `effect_naam`, `stappen`, `laden`, `recoil`, `extra`, `andereaanval`, `ontwijk` FROM `aanval` WHERE `naam`=:attackName");
+        $attackInfoSQL->bindValue(':attackName', $attack_name);
+        $attackInfoSQL->execute();
+        $attack_info = $attackInfoSQL->fetch(PDO::FETCH_ASSOC);
 
         if ($attack_info['naam'] == "") {
             if ($_GET['wie'] == "computer") $next_turn = 1;
@@ -158,7 +161,10 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
             $attack_status['opponent'] = "pokemon";
 
             //Load Attack Infos
-            $attack_info = mysql_fetch_array(mysql_query("SELECT `naam`, `sterkte`, `hp_schade`, `soort`, `mis`, `aantalkeer`, `effect_kans`, `effect_naam`, `stappen`, `laden`, `recoil`, `extra`, `andereaanval`, `ontwijk` FROM `aanval` WHERE `naam`='" . $attack_name . "'"));
+            $attackInfoSQL = $db->prepare("SELECT `naam`, `sterkte`, `hp_schade`, `soort`, `mis`, `aantalkeer`, `effect_kans`, `effect_naam`, `stappen`, `laden`, `recoil`, `extra`, `andereaanval`, `ontwijk` FROM `aanval` WHERE `naam`=:attackName");
+            $attackInfoSQL->bindValue(':attackName', $attack_name);
+            $attackInfoSQL->execute();
+            $attack_info = $attackInfoSQL->fetch(PDO::FETCH_ASSOC);
 
 
             if ($attack_info['naam'] == "") {
@@ -216,7 +222,12 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
             $attack_status['fight_end'] = 1;
             if ($attack_status['last_attack'] == "computer") {
                 //Alle pokemons van de speler tellen
-                $aantalpokemon = mysql_num_rows(mysql_query("SELECT pokemon_speler_gevecht.id FROM pokemon_speler_gevecht INNER JOIN pokemon_speler ON pokemon_speler_gevecht.id = pokemon_speler.id WHERE pokemon_speler_gevecht.aanval_log_id = '" . $aanval_log['id'] . "' AND pokemon_speler_gevecht.leven > '0' AND pokemon_speler.ei = '0'"));
+
+                $aantalPokemonSQL = $db->prepare("SELECT pokemon_speler_gevecht.id FROM pokemon_speler_gevecht INNER JOIN pokemon_speler ON pokemon_speler_gevecht.id = pokemon_speler.id WHERE pokemon_speler_gevecht.aanval_log_id = :attackLogId AND pokemon_speler_gevecht.leven > '0' AND pokemon_speler.ei = '0'");
+                $aantalPokemonSQL->bindValue(':attackLogId', $aanval_log['id'], PDO::PARAM_INT);
+                $aantalPokemonSQL->execute();
+                $aantalpokemon = $aantalPokemonSQL->rowCount();
+
                 //Kan hij geen pokemon wisselen
                 if (($aantalpokemon <= 1) OR (empty($aantalpokemon))) {
 
@@ -242,9 +253,16 @@ if ((isset($_GET['attack_name'])) && (isset($_GET['wie'])) && (isset($_GET['aanv
         }
 
         //Update
-        mysql_query("UPDATE `" . $opponent_info['table'] . "` SET `leven`='" . $levenover . "' WHERE `id`='" . $opponent_info['id'] . "'");
+        $updateOpponent = $db->prepare("UPDATE `" . $opponent_info['table'] . "` SET `leven`=:life WHERE `id`=:opponentId");
+        $updateOpponent->bindValue(':life', $levenover);
+        $updateOpponent->bindValue(':opponentId', $opponent_info['id'], PDO::PARAM_INT);
+        $updateOpponent->execute();
+
         //Update Aanval Log
-        mysql_query("UPDATE `aanval_log` SET `laatste_aanval`='" . $attack_status['last_attack'] . "', `beurten`=`beurten`+'1' WHERE `id`='" . $aanval_log['id'] . "'");
+        $updateAttackLog = $db->prepare("UPDATE `aanval_log` SET `laatste_aanval`=:lastAttack, `beurten`=`beurten`+'1' WHERE `id`=:attackLogId");
+        $updateAttackLog->bindValue(':lastAttack', $attack_status['last_attack']);
+        $updateAttackLog->bindValue(':attackLogId', $aanval_log['id'], PDO::PARAM_INT);
+        $updateAttackLog->execute();
     }
 
     $new_exp = $pokemon_info['exp'] + $return['exp'];

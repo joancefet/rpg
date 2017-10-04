@@ -25,14 +25,31 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
     //Load Computer Info
     $computer_info = computer_data($aanval_log['tegenstanderid']);
     $computer_info['naam_goed'] = computer_naam($computer_info['naam']);
+
     //Load Player item info
-    $player_item_info = mysql_fetch_array(mysql_query("SELECT `Poke ball`, `Great ball`, `Ultra ball`, `Premier ball`, `Net ball`, `Dive ball`, `Nest ball`, `Repeat ball`, `Timer ball`, `Master ball` FROM `gebruikers_item` WHERE `user_id`='" . $_SESSION['id'] . "'"));
+    $playerItemInfoSQL = $db->prepare("SELECT `Poke ball`, `Great ball`, `Ultra ball`, `Premier ball`, `Net ball`, `Dive ball`, `Nest ball`, `Repeat ball`, `Timer ball`, `Master ball` FROM `gebruikers_item` WHERE `user_id`=:uid");
+    $playerItemInfoSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+    $playerItemInfoSQL->execute();
+    $player_item_info = $playerItemInfoSQL->fetch(PDO::FETCH_ASSOC);
+
     //Load pokeball info
-    $item_info = mysql_fetch_array(mysql_query("SELECT `naam`, `wat`, `kracht`, `apart`, `type1`, `type2`, `kracht2` FROM `items` WHERE `naam`='" . $_GET['item'] . "'"));
+    $itemInfoSQL = $db->prepare("SELECT `naam`, `wat`, `kracht`, `apart`, `type1`, `type2`, `kracht2` FROM `items` WHERE `naam`=:itemName");
+    $itemInfoSQL->bindValue(':itemName', $_GET['item']);
+    $itemInfoSQL->execute();
+    $item_info = $itemInfoSQL->fetch(PDO::FETCH_ASSOC);
+
     //Get opzak_nummer from last pokemon
-    $player_hand = mysql_fetch_array(mysql_query("SELECT `opzak_nummer` FROM `pokemon_speler` WHERE `user_id`='" . $_SESSION['id'] . "' ORDER BY `opzak_nummer` DESC LIMIT 0,1"));
+    $playerHandSQL = $db->prepare("SELECT `opzak_nummer` FROM `pokemon_speler` WHERE `user_id`=:uid ORDER BY `opzak_nummer` DESC LIMIT 0,1");
+    $playerHandSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+    $playerHandSQL->execute();
+    $player_hand = $playerHandSQL->fetch(PDO::FETCH_ASSOC);
+
     //Count pokmon in House
-    $house = mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . $_SESSION['id'] . "' AND `opzak`='nee'"));
+    $houseSQL = $db->prepare("SELECT `id` FROM `pokemon_speler` WHERE `user_id`=:uid AND `opzak`='nee'");
+    $houseSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+    $houseSQL->execute();
+    $house = $houseSQL->rowCount();
+
     //Set default good on one
     $good = 1;
     //Check Amount of pokemon that can hold the house
@@ -64,7 +81,11 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
             //Computer has an effect
             if ($_GET['computer_effect'] != "") {
                 //Load Computer Effect
-                $effect_info = mysql_fetch_array(mysql_query("SELECT `vangkans` FROM `effect` WHERE `actie`='" . $computer_info['effect'] . "'"));
+                $effectInfoSQL = $db->prepare("SELECT `vangkans` FROM `effect` WHERE `actie`=:action");
+                $effectInfoSQL->bindValue(':action', $computer_info['effect']);
+                $effectInfoSQL->execute();
+                $effect_info = $effectInfoSQL->fetch(PDO::FETCH_ASSOC);
+
                 //Effect Catch change
                 $catch_change = $effect_info['vangkans'];
                 if (($catch_change < "0.5")) $catch_change = 1;
@@ -108,7 +129,12 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
                 } //Is it a repeat ball
                 elseif ($item_info['naam'] == "Repeat ball") {
                     //Check if player already have this pokemon
-                    if (mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `wild_id`='" . $computer_info['wildid'] . "' AND `user_id`='" . $_SESSION['id'] . "'")) >= "1") {
+                    $alreadyGot = $db->prepare("SELECT `id` FROM `pokemon_speler` WHERE `wild_id`=:wildId AND `user_id`=:uid");
+                    $alreadyGot->bindValue(':wildId', $computer_info['wild_id'], PDO::PARAM_INT);
+                    $alreadyGot->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+                    $alreadyGot->execute();
+
+                    if ($alreadyGot->rowCount() >= "1") {
                         $pokeball_power = $item_info['kracht2'];
                     } //Player don't have this pokemon yet
                     else $pokeball_power = $item_info['kracht'];
@@ -153,14 +179,19 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
         }
 
         //Pokeball is gone
-        mysql_query("UPDATE `gebruikers_item` SET `" . $item_info['naam'] . "`=`" . $item_info['naam'] . "`-'1' WHERE `user_id`='" . $_SESSION['id'] . "'");
+        $pokeBallGone = $db->prepare("UPDATE `gebruikers_item` SET `".$item_info['naam']."`=`".$item_info['naam']."`-'1' WHERE `user_id`=:uid");
+        $pokeBallGone->bindValue(':uid', $_SESSION['id']);
+        $pokeBallGone->execute();
 
         //Pokemon is Caught
         if ($catched) {
             //Save Computer As Seen in Pokedex
             update_pokedex($computer_info['wild_id'], '', 'vangen');
             //Choose Character
-            $character = mysql_fetch_array(mysql_query("SELECT * FROM `karakters` ORDER BY rand() limit 1"));
+            $characterSQL = $db->prepare("SELECT * FROM `karakters` ORDER BY rand() limit 1");
+            $characterSQL->execute();
+            $character = $characterSQL->fetch(PDO::FETCH_ASSOC);
+
             $new_pokemon['karakter'] = $character['karakter_naam'];
 
             //Increase total pokemon in hand with one
@@ -168,7 +199,13 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
 
             //Load Exp Info
             $computer_info['levell'] = $computer_info['level'] + 1;
-            $experience_info = mysql_fetch_array(mysql_query("SELECT `punten` FROM `experience` WHERE `soort`='" . $computer_info['groei'] . "' AND `level`='" . $computer_info['levell'] . "'"));
+
+            $experienceInfoSQL = $db->prepare("SELECT `punten` FROM `experience` WHERE `soort`=:soort AND `level`=:levell");
+            $experienceInfoSQL->bindValue(':soort', $computer_info['groei']);
+            $experienceInfoSQL->bindValue(':levell', $computer_info['levell']);
+            $experienceInfoSQL->execute();
+            $experience_info = $experienceInfoSQL->fetch(PDO::FETCH_ASSOC);
+
             $new_pokemon['expnodig'] = $experience_info['punten'];
 
             //Create Pokemon IV
@@ -192,31 +229,38 @@ if ((isset($_GET['item'])) && (isset($_GET['sid'])) && (isset($_GET['aanval_log_
             //Succes
             $good = 0;
 
-            mysql_query("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen, type)
-                          VALUES (NOW(), '" . $_SESSION['id'] . "', '$message', '0','catch')");
+            $gebeurtenis = $db->prepare("INSERT INTO gebeurtenis (datum, ontvanger_id, bericht, gelezen, type) VALUES (NOW(), :uid, :message, '0','catch')");
+            $gebeurtenis->bindValue(':uid', $_SESSION['id']);
+            $gebeurtenis->bindValue(':message', $message);
+            $gebeurtenis->execute();
 
             //Check if Player hand is full
             if ($new_pokemon['opzak_nummer'] == 7) {
                 //Save New Pokemon
-                mysql_query("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`) 
+                $db->query("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`) 
+          
           SELECT `wildid`, '" . $_SESSION['id'] . "', 'nee', '" . $new_pokemon['karakter'] . "', '" . $computer_info['shiny'] . "', '" . $computer_info['level'] . "', '" . $new_pokemon['hpstat'] . "', '" . $computer_info['leven'] . "', '" . $new_pokemon['expnodig'] . "', '" . $new_pokemon['attackstat'] . "', '" . $new_pokemon['defencestat'] . "', '" . $new_pokemon['speedstat'] . "', '" . $new_pokemon['spcattackstat'] . "', '" . $new_pokemon['spcdefencestat'] . "', '" . $new_pokemon['attack_iv'] . "', '" . $new_pokemon['defence_iv'] . "', '" . $new_pokemon['speed_iv'] . "', '" . $new_pokemon['spcattack_iv'] . "', '" . $new_pokemon['spcdefence_iv'] . "', '" . $new_pokemon['hp_iv'] . "', '" . $computer_info['aanval_1'] . "', '" . $computer_info['aanval_2'] . "', '" . $computer_info['aanval_3'] . "', '" . $computer_info['aanval_4'] . "', `effect`, '" . $item_info['naam'] . "'  FROM `pokemon_wild_gevecht` WHERE `id`='" . $computer_info['id'] . "'");
                 $message .= $computer_info['naam_goed'] . $txt['ball_success_2'];
             } //Player hand is not full
             else {
                 //Save New pokemon
-                mysql_query("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`) 
+                $db->query("INSERT INTO `pokemon_speler` (`wild_id`, `user_id`, `opzak`, `opzak_nummer`, `karakter`, `shiny`, `level`, `levenmax`, `leven`, `expnodig`, `attack`, `defence`, `speed`, `spc.attack`, `spc.defence`, `attack_iv`, `defence_iv`, `speed_iv`, `spc.attack_iv`, `spc.defence_iv`, `hp_iv`, `aanval_1`, `aanval_2`, `aanval_3`, `aanval_4`, `effect`, `gevongenmet`) 
           SELECT `wildid`, '" . $_SESSION['id'] . "', 'ja', '" . $new_pokemon['opzak_nummer'] . "', '" . $new_pokemon['karakter'] . "', '" . $computer_info['shiny'] . "', '" . $computer_info['level'] . "', '" . $new_pokemon['hpstat'] . "', '" . $computer_info['leven'] . "', '" . $new_pokemon['expnodig'] . "', '" . $new_pokemon['attackstat'] . "', '" . $new_pokemon['defencestat'] . "', '" . $new_pokemon['speedstat'] . "', '" . $new_pokemon['spcattackstat'] . "', '" . $new_pokemon['spcdefencestat'] . "', '" . $new_pokemon['attack_iv'] . "', '" . $new_pokemon['defence_iv'] . "', '" . $new_pokemon['speed_iv'] . "', '" . $new_pokemon['spcattack_iv'] . "', '" . $new_pokemon['spcdefence_iv'] . "', '" . $new_pokemon['hp_iv'] . "', '" . $computer_info['aanval_1'] . "', '" . $computer_info['aanval_2'] . "', '" . $computer_info['aanval_3'] . "', '" . $computer_info['aanval_4'] . "', `effect`, '" . $item_info['naam'] . "' FROM `pokemon_wild_gevecht` WHERE `id`='" . $computer_info['id'] . "'");
             }
 
             //Increase pokemon amount of player, make last visited page empty
-            mysql_query("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`='" . $_SESSION['id'] . "'");
+            $increasePokemonSQL = $db->prepare("UPDATE `gebruikers` SET `aantalpokemon`=`aantalpokemon`+'1' WHERE `user_id`=:uid");
+            $increasePokemonSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+            $increasePokemonSQL->execute();
             //Sync pokemon
             pokemon_player_hand_update();
             //Remove Attack
             remove_attack($_GET['aanval_log_id']);
         } else {
             //Last move is player
-            mysql_query("UPDATE `aanval_log` SET `laatste_aanval`='pokemon' WHERE `id`='" . $aanval_log['id'] . "'");
+            $lastMovePlayer = $db->prepare("UPDATE `aanval_log` SET `laatste_aanval`='pokemon' WHERE `id`=:attackLogId");
+            $lastMovePlayer->bindValue(':attackLogId', $aanval_log['id']);
+            $lastMovePlayer->execute();
 
             $message = $txt['ball_throw_1'] . $item_info['naam'] . $txt['ball_throw_2'] . $computer_info['naam_goed'] . $txt['ball_failure'];
         }

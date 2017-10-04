@@ -57,15 +57,27 @@ if ((isset($_GET['computer_info_name'])) && (isset($_GET['aanval_log_id'])) && (
             $message = $txt['success_run'] . $computer_info['naam_goed'];
 
             //Copy Life en Effect Stats to pokemon_speler table
-            $player_hand_query = mysql_query("SELECT `id`, `leven`, `effect` FROM `pokemon_speler_gevecht` WHERE `user_id`='" . $_SESSION['id'] . "'");
-            while ($player_hand = mysql_fetch_array($player_hand_query)) {
-                mysql_query("UPDATE `pokemon_speler` SET `leven`='" . $player_hand['leven'] . "', `effect`='" . $player_hand['effect'] . "' WHERE `id`='" . $player_hand['id'] . "'");
+      $player_hand_query = $db->prepare("SELECT `id`, `leven`, `effect` FROM `pokemon_speler_gevecht` WHERE `user_id`=:uid");
+      $player_hand_query->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+      $player_hand_query->execute();
+
+
+      while($player_hand = $player_hand_query->fetch(PDO::FETCH_ASSOC)){
+        $updatePokemonPlayer = $db->prepare("UPDATE `pokemon_speler` SET `leven`=:life, `effect`=:effect WHERE `id`=:pokeId");
+        $updatePokemonPlayer->bindValue(':life', $player_hand['leven']);
+        $updatePokemonPlayer->bindValue(':effect', $player_hand['effect']);
+        $updatePokemonPlayer->bindValue(':pokeId', $player_hand['id'], PDO::PARAM_INT);
+        $updatePokemonPlayer->execute();
+
             }
             //Remove attack
             remove_attack($aanval_log['id'], $aanval_log['tegenstanderid']);
-        } else {
+    }
+    else{
             $message = $txt['failure_run'] . $computer_info['naam_goed'];
-            mysql_query("UPDATE `aanval_log` SET `laatste_aanval`='pokemon', `beurten`=`beurten`+'1' WHERE `id`='" . $aanval_log['id'] . "'");
+      $updateAttackLog = $db->prepare("UPDATE `aanval_log` SET `laatste_aanval`='pokemon', `beurten`=`beurten`+'1' WHERE `id`=:attackLogId");
+      $updateAttackLog->bindValue(':attackLogId', $aanval_log['id'], PDO::PARAM_INT);
+      $updateAttackLog->execute();
         }
     }
     //Send Information Back
