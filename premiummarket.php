@@ -8,7 +8,7 @@ if($gebruiker['premiumaccount'] >= 1) {
 #Goeie taal erbij laden voor de page
     include_once('language/language-pages.php');
 
-    $sql = mysql_query("SELECT `id`, `naam`, `silver`, `gold`, `omschrijving_" . $_COOKIE['pa_language'] . "` FROM `markt` WHERE `soort`='premium'");
+    $sql = mysql_query("SELECT `id`, `naam`, `silver`, `gold`, `omschrijving_" . GLOBALDEF_LANGUAGE . "` FROM `markt` WHERE `soort`='premium'");
 #Als er op de knop gedrukt word
     if (isset($_POST['balls'])) {
         $gebruiker_silver = $gebruiker['silver'];
