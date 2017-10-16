@@ -13,7 +13,12 @@ if( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))){
   //Load Data
   $aanval_log = aanval_log($_GET['aanval_log_id']);
   //Load User Information
-  $gebruiker = mysql_fetch_array(mysql_query("SELECT * FROM `gebruikers`, `gebruikers_item` WHERE ((`gebruikers`.`user_id`='".$_SESSION['id']."') AND (`gebruikers_item`.`user_id`='".$_SESSION['id']."'))"));
+  $gebruikerSQL = $db->prepare("SELECT * FROM `gebruikers`, `gebruikers_item` WHERE ((`gebruikers`.`user_id`=:uid) AND (`gebruikers_item`.`user_id`=:uid))");
+  $gebruikerSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+  $gebruikerSQL->execute();
+
+  $gebruiker = $gebruikerSQL->fetch(PDO::FETCH_ASSOC);
+
   //Load computer info
   $computer_info = computer_data($aanval_log['tegenstanderid']);
   //Test if fight is over
@@ -21,7 +26,9 @@ if( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))){
 		if($computer_info['leven'] == 0){
       rankerbij('attack',$txt);  
       //Update User
-      mysql_query("UPDATE `gebruikers` SET `gewonnen`=`gewonnen`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+      $updateUser = $db->prepare("UPDATE `gebruikers` SET `gewonnen`=`gewonnen`+'1' WHERE `user_id`=:uid");
+      $updateUser->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+      $updateUser->execute();
       $text = 1;
       $money = 0;
     }
@@ -31,7 +38,11 @@ if( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))){
       if($gebruiker['rank'] >= 3) $money = round($gebruiker['silver']/4);
       else $money = 0;
       //Update user
-      mysql_query("UPDATE `gebruikers` SET `silver`=`silver`-'".$money."', `verloren`=`verloren`+'1' WHERE `user_id`='".$_SESSION['id']."'");
+      $updateUser = $db->prepare("UPDATE `gebruikers` SET `silver`=`silver`-:newMoney, `verloren`=`verloren`+'1' WHERE `user_id`=:uid");
+      $updateUser->bindValue(':newMoney', $money, PDO::PARAM_INT);
+      $updateUser->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+      $updateUser->execute();
+
       $text = 0;
     }
     echo $text." | ".$money;
@@ -47,4 +58,3 @@ if( (isset($_GET['aanval_log_id'])) && (isset($_GET['sid']))){
     header("Location: ?page=attack/trainer/trainer-attack");
   }
 }
-?>

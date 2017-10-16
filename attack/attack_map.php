@@ -1,4 +1,4 @@
-<?
+<?php
 //Script laden zodat je nooit pagina buiten de index om kan laden
 include("includes/security.php");
 
@@ -8,9 +8,14 @@ if ($gebruiker['in_hand'] == 0) header('location: index.php');
 $page = 'attack/attack_map';
 //Goeie taal erbij laden voor de page
 include_once('language/language-pages.php');
+include_once("attack/wild/wild-start.php");
 
+$countPokemon = $db->prepare("SELECT `id` FROM `pokemon_speler` WHERE `user_id`=:user_id AND `ei`='0' AND `opzak`='ja'");
+$countPokemon->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+$countPokemon->execute();
+$countPokemon = $countPokemon->fetchAll();
 
-if (mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `user_id`='" . $_SESSION['id'] . "' AND `ei`='0' AND `opzak`='ja'")) > 0) {
+if ($countPokemon) {
     if ((isset($_POST['gebied'])) && (is_numeric($_POST['gebied']))) {
         if ($_POST['gebied'] == 1) $gebied = 'Lavagrot';
         elseif ($_POST['gebied'] == 2) $gebied = 'Vechtschool';
@@ -30,7 +35,8 @@ if (mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `user_id
         else {
             //Zeldzaamheid bepalen
             $zeldzaam = rand(1, 1000);
-            
+            $trainer = 0;
+
             //tussen 0 en 50 een trainer = 50:1000 kans
             if (($zeldzaam > 0 && $zeldzaam < 50)){
             
@@ -87,15 +93,24 @@ if (mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `user_id
             }
 
             if ($trainer == 1) {
-                $query = mysql_fetch_assoc(mysql_query("SELECT `naam` FROM `trainer` WHERE `badge`='' AND (`gebied`='" . $gebied . "' OR `gebied`='All') ORDER BY rand() limit 1"));
+
+                $getTrainer = $db->prepare("SELECT `naam` FROM `trainer` WHERE `badge`='' AND (`gebied`=:gebied OR `gebied`='All') ORDER BY rand() limit 1");
+                $getTrainer->bindValue(':gebied', $gebied, PDO::PARAM_STR);
+                $getTrainer->execute();
+                $getTrainer = $getTrainer->fetchAll();
+
                 include('attack/trainer/trainer-start.php');
-                mysql_data_seek($pokemon_sql, 0);
-                $opzak = mysql_num_rows($pokemon_sql);
+
+                $pokemonSelect = $pokemon_sql->fetchAll();
+
+                $opzak = count($pokemonSelect);
                 $level = 0;
-                while ($pokemon = mysql_fetch_assoc($pokemon_sql)) $level += $pokemon['level'];
+                foreach ($pokemonSelect as $pokemon) {
+                    $level += $pokemon['level'];
+                }
                 $trainer_ave_level = $level / $opzak;
                 //Make Fight
-                $info = create_new_trainer_attack($query['naam'], $trainer_ave_level, $gebied);
+                $info = create_new_trainer_attack($getTrainer['naam'], $trainer_ave_level, $gebied);
                 if (empty($info['bericht'])) header("Location: ?page=attack/trainer/trainer-attack");
                 else echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
             } else {
@@ -165,20 +180,27 @@ if (mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `user_id
                 } else {
                     $zzchip = 'Niet zeldzaam';
                 }
-                if (($gebruiker['Pokedex zzchip'] == 1) AND ($gebruiker['Pokedex'] == 1)) $_SESSION['zzchip'] = $zzchip;
-                else $_SESSION['zzchip'] = "??";
+                if (($gebruiker['Pokedex zzchip'] == 1) AND ($gebruiker['Pokedex'] == 1)) {
+                    $_SESSION['zzchip'] = $zzchip;
+                } else {
+                    $_SESSION['zzchip'] = "??";
+                }
 
 
-                include("attack/wild/wild-start.php");
                 $info = create_new_attack($query['wild_id'], $leveltegenstander, $gebied);
-                if (empty($info['bericht'])) header("Location: ?page=attack/wild/wild-attack");
-                else echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
+                if (empty($info['bericht'])) {
+                    header("Location: ?page=attack/wild/wild-attack");exit;
+                } else {
+                    echo "<div class='red'>" . $txt['alert_no_pokemon'] . "</div>";
+                }
 
             }
         }
     }
-
-    echo $error; ?>
+    if (isset($error)) {
+        echo $error;
+    }
+    ?>
     <center>
         <table width="600" border="0">
             <tr>
@@ -375,4 +397,3 @@ if (mysql_num_rows(mysql_query("SELECT `id` FROM `pokemon_speler` WHERE `user_id
 } else {
     echo '<div style="padding-top:10px;"><div class="blue"><img src="images/icons/blue.png" width="16" height="16" /> ' . $txt['alert_no_pokemon'] . '</div></div>';
 }
-?>

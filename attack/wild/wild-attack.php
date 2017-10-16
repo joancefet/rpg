@@ -64,7 +64,7 @@ else{
   }
 
   #Player Pokemon In Hand
-  for($inhand = 1; $player_hand = mysql_fetch_array($pokemon_sql); $inhand++){
+    for ($inhand = 1; $player_hand = $pokemon_sql->fetch(PDO::FETCH_ASSOC); $inhand++) {
     #Check Wich Pokemon is infight
     if($player_hand['id'] == $pokemon_info['id']) $infight = 1;
     else $infight = 0;
@@ -109,12 +109,15 @@ else{
     </script>
     <?
   }
-  mysql_data_seek($pokemon_sql, 0); 
   ?>
   <script type="text/javascript" src="attack/javascript/attack.js"></script>
   <script language="javascript">
     
-  var speler_attack; var timer; var next_turn_timer; var attack_timer = 0; var speler_wissel;
+        var speler_attack;
+        var timer;
+        var next_turn_timer;
+        var attack_timer = 0;
+        var speler_wissel;
 
   function show_end_screen(text){
     $.get("attack/wild/wild-finish.php?aanval_log_id="+<? echo $aanval_log['id']; ?>+"&sid="+Math.random(), function(data) {
@@ -541,7 +544,9 @@ else{
     </table>
    <table cellpadding=0 cellspacing=0 width="660">
 		<tr>
-			<td colspan="4"><HR></td>
+                <td colspan="4">
+                    <HR>
+                </td>
 		</tr>
 		<tr style="height:50px;">
 			<td colspan="4"><div id="message" align="center"></div><td>
@@ -651,8 +656,10 @@ else{
               </tr>
               <tr>
                 <td><?
+
                 	  //Items laden
-                    $sql2 = mysql_query("SELECT `naam`, `wat` FROM `items` WHERE (`wat` = 'pokeball' OR `wat` = 'potion' OR `wat` = 'run')");
+                                $sql2 = $db->prepare("SELECT `naam`, `wat` FROM `items` WHERE (`wat` = 'pokeball' OR `wat` = 'potion' OR `wat` = 'run')");
+                                $sql2->execute();
                     
                     //Gegevens laden van de gebruiker
           //          $gebruiker = mysql_fetch_array(mysql_query("SELECT `Poke ball`, `Great ball`, `Ultra ball`, `Premier ball`, `Net ball`, `Dive ball`, `Nest ball`, `Repeat ball`, `Timer ball`, `Master ball`, `Potion`, `Super potion`, `Hyper potion`, `Full heal`, `Revive`, `Max revive` FROM `gebruikers_item` WHERE `naam`='".$_SESSION['naam']."'"));
@@ -662,7 +669,7 @@ else{
                     $item2[0] = "Kiezen";
                 
                     //Items opbouwen.
-                    for($i=1; $items = mysql_fetch_array($sql2); $i++){
+                                for ($i = 1; $items = $sql2->fetch(PDO::FETCH_ASSOC); $i++) {
                       //Makkelijk naam toewijzen
                       $naamm = $items['naam'];
                       //Als de gebruiker er wel 1 van heeft dan weergeven,
@@ -671,8 +678,7 @@ else{
                         if($naamm == "Bike") $itemm[$i] = $naamm;
                         $item2[$i] = $naamm;
                         $style[$i] = "white";
-                      }
-                      else{
+                        } else {
                         $itemm[$i] = $naamm."(0)";
                         $item2[$i] = $naamm;
                         $style[$i] = "silver";

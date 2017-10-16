@@ -25,7 +25,12 @@ if((isset($_GET['opzak_nummer'])) && (isset($_GET['computer_info_name'])) && (is
   //Refresh?
   $refresh = 0;
   //Load New Pokemon Data
-  $change_pokemon = mysql_fetch_array(mysql_query("SELECT pokemon_wild.*, pokemon_speler.*, pokemon_speler_gevecht.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id  WHERE pokemon_speler.user_id='".$_SESSION['id']."' AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer='".$_GET['opzak_nummer']."'"));
+$changePokemonSQL = $db->prepare("SELECT pokemon_wild.*, pokemon_speler.*, pokemon_speler_gevecht.* FROM pokemon_wild INNER JOIN pokemon_speler ON pokemon_speler.wild_id = pokemon_wild.wild_id INNER JOIN pokemon_speler_gevecht ON pokemon_speler.id = pokemon_speler_gevecht.id  WHERE pokemon_speler.user_id=:uid AND pokemon_speler.opzak='ja' AND pokemon_speler.opzak_nummer=:opzakNummer");
+$changePokemonSQL->bindValue(':uid', $_SESSION['id'], PDO::PARAM_INT);
+$changePokemonSQL->bindValue(':opzakNummer', $_GET['opzak_nummer'], PDO::PARAM_INT);
+$changePokemonSQL->execute();
+$change_pokemon = $changePokemonSQL->fetch(PDO::FETCH_ASSOC);
+
   //Does The Pokemon excist
   if($change_pokemon['id'] != ""){
     //Are you hit by block and you're pokemon still alive.
@@ -65,7 +70,12 @@ if((isset($_GET['opzak_nummer'])) && (isset($_GET['computer_info_name'])) && (is
       //New pokemon is not used before
       else $gebruiktid = $aanval_log['gebruikt_id'].",".$change_pokemon['id'].",";
       //Save last move
-      mysql_query("UPDATE `aanval_log` SET `laatste_aanval`='".$lastmove."' ,`aanval_bezig_speler`='', `pokemonid`='".$change_pokemon['id']."', `gebruikt_id`='".$gebruiktid."' WHERE `id`='".$aanval_log['id']."'");
+      $saveLastMove = $db->prepare("UPDATE `aanval_log` SET `laatste_aanval`=:lastMove ,`aanval_bezig_speler`='', `pokemonid`=:pokeId, `gebruikt_id`=:usedId WHERE `id`=:attackLogId");
+      $saveLastMove->bindValue(':lastMove', $lastmove);
+      $saveLastMove->bindValue(':pokeId', $change_pokemon['id'], PDO::PARAM_INT);
+      $saveLastMove->bindValue(':usedId', $gebruiktid, PDO::PARAM_INT);
+      $saveLastMove->bindValue(':attackLogId', $aanval_log['id'], PDO::PARAM_INT);
+      $saveLastMove->execute();
     }
     //You can't do something
     else $message = $computer_info['naam_goed'].$taal['attack']['general']['lastattack'];
