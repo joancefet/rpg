@@ -98,9 +98,9 @@ $sql = mysql_query("SELECT * FROM `huizen`");
         echo '
           <tr>
             <td class="normal_td"><center><input type="radio" name="huis" value="'.$select['afkorting'].'" '.$keet[$j].'/></center></td>
-            <td class="normal_td" height="80"><center><img src="'.$select['link'].'" alt="'.$select['naam_'.$_COOKIE['pa_language'].''].'"/></center></td>
+            <td class="normal_td" height="80"><center><img src="'.$select['link'].'" alt="'.$select['naam_'.GLOBALDEF_LANGUAGE.''].'"/></center></td>
             <td class="normal_td"><img src="images/icons/silver.png" title="Silver" style="margin-bottom:-3px;" /> '.$prijs.'</td>
-            <td class="normal_td">'.$select['omschrijving_'.$_COOKIE['pa_language'].''].'</td>
+            <td class="normal_td">'.$select['omschrijving_'.GLOBALDEF_LANGUAGE.''].'</td>
           </tr>';
       }
       ?>

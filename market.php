@@ -25,7 +25,7 @@ if($gebruiker['item_over'] < 1){
   switch ($_GET['shopitem']) {
     #Als er op balls geklikt word. Het volgende laten zien
 	  case "balls":
-      $sql = mysql_query("SELECT `id`, `naam`, `silver`, `gold`, `omschrijving_".$_COOKIE['pa_language']."` FROM `markt` WHERE `soort`='balls'");
+      $sql = mysql_query("SELECT `id`, `naam`, `silver`, `gold`, `omschrijving_".GLOBALDEF_LANGUAGE."` FROM `markt` WHERE `soort`='balls'");
   	  #Als er op de knop gedrukt word
       if(isset($_POST['balls'])){
         $gebruiker_silver = $gebruiker['silver'];
@@ -138,8 +138,7 @@ if($gebruiker['item_over'] < 1){
 	  break;
 		#Als er op potions geklikt word, het volgende laten zien
 		case "potions":
-		 $sql     = mysql_query("SELECT `id`, `naam`, `silver`,`gold`, `omschrijving_".$_COOKIE['pa_language']."` FROM `markt` WHERE `soort`='potions'");
-  	
+		 $sql     = mysql_query("SELECT `id`, `naam`, `silver`,`gold`, `omschrijving_".GLOBALDEF_LANGUAGE."` FROM `markt` WHERE `soort`='potions'");
   	  #Als er op de knop gedrukt word
       if(isset($_POST['potions'])){
         $gebruiker_silver = $gebruiker['silver'];
@@ -241,7 +240,7 @@ if($gebruiker['item_over'] < 1){
     #Als er op items geklikt word. Het volgende laten zien 
 		case "items": 
 
-		  $sql     = mysql_query("SELECT `id`, `naam`, `silver`,`gold`, `omschrijving_".$_COOKIE['pa_language']."` FROM `markt` WHERE `soort`='items' AND `naam` != 'Bag' AND `naam` != 'Badge case'");
+		  $sql     = mysql_query("SELECT `id`, `naam`, `silver`,`gold`, `omschrijving_".GLOBALDEF_LANGUAGE."` FROM `markt` WHERE `soort`='items' AND `naam` != 'Bag' AND `naam` != 'Badge case'");
   		#Als er op de knop gedrukt word
       if(isset($_POST['items'])){
         #Gegevens laden van het item
@@ -380,7 +379,7 @@ if($gebruiker['item_over'] < 1){
 		break;
 	  #Als er op special items geklikt word. Het volgende laten zien
 		case "specialitems":
-		  $sql      = mysql_query("SELECT `id`, `naam`, `silver`, `gold`, `omschrijving_".$_COOKIE['pa_language']."` FROM `markt` WHERE `soort`='special items' OR `soort`='rare candy'");
+		  $sql      = mysql_query("SELECT `id`, `naam`, `silver`, `gold`, `omschrijving_".GLOBALDEF_LANGUAGE."` FROM `markt` WHERE `soort`='special items' OR `soort`='rare candy'");
   
   		#Als er op de knop gedrukt word
       if(isset($_POST['specialitems'])){
@@ -494,7 +493,7 @@ if($gebruiker['item_over'] < 1){
 		break;
 	  #Als er op special items geklikt word. Het volgende laten zien
 		case "stones":
-		  $sql     = mysql_query("SELECT `id`, `naam`, `silver`, `omschrijving_".$_COOKIE['pa_language']."` FROM `markt` WHERE `soort`='stones'");
+		  $sql     = mysql_query("SELECT `id`, `naam`, `silver`, `omschrijving_".GLOBALDEF_LANGUAGE."` FROM `markt` WHERE `soort`='stones'");
   
 	    #Als er op de knop gedrukt word
       if(isset($_POST['stones'])){
@@ -610,7 +609,7 @@ if($gebruiker['item_over'] < 1){
           if($aantal_paginas == 0) $aantal_paginas = 1;   
           $pagina = $subpage*$max-$max; 
 		  
-		 $sql     = mysql_query("SELECT markt.id, markt.naam, silver, omschrijving_".$_COOKIE['pa_language'].", tmhm.type1 , tmhm.type2
+		 $sql     = mysql_query("SELECT markt.id, markt.naam, silver, omschrijving_".GLOBALDEF_LANGUAGE.", tmhm.type1 , tmhm.type2
 								FROM `markt`
 								INNER JOIN tmhm
 								ON markt.id = tmhm.id
@@ -795,7 +794,7 @@ if($gebruiker['item_over'] < 1){
 	#Als er op pokemon geklikt word, het volgende laten zien
 	case "pokemon":
 	
-    $sql  = mysql_query("SELECT markt.id, markt.pokemonid, markt.silver, markt.gold, markt.omschrijving_".$_COOKIE['pa_language'].", pokemon_wild.zeldzaamheid
+    $sql  = mysql_query("SELECT markt.id, markt.pokemonid, markt.silver, markt.gold, markt.omschrijving_".GLOBALDEF_LANGUAGE.", pokemon_wild.zeldzaamheid
 							FROM markt
 							INNER JOIN pokemon_wild
 							ON markt.pokemonid = pokemon_wild.wild_id
